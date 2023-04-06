@@ -1,0 +1,20 @@
+name: Mirror repo to S3
+on:
+  schedule:
+    - cron: "0 0 * * *"
+jobs:
+  s3Backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get current Day
+        id: day
+        run: echo "::set-output name=day::$(date +"%A")"
+      - name: S3 Backup
+        uses: peter-evans/s3-backup@v1
+        env:
+          ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
+          MIRROR_TARGET: ${{ secrets.MIRROR_TARGET }}${{ steps.day.outputs.day }}
+          SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
+        with:
+          args: --overwrite --remove
