@@ -49,6 +49,7 @@ public class ImageLoader : MonoBehaviour
     public static string ComponentName;
     public void OpenCard(string Component)
     {
+        BackFlipCard.SetActive(false);
         ComponentName = Component;
         if (pressed == false)
         {

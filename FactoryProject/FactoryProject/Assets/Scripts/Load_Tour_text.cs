@@ -378,9 +378,11 @@ public class Load_Tour_text : MonoBehaviour
     //}
     public string[] partners;
     public string[] PartnersName;
+    public string[] PartnerDescription;
     public string[] PartnersLink;
     public string[] Dell;
     public string[] DellName;
+    public string[] DellDescription;
     public string[] DellLink;
     //public string[] Dell;
     public int PartnerTCount;
@@ -417,6 +419,11 @@ public class Load_Tour_text : MonoBehaviour
                 XmlElement roo3 = xmlDoc.DocumentElement;
                 string nodeText3 = node3.InnerText;
                 PartnersLink[i] = nodeText3;
+
+                XmlNode node4 = xmlDoc.SelectSingleNode("partners/PSdesc" + (i + 1));
+                XmlElement roo4 = xmlDoc.DocumentElement;
+                string nodeText4 = node4.InnerText;
+                PartnerDescription[i] = nodeText4;
             }
 
         }
@@ -440,8 +447,8 @@ public class Load_Tour_text : MonoBehaviour
             XmlNode node1 = xmlDoc.SelectSingleNode("ds/totalcount");
             XmlElement root1 = xmlDoc.DocumentElement;
             string nodeText1 = node1.InnerText;
-            PartnerTCount = int.Parse(nodeText1);
-            for (int i = 0; i < PartnerTCount; i++)
+            DellTCount = int.Parse(nodeText1);
+            for (int i = 0; i < DellTCount; i++)
             {
 
                 XmlNode node = xmlDoc.SelectSingleNode("ds/DS" + (i + 1));
@@ -455,6 +462,11 @@ public class Load_Tour_text : MonoBehaviour
                 XmlElement roo3 = xmlDoc.DocumentElement;
                 string nodeText3 = node3.InnerText;
                 DellLink[i] = nodeText3;
+
+                XmlNode node4 = xmlDoc.SelectSingleNode("ds/DSdesc" + (i + 1));
+                XmlElement roo4 = xmlDoc.DocumentElement;
+                string nodeText4 = node4.InnerText;
+                DellDescription[i] = nodeText4;
             }
 
         }
