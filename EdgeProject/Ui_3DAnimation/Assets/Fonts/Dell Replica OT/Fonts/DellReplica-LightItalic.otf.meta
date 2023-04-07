@@ -1,0 +1,33 @@
+fileFormatVersion: 2
+guid: 57f5787a401000d4d812443c0b69f7a1
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Dell Replica
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 07a0d494c0adbdf40b28b3a32fbc5fc8, type: 3}
+  - {fileID: 12800000, guid: be9213005535bff4687fe85b53137831, type: 3}
+  - {fileID: 12800000, guid: c565a4b9d37025c4ea2a70bd5ccc92c3, type: 3}
+  - {fileID: 12800000, guid: a3668f2509f7ac043b5da3632401612a, type: 3}
+  - {fileID: 12800000, guid: 6614ba850af02dc449344808713ea326, type: 3}
+  - {fileID: 12800000, guid: ad7143dcdefbb4544b2dd6df5cfae7cf, type: 3}
+  - {fileID: 12800000, guid: 656e53709fb83f74a99a777c8c2aec6b, type: 3}
+  - {fileID: 12800000, guid: 83815b21a031a5b44892f2d0c49bdf75, type: 3}
+  - {fileID: 12800000, guid: a052e9ef197551b42b8386bc3f7814c5, type: 3}
+  - {fileID: 12800000, guid: 13e535ebfc78caf49b5aab05de3c5d0a, type: 3}
+  - {fileID: 12800000, guid: c4a024613b616d04d86669f2bc6e0154, type: 3}
+  - {fileID: 12800000, guid: 953ed2d01c76c0f498fbb9f3721f90a9, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

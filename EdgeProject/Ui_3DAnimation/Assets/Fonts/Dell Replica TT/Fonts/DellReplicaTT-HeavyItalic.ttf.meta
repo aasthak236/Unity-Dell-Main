@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: 15dbcdd92f575a5428de62e18d785215
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Dell Replica TT
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 405dc6c620d69614083f438912ca0595, type: 3}
+  - {fileID: 12800000, guid: e3d76d911e6e7504dbbb98f28a65c41b, type: 3}
+  - {fileID: 12800000, guid: c7278b42b2f444646b90241851eea768, type: 3}
+  - {fileID: 12800000, guid: a7959eab2709b84499cc41f27ad0e362, type: 3}
+  - {fileID: 12800000, guid: 028ab4c6a9379f745bbedf5ef445aaea, type: 3}
+  - {fileID: 12800000, guid: f9f410b699d4d7742818c45aea8bdd7b, type: 3}
+  - {fileID: 12800000, guid: 317904eaf6032e5498e29c6e9424a794, type: 3}
+  - {fileID: 12800000, guid: 6aae81a48a8857a4cb2643c72f007571, type: 3}
+  - {fileID: 12800000, guid: 1efec2993d0bc884584e35f400b53a01, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
