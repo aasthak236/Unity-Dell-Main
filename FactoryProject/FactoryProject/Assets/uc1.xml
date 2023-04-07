@@ -1,0 +1,37 @@
+<fp>
+	<Total_Audio_Clips>16</Total_Audio_Clips>
+	<PSStartIndx>1</PSStartIndx>
+	<PSEndIndx>1</PSEndIndx>
+	<PSLogo1> https://storyproc-my.sharepoint.com/:i:/p/nilesh/EUaF069sUcZLpvalDlleBMYBx9Nrj4nUfFVEyOtOZrhNUg?e=sOVHdt </PSLogo1>
+	<PSDashboard1> https://storyproc-my.sharepoint.com/:i:/p/nilesh/EUaF069sUcZLpvalDlleBMYBx9Nrj4nUfFVEyOtOZrhNUg?e=sOVHdt </PSDashboard1>
+
+	<ECStartIndx>1</ECStartIndx>
+	<ECEndIndx>2</ECEndIndx>
+	<EC1> Scale, Performance, Manageability </EC1>
+	<EC2> Latency Requirements </EC2>
+
+	<TTStartIndx>1</TTStartIndx>
+	<TTEndIndx>2</TTEndIndx>
+	<TT1> Streamline Digital Transformation </TT1>
+	<TT2> Business Agility with Live Insights </TT2>
+	
+
+	<HARDWAREStartIndx>1</HARDWAREStartIndx>
+	<HARDWAREEndIndx>1</HARDWAREEndIndx>
+	<HARDWARE1> https://storyproc-my.sharepoint.com/:i:/p/nilesh/EX_ZHMp-TwhKhz9aaEiYpXYBkWLSDpIVstDHH6wz6a15HA?e=PXGsjr </HARDWARE1>
+
+	<FOStartIndx> 1 </FOStartIndx>
+	<FOEndIndx> 2 </FOEndIndx>
+	<FO1> Inventory Management </FO1>
+	<FO2> Workforce Productivity</FO2>
+
+
+	<BIStartIndx> 1 </BIStartIndx>
+	<BIEndIndx> 3 </BIEndIndx>
+	<BI1> Operational Excellence </BI1>
+	<BI2> Profitability </BI2>
+	<BI3> Sustainability </BI3>
+
+
+	
+</fp>
