@@ -120,6 +120,7 @@ public class Load_Tour_text : MonoBehaviour
         for (int i = saveDataFile.BIStartIndx; i <= saveDataFile.BIEndIndx; i++)
         {
             StartCoroutine(Tour_Text("BI" + i));
+            yield return new WaitForSeconds(1f);
         }
 
         //for (int i = saveDataFile.DesStartIndx; i <= saveDataFile.DesEndIndx; i++)
@@ -226,17 +227,6 @@ public class Load_Tour_text : MonoBehaviour
                 saveDataFile.TTEndIndx = int.Parse(nodeText);
                 break;
 
-
-            case "DESStartIndx":
-                saveDataFile.DesStartIndx = int.Parse(nodeText);
-
-                break;
-
-            case "DESEndIndx":
-                saveDataFile.DesEndIndx = int.Parse(nodeText);
-
-                break;
-
             case "HARDWAREStartIndx":
                 // Indx = saveDataFile.PSStartIndx;
                 saveDataFile.HARDWAREStartIndx = int.Parse(nodeText);
@@ -325,10 +315,7 @@ public class Load_Tour_text : MonoBehaviour
 
 
 
-            case "DES":
-                saveDataFile.DES.Add(nodeText);
-
-                break;
+         
 
 
 
@@ -377,11 +364,10 @@ public class Load_Tour_text : MonoBehaviour
     //    saveDataFile.ResetSaveData();
     //}
     public string[] partners;
-    public string[] PartnersName;
     public string[] PartnerDescription;
     public string[] PartnersLink;
+    public string[] PSVideoLink;
     public string[] Dell;
-    public string[] DellName;
     public string[] DellDescription;
     public string[] DellLink;
     //public string[] Dell;
@@ -412,8 +398,11 @@ public class Load_Tour_text : MonoBehaviour
                 XmlElement root = xmlDoc.DocumentElement;
                 string nodeText = node.InnerText;
                 partners[i] = nodeText;
-              
-                PartnersName[i] = ImageLoader.instance.PS[i];
+
+                XmlNode node5 = xmlDoc.SelectSingleNode("partners/PSvideo" + (i + 1));
+                XmlElement root5 = xmlDoc.DocumentElement;
+                string nodeText5= node5.InnerText;
+                PSVideoLink[i] = nodeText5;
 
                 XmlNode node3 = xmlDoc.SelectSingleNode("partners/PSlink" + (i + 1));
                 XmlElement roo3 = xmlDoc.DocumentElement;
@@ -455,8 +444,7 @@ public class Load_Tour_text : MonoBehaviour
                 XmlElement root = xmlDoc.DocumentElement;
                 string nodeText = node.InnerText;
                 Dell[i] = nodeText;
-                
-                DellName[i] = ImageLoader.instance.DS[i];
+               
 
                 XmlNode node3 = xmlDoc.SelectSingleNode("ds/DSlink" + (i + 1));
                 XmlElement roo3 = xmlDoc.DocumentElement;

@@ -25,10 +25,6 @@ public class SaveDataFromXML : MonoBehaviour
     public int TTStartIndx;
     public int TTEndIndx;
 
-    public List<string> DES;
-    public int DesStartIndx;
-    public int DesEndIndx;
-
     public List<string> HARDWARE;
     public int HARDWAREStartIndx;
     public int HARDWAREEndIndx;
@@ -48,7 +44,7 @@ public class SaveDataFromXML : MonoBehaviour
     public string CTA2;
     public string CTA3;
     public string CTA4;
-
+    
     public static SaveDataFromXML ins;
 
     public void Start()

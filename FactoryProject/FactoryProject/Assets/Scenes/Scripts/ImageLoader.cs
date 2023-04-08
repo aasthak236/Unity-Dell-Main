@@ -50,7 +50,22 @@ public class ImageLoader : MonoBehaviour
     public void OpenCard(string Component)
     {
         BackFlipCard.SetActive(false);
-        ComponentName = Component;
+        for (int i = 0; i <= 6; i++)
+        {
+            Cards[i].SetActive(false);
+        }
+        pressed = false;
+        if (ComponentName == Component)
+        {
+            pressed = true;
+            ComponentName = null;
+        }
+        else
+        {
+            ComponentName = Component;
+        }
+        
+
         if (pressed == false)
         {
              if (Component == "VP")
@@ -81,13 +96,19 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "BO")
             {
-
-                for (int i = 0; i <= BOCount; i++)
+                for (int i = 0; i <= 5; i++)
                 {
-                    Cards[i].SetActive(true);
-                    Front[i].text = BO[i].ToString();
+                    BackCardData.instance.BusinessOutcomeText[i].text = ImageLoader.instance.BO[i].ToString();
+
                 }
-                pressed = true;
+                BackCardData.instance.BusinessOutcomeWindow.SetActive(true);
+               
+                //for (int i = 0; i <= BOCount; i++)
+                //{
+                //    Cards[i].SetActive(true);
+                //    Front[i].text = BO[i].ToString();
+                //}
+                // pressed = true;
 
 
             }
