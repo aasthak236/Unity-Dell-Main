@@ -11,6 +11,7 @@ public class Guided_Tour : MonoBehaviour
     public SaveDataFromXML saveDataFile;
     public AudioClip[] audioClips;
     public AudioClip[] HotSpotAudio;
+    public AudioClip[] HotSpotAudioIntro;
     public float TotalPlayTime = 4f;
     public GameObject card;
     public GameObject Hexagon;
@@ -48,6 +49,7 @@ public class Guided_Tour : MonoBehaviour
     void Start()
     {
         StartCoroutine(LoadaudioHotspots());
+        StartCoroutine(LoadaudioHotspotIntros());
         audioSource = GetComponent<AudioSource>();
         Debug.Log("Screen width"+screenWidth+"X"+screenHeight);
         if (screenWidth <= 480)
@@ -111,6 +113,29 @@ public class Guided_Tour : MonoBehaviour
                 if (www.result == UnityWebRequest.Result.Success)
                 {
                     HotSpotAudio[i - 1] = DownloadHandlerAudioClip.GetContent(www);
+                    // audioSources.Play();
+                }
+                else
+                {
+                    // Debug.LogError("Failed to download audio: " + www.error);
+                }
+            }
+        }
+
+    }
+    public IEnumerator LoadaudioHotspotIntros()
+    {
+
+        for (int i = 1; i <= 14; i++)
+        {
+            //am get from hotspot 
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/uc" + i + "/1.mp3", AudioType.MPEG))
+            {
+                yield return www.SendWebRequest();
+
+                if (www.result == UnityWebRequest.Result.Success)
+                {
+                    HotSpotAudioIntro[i - 1] = DownloadHandlerAudioClip.GetContent(www);
                     // audioSources.Play();
                 }
                 else
@@ -187,9 +212,14 @@ public class Guided_Tour : MonoBehaviour
         //Intro audio Play
         string usecasenum = ImageToggleOnHover.UseCase;
         string EndNumber= usecasenum.Substring(2,usecasenum.Length - 2);
-        audioSource.clip = HotSpotAudio[int.Parse(EndNumber)-1];
-        audiolength = HotSpotAudio[int.Parse(EndNumber)-1].length;
-        audioSource.Play();
+        audioSource.clip = HotSpotAudio[int.Parse(EndNumber) - 1];
+        
+        if (audioSource.clip != null)
+        {
+            audiolength = HotSpotAudio[int.Parse(EndNumber) - 1].length;
+            audioSource.Play();
+
+        } 
         yield return new WaitForSeconds(audiolength + 0.5f);
         for (int i = saveDataFile.IntroStartIndx; i <= saveDataFile.IntroEndIndx; i++)
         {
@@ -203,7 +233,10 @@ public class Guided_Tour : MonoBehaviour
             card.SetActive(true);
             hexaTxt.SetActive(true);
             Hexagon.SetActive(true);
-            HexagonCardtext.text = saveDataFile.INTRO[i - 1];
+           
+                HexagonCardtext.text = saveDataFile.INTRO[i - 1];
+            
+            
             //Audio will be played
             // audioSource.Play();
 

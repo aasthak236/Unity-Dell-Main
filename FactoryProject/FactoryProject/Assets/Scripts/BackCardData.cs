@@ -69,8 +69,7 @@ public class BackCardData : MonoBehaviour
         }
         else if (ImageLoader.ComponentName == "BO")
         {
-            Color NormalColor = ColorUtility.TryParseHtmlString("#036495", out Color color) ? color : Color.white;
-            Color PressedColor = ColorUtility.TryParseHtmlString("#0F84BB", out Color color1) ? color1 : Color.white;
+           
             for (int i = 0; i <= 13; i++)
             {
                 HotSpot[i].SetActive(false);
@@ -79,14 +78,14 @@ public class BackCardData : MonoBehaviour
             {
                 BusinessOutcomeText[i].text = ImageLoader.instance.BO[i].ToString();
                 ImageLoader.instance.Cards[i].SetActive(false);
-                if (OutcomeBtn[int.Parse(buttonName)] == OutcomeBtn[i])
-                {
-                    OutcomeBtn[int.Parse(buttonName)].GetComponent<Image>().color = PressedColor;
-                }
-                else
-                {
-                    // OutcomeBtn[int.Parse(buttonName)].GetComponent<Image>().color = NormalColor;
-                }
+                //if (OutcomeBtn[int.Parse(buttonName)] == OutcomeBtn[i])
+                //{
+                //    OutcomeBtn[int.Parse(buttonName)].GetComponent<Image>().color = PressedColor;
+                //}
+                //else
+                //{
+                //    // OutcomeBtn[int.Parse(buttonName)].GetComponent<Image>().color = NormalColor;
+                //}
             }
 
             BusinessOutcomeWindow.SetActive(true);
@@ -228,6 +227,7 @@ public class BackCardData : MonoBehaviour
 
     public void FlashHotspot(int i)
     {
+        StopCoroutineTour();
         myCoroutine = OutcomeBtnF(i);
         StartCoroutine(myCoroutine);
         
@@ -236,6 +236,7 @@ public class BackCardData : MonoBehaviour
     {
         if (HotSpotsRuninng)
         {
+            Guided_Tour.instance.audioSource.Stop();
             StopCoroutine(myCoroutine);
             for (int j = 0; j < 14; j++)
             {
@@ -251,6 +252,9 @@ public class BackCardData : MonoBehaviour
     IEnumerator myCoroutine;
     public IEnumerator OutcomeBtnF(int ButtonNaame)
     {
+        ImageToggleOnHover.instance.ClosedAllWindow();
+       // Color NormalColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color) ? color : Color.white;
+       // Color PressedColor = ColorUtility.TryParseHtmlString("#80C7FB", out Color color1) ? color1 : Color.white;
         HotSpotsRuninng = true;
         if (HotSpotsRuninng)
         {
@@ -264,6 +268,7 @@ public class BackCardData : MonoBehaviour
         {
             HotSpot[i].SetActive(false);
         }
+
         if (ButtonNaame == 0)
         {
             numberofhotspots = 6;
@@ -273,6 +278,7 @@ public class BackCardData : MonoBehaviour
             hotspotlist[3] = 7;
             hotspotlist[4] = 1;
             hotspotlist[5] = 13;
+           // OutcomeBtn[int.Parse(buttonName)].GetComponent<Image>().color = PressedColor;
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
@@ -283,8 +289,8 @@ public class BackCardData : MonoBehaviour
              
                 }
                 HotSpot[k].SetActive(true);
-                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudio[k];
-                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudio[k].length;
+                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[k];
+                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[k].length;
                 Guided_Tour.instance.audioSource.Play();
                 yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
@@ -321,8 +327,8 @@ public class BackCardData : MonoBehaviour
 
                 }
                 HotSpot[k].SetActive(true);
-                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudio[k];
-                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudio[k].length;
+                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[k];
+                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[k].length;
                 Guided_Tour.instance.audioSource.Play();
                 yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
@@ -353,8 +359,8 @@ public class BackCardData : MonoBehaviour
 
                 }
                 HotSpot[k].SetActive(true);
-                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudio[k];
-                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudio[k].length;
+                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[k];
+                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[k].length;
                 Guided_Tour.instance.audioSource.Play();
                 yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
@@ -384,8 +390,8 @@ public class BackCardData : MonoBehaviour
 
                 }
                 HotSpot[k].SetActive(true);
-                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudio[k];
-                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudio[k].length;
+                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[k];
+                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[k].length;
                 Guided_Tour.instance.audioSource.Play();
                 yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
@@ -415,8 +421,8 @@ public class BackCardData : MonoBehaviour
 
                 }
                 HotSpot[k].SetActive(true);
-                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudio[k];
-                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudio[k].length;
+                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[k];
+                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[k].length;
                 Guided_Tour.instance.audioSource.Play();
                 yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
@@ -444,8 +450,8 @@ public class BackCardData : MonoBehaviour
 
                 }
                 HotSpot[k].SetActive(true);
-                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudio[k];
-                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudio[k].length;
+                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[k];
+                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[k].length;
                 Guided_Tour.instance.audioSource.Play();
                 yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
@@ -471,13 +477,15 @@ public class BackCardData : MonoBehaviour
     }
     public IEnumerator LoadImageWithUrlPartners(string ImageLink)
     {
-            using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(ImageLink))
+        PartnerImage.sprite = null;
+        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(ImageLink))
             {
                 yield return request.SendWebRequest();
 
                 if (request.result == UnityWebRequest.Result.Success)
                 {
-                    Texture2D texture = DownloadHandlerTexture.GetContent(request);
+                 
+                 Texture2D texture = DownloadHandlerTexture.GetContent(request);
 
                     // Create a sprite from the texture and assign it to the Image component
                     Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
@@ -495,6 +503,7 @@ public class BackCardData : MonoBehaviour
     }
     public IEnumerator LoadDellImageWithUrlPartners(string ImageLink)
     {
+        DellImage.sprite = null;
         using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(ImageLink))
         {
             yield return request.SendWebRequest();

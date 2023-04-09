@@ -5,7 +5,7 @@ using UnityEngine.Video;
 
 public class VideoLoader : MonoBehaviour
 {
-    private string videoUrl;
+   
     public VideoPlayer videoPlayer;
     public string url;
     private Renderer videoRenderer;
@@ -13,8 +13,7 @@ public class VideoLoader : MonoBehaviour
     public static VideoLoader instance;
     public void Awake()
     {
-       // url = "https://dell-unity-dev.s3.amazonaws.com/Assets/videos/" + Module_Name.instance.ModuleName + "1.mp4";
-       // videoPlayer.url = url;
+      
     }
     public void Start()
     {
@@ -44,12 +43,16 @@ public class VideoLoader : MonoBehaviour
             videoPlayer.targetMaterialRenderer = videoRenderer = gameObject.AddComponent<Renderer>();
             videoPlayer.targetMaterialProperty = "_MainTex";
             videoRenderer.material = videoMaterial;
-           // videoPlayer.Play();
+            //videoPlayer.Play();
         }
     }
 
     void OnVideoPrepared(VideoPlayer source)
     {
-        source.Play();
+       // source.Play();
+    }
+    public void StopVideo()
+    {
+       
     }
 }
