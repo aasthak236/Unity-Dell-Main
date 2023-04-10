@@ -25,8 +25,8 @@ public class CameraController : MonoBehaviour
 
             float zoomAmount = verticalInput * zoomSpeed;
             Vector3 newZoomPosition = cameraTransform.position - new Vector3(0f, zoomAmount, zoomAmount);
-            newZoomPosition.z = Mathf.Clamp(newZoomPosition.z, 15f, 50);
-            newZoomPosition.y = Mathf.Clamp(newZoomPosition.y, 15, 50);
+           newZoomPosition.z = Mathf.Clamp(newZoomPosition.z, 28f, 62f);
+           newZoomPosition.y = Mathf.Clamp(newZoomPosition.y, 28f, 50.6f);
             cameraTransform.position = newZoomPosition;
         }
         if (CameraZoomTowardPoint.CameraZoom == false)

@@ -7,6 +7,7 @@ using System.Linq;
 
 public class SaveDataFromXML : MonoBehaviour
 {
+   
     //public string INTRO;
     public List<string> INTRO;
     public int IntroStartIndx;
@@ -51,35 +52,37 @@ public class SaveDataFromXML : MonoBehaviour
     {
         ins = this;
     }
-    //public void ResetSaveData()
-    //{
-    //    INTRO = string.Empty;
-    //    PS.Clear();
-    //    PSStartIndx = 0;
-    //    PSEndIndx = 0;
+    public void ResetSaveData()
+    {
+        INTRO.Clear();
+        IntroStartIndx = 0;
+        IntroEndIndx = 0;
+        PS.Clear();
+        PSStartIndx = 0;
+        PSEndIndx = 0;
 
-    //    EC.Clear();
-    //    ECStartIndx = 0;
-    //    ECEndIndx = 0;
+        EC.Clear();
+        ECStartIndx = 0;
+        ECEndIndx = 0;
 
-    //    V = string.Empty;
-    //    TT.Clear();
-    //    TTStartIndx = 0;
-    //    TTEndIndx = 0;
-    //    DES.Clear();
-    //    DesStartIndx = 0;
-    //    DesEndIndx = 0;
+        V = string.Empty;
+        TT.Clear();
+        TTStartIndx = 0;
+        TTEndIndx = 0;
+       
 
-    //    HARDWARE.Clear();
-    //    HARDWAREEndIndx = 0;
-    //    HARDWAREStartIndx = 0;
+        HARDWARE.Clear();
+        HARDWAREEndIndx = 0;
+        HARDWAREStartIndx = 0;
 
-    //    FO.Clear();
-    //    FOStartIndx = 0;
-    //    FOEndIndx = 0;
+        FO.Clear();
+        FOStartIndx = 0;
+        FOEndIndx = 0;
 
-    //    BIStartIndx = 0;
-    //    BIEndIndx = 0;
-    //    BI.Clear();
-    //}
+        BIStartIndx = 0;
+        BIEndIndx = 0;
+        BI.Clear();
+        CtaStartIndx = 0;
+        CtaEndIndx = 0;
+    }
 }

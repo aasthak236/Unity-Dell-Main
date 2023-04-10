@@ -36,6 +36,7 @@ public class Guided_Tour : MonoBehaviour
     public GameObject Factory;
     public GameObject playbtn, pausebtn, stopbtn;
     public GameObject BG_Music, Tour_Music;
+    public GameObject Mute, Unmute;
     private void Awake()
     {
         
@@ -48,6 +49,23 @@ public class Guided_Tour : MonoBehaviour
     }
     void Start()
     {
+
+
+        //if (PlayerPrefs.GetInt("MusicOn") == 1)
+        //{
+        //    Mute.SetActive(true);
+        //    Unmute.SetActive(false);
+        //    AudioListener.volume = 1f;
+        //    VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, false);
+
+        //}
+        //else
+        //{
+        //    Mute.SetActive(false);
+        //    Unmute.SetActive(true);
+        //    AudioListener.volume = 0f;
+        //   VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, true);
+        //}
         StartCoroutine(LoadaudioHotspots());
         StartCoroutine(LoadaudioHotspotIntros());
         audioSource = GetComponent<AudioSource>();
@@ -58,7 +76,24 @@ public class Guided_Tour : MonoBehaviour
         }
 
     }
+    public void soundon()
+    {
+        Mute.SetActive(true);
+        Unmute.SetActive(false);
+        PlayerPrefs.SetInt("MusicOn", 1);
+        AudioListener.volume = 1f;
 
+        VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, false);
+    }
+    public void soundoff()
+    {
+        Mute.SetActive(false);
+        Unmute.SetActive(true);
+        PlayerPrefs.SetInt("MusicOn", 0);
+        AudioListener.volume = 0f;
+        VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, true);
+
+    }
     public void Update()
     {
         if (ImageToggleOnHover.Tour_Running == false)
@@ -187,7 +222,7 @@ public class Guided_Tour : MonoBehaviour
             }
             for (int i = 0; i < 3; i++)
             {
-                PartnerImg[i].gameObject.SetActive(false);
+                DellSolutionImg[i].gameObject.SetActive(false);
             }
             UnClickMenu.SetActive(false);
             card.SetActive(false);
@@ -195,8 +230,13 @@ public class Guided_Tour : MonoBehaviour
             bInterrupted = true;
             audioSource.Stop();
             StopCoroutine(myCoroutine);
-      
-       
+            pausebtn.SetActive(true);
+            playbtn.SetActive(false);
+            Time.timeScale = 1f;
+            checkpressed = false;
+
+
+
     }
     public bool bInterrupted=false;
     public GameObject UnClickMenu;

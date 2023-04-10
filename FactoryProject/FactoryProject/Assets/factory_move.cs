@@ -38,6 +38,9 @@ public class factory_move : MonoBehaviour
                 if (Mathf.Abs(deltaY) > Mathf.Abs(deltaX))
                 {
                     transform.Rotate(-(Vector3.right * deltaY * rotationSpeed * Time.deltaTime));
+                    float currentRotation = transform.rotation.eulerAngles.x;
+                    float clampedRotation = Mathf.Clamp(currentRotation, -50, 50);
+                    transform.rotation = Quaternion.Euler(clampedRotation, 0, 0);
 
                 }
 
@@ -45,6 +48,10 @@ public class factory_move : MonoBehaviour
                 {
                     float moveX = deltaX * moveSpeed * Time.deltaTime;
                     transform.Translate(new Vector3(-moveX, 0, 0));
+                    Vector3 clampedPosition = transform.position;
+                    clampedPosition.x = Mathf.Clamp(clampedPosition.x, -34, 34);
+                    
+                    transform.position = clampedPosition;
                 }
 
 
