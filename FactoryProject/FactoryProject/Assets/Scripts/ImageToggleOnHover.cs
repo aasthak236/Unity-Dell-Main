@@ -28,7 +28,7 @@ public class ImageToggleOnHover : MonoBehaviour
             StartCoroutine(Load_Tour_text.ins.GetAllTexts());
             Guided_Tour.instance.UnClickMenu.SetActive(true);
             ClosedAllWindow();
-           Invoke("playguid", 0.5f);
+           Invoke("playguid", 1.5f);
 
         }
 

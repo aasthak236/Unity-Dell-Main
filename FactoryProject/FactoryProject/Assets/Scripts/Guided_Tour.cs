@@ -129,7 +129,7 @@ public class Guided_Tour : MonoBehaviour
         for (int i = 1; i <= 14; i++)
         {
             //am get from hotspot 
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/uc" + i + "/1.mp3", AudioType.MPEG))
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/intros/" + i + ".mp3", AudioType.MPEG))
             {
                 yield return www.SendWebRequest();
 
@@ -213,13 +213,12 @@ public class Guided_Tour : MonoBehaviour
         string usecasenum = ImageToggleOnHover.UseCase;
         string EndNumber= usecasenum.Substring(2,usecasenum.Length - 2);
         audioSource.clip = HotSpotAudio[int.Parse(EndNumber) - 1];
-        
-        if (audioSource.clip != null)
-        {
+        //if (audioSource.clip != null)
+        //{
             audiolength = HotSpotAudio[int.Parse(EndNumber) - 1].length;
             audioSource.Play();
 
-        } 
+        //} 
         yield return new WaitForSeconds(audiolength + 0.5f);
         for (int i = saveDataFile.IntroStartIndx; i <= saveDataFile.IntroEndIndx; i++)
         {
@@ -233,8 +232,7 @@ public class Guided_Tour : MonoBehaviour
             card.SetActive(true);
             hexaTxt.SetActive(true);
             Hexagon.SetActive(true);
-           
-                HexagonCardtext.text = saveDataFile.INTRO[i - 1];
+            HexagonCardtext.text = saveDataFile.INTRO[i - 1];
             
             
             //Audio will be played
@@ -278,6 +276,7 @@ public class Guided_Tour : MonoBehaviour
 
                 yield return null;
             }
+            
             card.SetActive(true);
             hexaTxt.SetActive(true);
             Hexagon.SetActive(true);
@@ -302,14 +301,14 @@ public class Guided_Tour : MonoBehaviour
         {
             if (bInterrupted)
             {
-                PartnerImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(false);
+                DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(false);
                 bInterrupted = true;
                 ImageToggleOnHover.Tour_Running = false;
 
                 yield return null;
             }
             card.SetActive(true);
-            PartnerImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(true);
+            DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(true);
             //HexagonCardtext.text = saveDataFile.DES[i - 1];
             hexaTxt.SetActive(false);
             Hexagon.SetActive(false);
@@ -324,7 +323,7 @@ public class Guided_Tour : MonoBehaviour
             yield return new WaitForSeconds(audiolength + StandardDelay);
             card.SetActive(false);
             //  Image.gameObject.SetActive(false);
-            PartnerImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(false);
+            DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(false);
 
         }
 

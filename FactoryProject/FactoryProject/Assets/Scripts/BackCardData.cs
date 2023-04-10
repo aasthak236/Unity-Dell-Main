@@ -252,9 +252,15 @@ public class BackCardData : MonoBehaviour
     IEnumerator myCoroutine;
     public IEnumerator OutcomeBtnF(int ButtonNaame)
     {
+        Color NormalColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color) ? color : Color.white;
+        Color PressedColor = ColorUtility.TryParseHtmlString("#80C7FB", out Color color1) ? color1 : Color.white;
+        for (int i = 0; i <= 5; i++)
+        {
+            OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
+        }
+        OutcomeBtn[ButtonNaame].GetComponent<Image>().color = PressedColor;
         ImageToggleOnHover.instance.ClosedAllWindow();
-       // Color NormalColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color) ? color : Color.white;
-       // Color PressedColor = ColorUtility.TryParseHtmlString("#80C7FB", out Color color1) ? color1 : Color.white;
+      
         HotSpotsRuninng = true;
         if (HotSpotsRuninng)
         {
