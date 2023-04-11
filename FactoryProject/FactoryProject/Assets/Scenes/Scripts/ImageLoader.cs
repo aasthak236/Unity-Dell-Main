@@ -27,6 +27,15 @@ public class ImageLoader : MonoBehaviour
     public string[] DSr;
     public string[] PSr;
     public GameObject BackFlipCard;
+    public Material HexagonInnerColor;
+    public Material HexagonOuterColor;
+    public Material HexagonMiddleColor;
+    public Color ECInnerColor, ECMiddleColor, ECOuterColor;
+    public Color VPInnerColor, VPMiddleColor, VPOuterColor;
+    public Color BOInnerColor, BOMiddleColor, BOOuterColor;
+    public Color DSInnerColor, DSMiddleColor, DSOuterColor;
+    public Color PSInnerColor, PSMiddleColor, PSOuterColor;
+    public Color CTAInnerColor, CTAMiddleColor, CTAOuterColor;
     public void Awake()
     {
         instance = this;
@@ -36,6 +45,24 @@ public class ImageLoader : MonoBehaviour
     }
     public void Start()
     {
+        ECInnerColor = ColorUtility.TryParseHtmlString("#E1633F", out Color color) ? color : Color.white;
+        VPInnerColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color1) ? color1 : Color.white;
+        BOInnerColor = ColorUtility.TryParseHtmlString("#37CC5C", out Color color2) ? color2 : Color.white;
+        DSInnerColor = ColorUtility.TryParseHtmlString("#8E5CEF", out Color color3) ? color3 : Color.white;
+        PSInnerColor = ColorUtility.TryParseHtmlString("#8E5CEF", out Color color4) ? color4 : Color.white;
+
+        ECMiddleColor = ColorUtility.TryParseHtmlString("#FBEECE", out Color color5) ? color5 : Color.white;
+        VPMiddleColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color6) ? color6 : Color.white;
+        BOMiddleColor = ColorUtility.TryParseHtmlString("#E4FFD6", out Color color7) ? color7 : Color.white;
+        DSMiddleColor = ColorUtility.TryParseHtmlString("#DEDDFF", out Color color8) ? color8 : Color.white;
+        PSMiddleColor = ColorUtility.TryParseHtmlString("#DEDDFF", out Color color9) ? color9 : Color.white;
+
+        ECOuterColor = ColorUtility.TryParseHtmlString("#F4BB5E", out Color color10) ? color10 : Color.white;
+        VPOuterColor = ColorUtility.TryParseHtmlString("#80C7FB", out Color color11) ? color11 : Color.white;
+        BOOuterColor = ColorUtility.TryParseHtmlString("#9FFF99", out Color color12) ? color12 : Color.white;
+        DSOuterColor = ColorUtility.TryParseHtmlString("#BEAFFF", out Color color13) ? color13 : Color.white;
+        PSOuterColor = ColorUtility.TryParseHtmlString("#BEAFFF", out Color color14) ? color14 : Color.white;
+
         StartCoroutine(LoadAllComponentFrontFaces());
         StartCoroutine(LoadAllComponentBackFaces());
     }
@@ -72,7 +99,10 @@ public class ImageLoader : MonoBehaviour
         {
              if (Component == "VP")
             {
-
+                CameraZoomTowardPoint.instance.ZoomBack();
+                HexagonInnerColor.color = VPInnerColor;
+                HexagonMiddleColor.color = VPMiddleColor;
+                HexagonOuterColor.color = VPOuterColor;
                 for (int i = 0; i <= VPCount; i++)
                 {
                     Cards[i].SetActive(true);
@@ -85,7 +115,10 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "EC")
             {
-
+                CameraZoomTowardPoint.instance.ZoomBack();
+                HexagonInnerColor.color = ECInnerColor;
+                HexagonMiddleColor.color = ECMiddleColor;
+                HexagonOuterColor.color = ECOuterColor;
                 for (int i = 0; i <= ECCount; i++)
                 {
                     Cards[i].SetActive(true);
@@ -98,6 +131,10 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "BO")
             {
+                CameraZoomTowardPoint.instance.ZoomBack();
+                HexagonInnerColor.color = BOInnerColor;
+                HexagonMiddleColor.color = BOMiddleColor;
+                HexagonOuterColor.color = BOOuterColor;
                 for (int i = 0; i <= 5; i++)
                 {
                     BackCardData.instance.BusinessOutcomeText[i].text = ImageLoader.instance.BO[i].ToString();
@@ -116,7 +153,10 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "DS")
             {
-
+                CameraZoomTowardPoint.instance.ZoomBack();
+                HexagonInnerColor.color = DSInnerColor;
+                HexagonMiddleColor.color = DSMiddleColor;
+                HexagonOuterColor.color = DSOuterColor;
                 for (int i = 0; i <= DSCount; i++)
                 {
                     Cards[i].SetActive(true);
@@ -129,7 +169,10 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "PS")
             {
-
+                CameraZoomTowardPoint.instance.ZoomBack();
+                HexagonInnerColor.color = PSInnerColor;
+                HexagonMiddleColor.color = PSMiddleColor;
+                HexagonOuterColor.color = PSOuterColor;
                 for (int i = 0; i <= PSCount; i++)
                 {
                     Cards[i].SetActive(true);

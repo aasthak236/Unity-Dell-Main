@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraZoomTowardPoint : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class CameraZoomTowardPoint : MonoBehaviour
     {
         myCamera = Camera.main;
         CameraZoom = false;
-        ZoomBack();
+      //  ZoomBack();
     
     }
     public void Start()
@@ -27,10 +28,11 @@ public class CameraZoomTowardPoint : MonoBehaviour
     //This Function Call on the Button Event in Editor
     public void ZoomInToSection(int sectionIndex)
     {
-
+        BackCardData.instance.HotSpotSizeDecrease();
         FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
         //Vector3 newrotation = new Vector3(-19, 0, 0);
         //FactoryMdel.transform.eulerAngles = newrotation;
+        BackCardData.instance.HotSpotsRuninng = true;
         CameraZoom = true;
         if(sectionIndex< sectionPointTransform.Length && !isCameraMoving)
         {
@@ -66,10 +68,15 @@ public class CameraZoomTowardPoint : MonoBehaviour
     }
     public void ZoomBack()
     {
+        BackCardData.instance.HotSpotsRuninng = false;
         CameraZoom = false;
         FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
+        BackCardData.instance.HotSpotSizeDecrease();
         //USECASE = usecase[i];
-      
+        for (int i = 0; i <= 5; i++)
+        {
+            BackCardData.instance.OutcomeBtn[i].GetComponent<Image>().color = BackCardData.instance.NormalColor;
+        }
         // Set the camera's orthographic property to false to switch to perspective projection
         myCamera.orthographic = false;
 

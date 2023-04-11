@@ -16,7 +16,7 @@ public class ImageToggleOnHover : MonoBehaviour
         instance = this;
 
     }
-
+    
     public static string HotSpotName;
     void OnMouseDown()
     {

@@ -24,7 +24,7 @@ public class Mouse_RightClick : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivity;
+                float rotationX = transform.localEulerAngles.y - Input.GetAxis("Mouse X") * sensitivity;
 
                 //Enable this to clamp the rotation
                 //   rotationX = Mathf.Clamp(rotationX, minimumX, maximumX);

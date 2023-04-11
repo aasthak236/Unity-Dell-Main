@@ -27,13 +27,29 @@ public class BackCardData : MonoBehaviour
     public GameObject[] HotSpot;
     public static BackCardData instance;
     public string videolink;
+    
     // Start is called before the first frame update
     void Start()
     {
-       
+        NormalColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color) ? color : Color.white;
+        PressedColor = ColorUtility.TryParseHtmlString("#80C7FB", out Color color1) ? color1 : Color.white;
         instance = this;
+        HotSpotSizeIncrease();
     }
-
+    public void HotSpotSizeIncrease()
+    {
+        for (int i = 0; i <= 13; i++)
+        {
+            HotSpot[i].transform.GetChild(0).transform.localScale = new Vector3(3,3,3);
+        }
+    }
+    public void HotSpotSizeDecrease()
+    {
+        for (int i = 0; i <= 13; i++)
+        {
+            HotSpot[i].transform.GetChild(0).transform.localScale = new Vector3(1, 1, 1);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -48,6 +64,11 @@ public class BackCardData : MonoBehaviour
         //  BackCardLowerText.text = Load_Tour_text.ins.DVSCardFace[int.Parse(buttonName)].ToString();
         if (ImageLoader.ComponentName == "VP")
         {
+         
+            for (int i = 0; i <= 5; i++)
+            {
+                OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
+            }
             for (int i = 0; i <= 6; i++)
             {
                 ImageLoader.instance.Cards[i].SetActive(false);
@@ -55,10 +76,11 @@ public class BackCardData : MonoBehaviour
             //old flipper
             ImageLoader.instance.BackFlipCard.SetActive(true);
             BackCardText.text = ImageLoader.instance.VPr[int.Parse(buttonName)].ToString();
-
+            HotSpotsRuninng = true;
         }
         else if (ImageLoader.ComponentName == "EC")
         {
+           
             for (int i = 0; i <= 5; i++)
             {
                 ImageLoader.instance.Cards[i].SetActive(false);
@@ -66,10 +88,19 @@ public class BackCardData : MonoBehaviour
             //old flipper
             ImageLoader.instance.BackFlipCard.SetActive(true);
             BackCardText.text = ImageLoader.instance.ECr[int.Parse(buttonName)].ToString();
+            for (int i = 0; i <= 5; i++)
+            {
+                OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
+            }
+            HotSpotsRuninng = true;
         }
         else if (ImageLoader.ComponentName == "BO")
         {
-           
+            
+            for (int j = 0; j <= 5; j++)
+            {
+                OutcomeBtn[j].GetComponent<Image>().color = NormalColor;
+            }
             for (int i = 0; i <= 13; i++)
             {
                 HotSpot[i].SetActive(false);
@@ -78,18 +109,11 @@ public class BackCardData : MonoBehaviour
             {
                 BusinessOutcomeText[i].text = ImageLoader.instance.BO[i].ToString();
                 ImageLoader.instance.Cards[i].SetActive(false);
-                //if (OutcomeBtn[int.Parse(buttonName)] == OutcomeBtn[i])
-                //{
-                //    OutcomeBtn[int.Parse(buttonName)].GetComponent<Image>().color = PressedColor;
-                //}
-                //else
-                //{
-                //    // OutcomeBtn[int.Parse(buttonName)].GetComponent<Image>().color = NormalColor;
-                //}
+               
             }
 
             BusinessOutcomeWindow.SetActive(true);
-
+            HotSpotsRuninng = true;
             if (int.Parse(buttonName) == 0)
             {
                 HotSpot[0].SetActive(true);
@@ -139,6 +163,7 @@ public class BackCardData : MonoBehaviour
         }
         else if (ImageLoader.ComponentName == "DS")
         {
+          
             for (int i = 0; i <= 5; i++)
             {
                 ImageLoader.instance.Cards[i].SetActive(false);
@@ -151,9 +176,19 @@ public class BackCardData : MonoBehaviour
             // Guided_Tour.instance.PartnerImg[int.Parse(buttonName)].gameObject.SetActive(true);
             // desc,
             DellDescription.text = Load_Tour_text.ins.DellDescription[int.Parse(buttonName)];
+            for (int i = 0; i <= 5; i++)
+            {
+                OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
+            }
+            HotSpotsRuninng = true;
         }
         else if (ImageLoader.ComponentName == "PS")
         {
+            HotSpotsRuninng = true;
+            for (int i = 0; i <= 5; i++)
+            {
+                OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
+            }
             for (int i = 0; i <= 6; i++)
             {
                 ImageLoader.instance.Cards[i].SetActive(false);
@@ -224,20 +259,26 @@ public class BackCardData : MonoBehaviour
     public  int[] hotspotlist;
     public int numberofhotspots;
     public bool HotSpotsRuninng;
-
+    public Color NormalColor;
+    public Color PressedColor;
+    public bool BusinessOutcomeStart;
     public void FlashHotspot(int i)
     {
         StopCoroutineTour();
         myCoroutine = OutcomeBtnF(i);
         StartCoroutine(myCoroutine);
-        
+        BusinessOutcomeStart = true;
     }
     public void StopCoroutineTour()
     {
         if (HotSpotsRuninng)
         {
             Guided_Tour.instance.audioSource.Stop();
-            StopCoroutine(myCoroutine);
+            if (BusinessOutcomeStart)
+            {
+                StopCoroutine(myCoroutine);
+            }
+    
             for (int j = 0; j < 14; j++)
             {
                 for (int i = 0; i < HotSpot[j].transform.childCount; i++)
@@ -245,15 +286,23 @@ public class BackCardData : MonoBehaviour
                     HotSpot[j].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(false);
                 }
             }
-           
+            for (int i = 0; i <= 5; i++)
+            {
+                OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
+            }
+            for (int i = 0; i <= 13; i++)
+            {
+                HotSpot[i].SetActive(true);
+            }
+
+
         }
 
     }
     IEnumerator myCoroutine;
     public IEnumerator OutcomeBtnF(int ButtonNaame)
     {
-        Color NormalColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color) ? color : Color.white;
-        Color PressedColor = ColorUtility.TryParseHtmlString("#80C7FB", out Color color1) ? color1 : Color.white;
+        
         for (int i = 0; i <= 5; i++)
         {
             OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
@@ -284,7 +333,11 @@ public class BackCardData : MonoBehaviour
             hotspotlist[3] = 7;
             hotspotlist[4] = 1;
             hotspotlist[5] = 13;
-           // OutcomeBtn[int.Parse(buttonName)].GetComponent<Image>().color = PressedColor;
+            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
+            Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+            Guided_Tour.instance.audioSource.Play();
+            yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+            // OutcomeBtn[int.Parse(buttonName)].GetComponent<Image>().color = PressedColor;
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
@@ -323,6 +376,10 @@ public class BackCardData : MonoBehaviour
             hotspotlist[1] = 5;
             hotspotlist[2] = 7;
             hotspotlist[3] = 2;
+            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
+            Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+            Guided_Tour.instance.audioSource.Play();
+            yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
@@ -355,6 +412,10 @@ public class BackCardData : MonoBehaviour
             hotspotlist[1] = 5;
             hotspotlist[2] = 7;
             hotspotlist[3] = 13;
+            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
+            Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+            Guided_Tour.instance.audioSource.Play();
+            yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
@@ -386,6 +447,10 @@ public class BackCardData : MonoBehaviour
             hotspotlist[0] = 4;
             hotspotlist[1] = 11;
             hotspotlist[2] = 1;
+            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
+            Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+            Guided_Tour.instance.audioSource.Play();
+            yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
@@ -417,6 +482,10 @@ public class BackCardData : MonoBehaviour
             hotspotlist[1] = 11;
             hotspotlist[2] = 6;
             hotspotlist[3] = 13;
+            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
+            Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+            Guided_Tour.instance.audioSource.Play();
+            yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
@@ -446,6 +515,10 @@ public class BackCardData : MonoBehaviour
         {
             numberofhotspots = 1;
             hotspotlist[0] = 12;
+            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
+            Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+            Guided_Tour.instance.audioSource.Play();
+            yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
@@ -470,12 +543,16 @@ public class BackCardData : MonoBehaviour
     }
     public void OutcomeCrossBtn()
     {
+        for (int i = 0; i <= 5; i++)
+        {
+            OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
+        }
         for (int i = 0; i <= 13; i++)
         {
             HotSpot[i].SetActive(true);
         }
         BusinessOutcomeWindow.SetActive(false);
-        //  OutcomeBtn[int.Parse(buttonName)].GetComponent<Image>().color = ColorUtility.TryParseHtmlString("FFFFFF",out Color32(255,255,255,157));
+   
     }
     public void PartnerLink()
     {

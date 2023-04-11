@@ -39,7 +39,7 @@ public class factory_move : MonoBehaviour
                 {
                     transform.Rotate(-(Vector3.right * deltaY * rotationSpeed * Time.deltaTime));
                     //float currentRotation = transform.rotation.eulerAngles.x;
-                    //float clampedRotation = Mathf.Clamp(currentRotation, 6, 50);
+                    //float clampedRotation = Mathf.Clamp(currentRotation, -35, 55);
                     //transform.rotation = Quaternion.Euler(clampedRotation, transform.rotation.y, transform.rotation.z);
 
                 }
