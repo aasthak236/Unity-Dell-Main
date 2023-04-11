@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class LeanTweenDocumentationEditor : Editor {
 
-	
+	[MenuItem ("Help/LeanTween Documentation")]
 	static void openDocumentation()
 	{
 		#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_0_1 && !UNITY_4_1 && !UNITY_4_2 && !UNITY_4_3
@@ -31,25 +31,25 @@ public class LeanTweenDocumentationEditor : Editor {
 		#endif
 	}
 
-	
+	[MenuItem ("Help/LeanTween Forum (ask questions)")]
 	static void openForum()
 	{
 		Application.OpenURL("http://forum.unity3d.com/threads/leantween-a-tweening-engine-that-is-up-to-5x-faster-than-competing-engines.161113/");
 	}
 
-	
+	[MenuItem ("Help/LeanTween GitHub (contribute code)")]
 	static void openGit()
 	{
 		Application.OpenURL("https://github.com/dentedpixel/LeanTween");
 	}
 
-
+	[MenuItem ("Help/LeanTween Support (donate)")]
 	static void openLTDonate()
 	{
 		Application.OpenURL("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YJPUT3RAK5VL8");	
 	}
 
-	
+	[MenuItem ("Help/Dented Pixel News")]
 	static void openDPNews()
 	{
 		Application.OpenURL("http://dentedpixel.com/category/developer-diary/");

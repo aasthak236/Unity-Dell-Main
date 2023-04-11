@@ -12,20 +12,25 @@ public class CameraZoomTowardPoint : MonoBehaviour
     public Transform backcamera;
     public static bool CameraZoom;
     public GameObject FactoryMdel;
+    public static CameraZoomTowardPoint instance;
     private void Awake()
     {
         myCamera = Camera.main;
         CameraZoom = false;
         ZoomBack();
+    
     }
-
+    public void Start()
+    {
+        instance = this;
+    }
     //This Function Call on the Button Event in Editor
     public void ZoomInToSection(int sectionIndex)
     {
-        
+
         FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
-        Vector3 newrotation = new Vector3(-19,0,0);
-        FactoryMdel.transform.eulerAngles = newrotation;
+        //Vector3 newrotation = new Vector3(-19, 0, 0);
+        //FactoryMdel.transform.eulerAngles = newrotation;
         CameraZoom = true;
         if(sectionIndex< sectionPointTransform.Length && !isCameraMoving)
         {
@@ -62,11 +67,11 @@ public class CameraZoomTowardPoint : MonoBehaviour
     public void ZoomBack()
     {
         CameraZoom = false;
-        
-                //USECASE = usecase[i];
-             
-                    // Set the camera's orthographic property to false to switch to perspective projection
-                    myCamera.orthographic = false;
+        FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
+        //USECASE = usecase[i];
+      
+        // Set the camera's orthographic property to false to switch to perspective projection
+        myCamera.orthographic = false;
 
 
                     //Move Camera Toward Point

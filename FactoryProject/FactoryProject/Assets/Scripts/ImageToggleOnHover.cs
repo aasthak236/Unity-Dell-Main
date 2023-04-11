@@ -17,19 +17,21 @@ public class ImageToggleOnHover : MonoBehaviour
 
     }
 
-
+    public static string HotSpotName;
     void OnMouseDown()
     {
         if (Tour_Running == false)
         {
             Tour_Running = true;
             UseCase = transform.GetChild(0).gameObject.name;
+            HotSpotName = transform.GetChild(0).transform.GetChild(0).gameObject.name;
             StartCoroutine(Guided_Tour.instance.Loadaudio());
             StartCoroutine(Load_Tour_text.ins.GetAllTexts());
             Guided_Tour.instance.UnClickMenu.SetActive(true);
             ClosedAllWindow();
             SaveDataFromXML.ins.ResetSaveData();
-           Invoke("playguid", 1.5f);
+            CameraZoomTowardPoint.instance.ZoomInToSection(int.Parse(HotSpotName));
+           Invoke("playguid", 5f);
 
         }
 

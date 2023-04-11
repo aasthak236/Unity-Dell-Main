@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 public class Guided_Tour : MonoBehaviour
 {
+    public AudioSource EndVO;
     public static Guided_Tour instance;
     public TMP_Text HexagonCardtext;
     public SaveDataFromXML saveDataFile;
@@ -17,7 +18,7 @@ public class Guided_Tour : MonoBehaviour
     public GameObject Hexagon;
     public GameObject hexaTxt;
     public  AudioSource audioSource, audioSource1;
-    private int currentClipIndex = 0;
+
     public Image[] PartnerImg;
     public Image[] DellSolutionImg;
     public GameObject CTAHexa;
@@ -34,7 +35,7 @@ public class Guided_Tour : MonoBehaviour
     public int screenWidth;
     public int screenHeight;
     public GameObject Factory;
-    public GameObject playbtn, pausebtn, stopbtn;
+    public GameObject playbtn, pausebtn;
     public GameObject BG_Music, Tour_Music;
     public GameObject Mute, Unmute;
     private void Awake()
@@ -208,7 +209,7 @@ public class Guided_Tour : MonoBehaviour
 
     public void PlayGuidedTour(string UseCase)
     {
-       // StartCoroutine(PlayAudioClips());
+      // StartCoroutine(PlayAudioClips());
         myCoroutine = PlayAudioClips();
         StartCoroutine(myCoroutine);
 
@@ -244,21 +245,23 @@ public class Guided_Tour : MonoBehaviour
     public IEnumerator PlayAudioClips()
     {
         
-        bInterrupted = false;
 
+        bInterrupted = false;
+        if (bInterrupted)
+        {
+            bInterrupted = true;
+            ImageToggleOnHover.Tour_Running = false;
+            yield return null;
+        }
         float StandardDelay = 0.25f;
         //StartCoroutine(LoadImgWithUrl(Assets_Folder + "image/xmpro-logo.png"));
         // Turn on Introduction audio
         //Intro audio Play
-        string usecasenum = ImageToggleOnHover.UseCase;
-        string EndNumber= usecasenum.Substring(2,usecasenum.Length - 2);
-        audioSource.clip = HotSpotAudio[int.Parse(EndNumber) - 1];
-        //if (audioSource.clip != null)
-        //{
-            audiolength = HotSpotAudio[int.Parse(EndNumber) - 1].length;
-            audioSource.Play();
-
-        //} 
+        //string usecasenum = ImageToggleOnHover.UseCase;
+        //string EndNumber= usecasenum.Substring(2,usecasenum.Length - 2);
+        audioSource.clip = audioClips[0];
+        audiolength = audioClips[0].length;
+        audioSource.Play();
         yield return new WaitForSeconds(audiolength + 0.5f);
         for (int i = saveDataFile.IntroStartIndx; i <= saveDataFile.IntroEndIndx; i++)
         {
@@ -559,10 +562,10 @@ public class Guided_Tour : MonoBehaviour
                 Partner3.text = ImageLoader.instance.PS[int.Parse(SaveDataFromXML.ins.PS[2]) - 1];
             }
         }
-        audioSource.clip = audioClips[34];
-        audiolength = audioClips[34].length;
-        audioSource.Play();
-        yield return new WaitForSeconds(audiolength + 0.5f);
+        //audioSource.clip = audioClips[34];
+        //audiolength = audioClips[34].length;
+        EndVO.Play();
+        yield return new WaitForSeconds(1f);
         ImageToggleOnHover.Tour_Running = false;
 
 
