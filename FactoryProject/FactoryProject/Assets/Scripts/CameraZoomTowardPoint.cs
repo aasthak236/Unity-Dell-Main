@@ -24,6 +24,7 @@ public class CameraZoomTowardPoint : MonoBehaviour
     public void Start()
     {
         instance = this;
+        ZoomInToSection(0);
     }
     //This Function Call on the Button Event in Editor
     public void ZoomInToSection(int sectionIndex)

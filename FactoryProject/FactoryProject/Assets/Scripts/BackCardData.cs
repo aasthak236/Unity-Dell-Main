@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Networking;
+using UnityEngine.Video;
 
 public class BackCardData : MonoBehaviour
 {
     public Button[] OutcomeBtn;
     //Partner Component
+    
+    public GameObject Manufaturing_Video_Button;
     public GameObject VideoButton;
     public TextMeshProUGUI[] BusinessOutcomeText;
     public TextMeshProUGUI BackCardText;
@@ -31,10 +34,17 @@ public class BackCardData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+      
         NormalColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color) ? color : Color.white;
         PressedColor = ColorUtility.TryParseHtmlString("#80C7FB", out Color color1) ? color1 : Color.white;
         instance = this;
         HotSpotSizeIncrease();
+        Invoke("ActiveEnterButton", 10f);
+    }
+    public void ActiveEnterButton()
+    {
+        Manufaturing_Video_Button.SetActive(true);
     }
     public void HotSpotSizeIncrease()
     {
@@ -204,18 +214,18 @@ public class BackCardData : MonoBehaviour
             PartnerDescription.text = Load_Tour_text.ins.PartnerDescription[int.Parse(buttonName)];
             // link, More Details
             // video 
-            if (Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)] == "null")
-            {
-                VideoButton.SetActive(false);
-            }
-            else
-            {
-                VideoButton.SetActive(true);
-                //Debug.Log("Link Exisit"+ Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)]);
-                videolink = Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)];
+            //if (Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)] == "null")
+            //{
+            //    VideoButton.SetActive(false);
+            //}
+            //else
+            //{
+            //    VideoButton.SetActive(true);
+            //    //Debug.Log("Link Exisit"+ Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)]);
+            //    videolink = Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)];
 
 
-            }
+            //}
         }
 
     }
@@ -333,10 +343,10 @@ public class BackCardData : MonoBehaviour
             hotspotlist[3] = 7;
             hotspotlist[4] = 1;
             hotspotlist[5] = 13;
-            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
-            Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
+            Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();
-            yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+            yield return new WaitForSeconds(Guided_Tour.instance.audiolength + 0.5f);
             // OutcomeBtn[int.Parse(buttonName)].GetComponent<Image>().color = PressedColor;
             for (int j = 0; j < numberofhotspots; j++)
             {
@@ -376,10 +386,10 @@ public class BackCardData : MonoBehaviour
             hotspotlist[1] = 5;
             hotspotlist[2] = 7;
             hotspotlist[3] = 2;
-            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
-            Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
+            Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();
-            yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+            yield return new WaitForSeconds(Guided_Tour.instance.audiolength + 0.5f);
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
@@ -412,10 +422,10 @@ public class BackCardData : MonoBehaviour
             hotspotlist[1] = 5;
             hotspotlist[2] = 7;
             hotspotlist[3] = 13;
-            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
-            Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
+            Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();
-            yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+            yield return new WaitForSeconds(Guided_Tour.instance.audiolength + 0.5f);
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
@@ -447,10 +457,10 @@ public class BackCardData : MonoBehaviour
             hotspotlist[0] = 4;
             hotspotlist[1] = 11;
             hotspotlist[2] = 1;
-            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
-            Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
+            Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();
-            yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+            yield return new WaitForSeconds(Guided_Tour.instance.audiolength + 0.5f);
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
@@ -482,10 +492,10 @@ public class BackCardData : MonoBehaviour
             hotspotlist[1] = 11;
             hotspotlist[2] = 6;
             hotspotlist[3] = 13;
-            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
-            Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
+            Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();
-            yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+            yield return new WaitForSeconds(Guided_Tour.instance.audiolength + 0.5f);
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
@@ -515,10 +525,10 @@ public class BackCardData : MonoBehaviour
         {
             numberofhotspots = 1;
             hotspotlist[0] = 12;
-            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
-            Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+            Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
+            Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();
-            yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+            yield return new WaitForSeconds(Guided_Tour.instance.audiolength + 0.5f);
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];

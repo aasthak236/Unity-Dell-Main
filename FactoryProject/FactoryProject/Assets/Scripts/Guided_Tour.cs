@@ -13,6 +13,7 @@ public class Guided_Tour : MonoBehaviour
     public AudioClip[] audioClips;
     public AudioClip[] HotSpotAudio;
     public AudioClip[] HotSpotAudioIntro;
+    public AudioClip[] OutcomeAudioIntro;
     public float TotalPlayTime = 4f;
     public GameObject card;
     public GameObject Hexagon;
@@ -69,6 +70,7 @@ public class Guided_Tour : MonoBehaviour
         //   VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, true);
         //}
         StartCoroutine(LoadaudioHotspots());
+        StartCoroutine(OutcomeAudioLoader());
         StartCoroutine(LoadaudioHotspotIntros());
         audioSource = GetComponent<AudioSource>();
         Debug.Log("Screen width"+screenWidth+"X"+screenHeight);
@@ -183,6 +185,31 @@ public class Guided_Tour : MonoBehaviour
         }
 
     }
+
+    public IEnumerator OutcomeAudioLoader()
+    {
+
+        for (int i = 1; i <= 6; i++)
+        {
+            //am get from hotspot 
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/outcomes/" + i + ".mp3", AudioType.MPEG))
+            {
+                yield return www.SendWebRequest();
+
+                if (www.result == UnityWebRequest.Result.Success)
+                {
+                    OutcomeAudioIntro[i - 1] = DownloadHandlerAudioClip.GetContent(www);
+                    // audioSources.Play();
+                }
+                else
+                {
+                    // Debug.LogError("Failed to download audio: " + www.error);
+                }
+            }
+        }
+
+    }
+
     public IEnumerator Loadaudio()
     {
 
