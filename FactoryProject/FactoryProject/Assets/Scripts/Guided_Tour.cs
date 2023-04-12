@@ -227,21 +227,20 @@ public class Guided_Tour : MonoBehaviour
             {
                 DellSolutionImg[i].gameObject.SetActive(false);
             }
+        if (TourStart)
+        {
+            StopCoroutine(myCoroutine);
+        }
+        Blur_Bg.SetActive(false);
             UnClickMenu.SetActive(false);
             card.SetActive(false);
             ImageToggleOnHover.Tour_Running = false;
             bInterrupted = true;
-            audioSource.Stop();
-            if (TourStart)
-            {
-                StopCoroutine(myCoroutine);
-            }
-           
             pausebtn.SetActive(true);
             playbtn.SetActive(false);
             Time.timeScale = 1f;
             checkpressed = false;
-        Blur_Bg.SetActive(false);
+        audioSource.Stop();
 
 
 

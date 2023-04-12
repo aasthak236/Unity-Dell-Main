@@ -31,7 +31,7 @@ public class ImageToggleOnHover : MonoBehaviour
             ClosedAllWindow();
             SaveDataFromXML.ins.ResetSaveData();
             CameraZoomTowardPoint.instance.ZoomInToSection(int.Parse(HotSpotName));
-           Invoke("playguid", 5f);
+           Invoke("playguid", 1.5f);
 
         }
 

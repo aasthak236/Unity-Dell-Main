@@ -30,8 +30,8 @@ public class CameraZoomTowardPoint : MonoBehaviour
     {
         BackCardData.instance.HotSpotSizeDecrease();
         FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
-        //Vector3 newrotation = new Vector3(-19, 0, 0);
-        //FactoryMdel.transform.eulerAngles = newrotation;
+        Vector3 newrotation = new Vector3(0, 0, 0);
+        FactoryMdel.transform.eulerAngles = newrotation;
         BackCardData.instance.HotSpotsRuninng = true;
         CameraZoom = true;
         if(sectionIndex< sectionPointTransform.Length && !isCameraMoving)
@@ -71,7 +71,12 @@ public class CameraZoomTowardPoint : MonoBehaviour
         BackCardData.instance.HotSpotsRuninng = false;
         CameraZoom = false;
         FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
-        BackCardData.instance.HotSpotSizeDecrease();
+        BackCardData.instance.HotSpotSizeIncrease();
+        ImageToggleOnHover.instance.ClosedAllWindow();
+        for (int i = 0; i <= 13; i++)
+        {
+            BackCardData.instance.HotSpot[i].SetActive(true);
+        }
         //USECASE = usecase[i];
         for (int i = 0; i <= 5; i++)
         {

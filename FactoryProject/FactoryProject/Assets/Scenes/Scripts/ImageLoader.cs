@@ -109,7 +109,10 @@ public class ImageLoader : MonoBehaviour
                     Front[i].text = VP[i].ToString();
                 }
                 pressed = true;
-
+                for (int i = 0; i <= 13; i++)
+                {
+                    BackCardData.instance.HotSpot[i].SetActive(false);
+                }
 
 
             }
@@ -126,7 +129,10 @@ public class ImageLoader : MonoBehaviour
                 }
                 pressed = true;
 
-
+                for (int i = 0; i <= 13; i++)
+                {
+                    BackCardData.instance.HotSpot[i].SetActive(false);
+                }
 
             }
             else if (Component == "BO")
@@ -141,7 +147,10 @@ public class ImageLoader : MonoBehaviour
 
                 }
                 BackCardData.instance.BusinessOutcomeWindow.SetActive(true);
-               
+                for (int i = 0; i <= 13; i++)
+                {
+                    BackCardData.instance.HotSpot[i].SetActive(false);
+                }
                 //for (int i = 0; i <= BOCount; i++)
                 //{
                 //    Cards[i].SetActive(true);
@@ -164,7 +173,10 @@ public class ImageLoader : MonoBehaviour
                 }
                 pressed = true;
 
-
+                for (int i = 0; i <= 13; i++)
+                {
+                    BackCardData.instance.HotSpot[i].SetActive(false);
+                }
 
             }
             else if (Component == "PS")
@@ -180,7 +192,10 @@ public class ImageLoader : MonoBehaviour
                 }
                 pressed = true;
 
-
+                for (int i = 0; i <= 13; i++)
+                {
+                    BackCardData.instance.HotSpot[i].SetActive(false);
+                }
             }
         }
        else
@@ -190,6 +205,10 @@ public class ImageLoader : MonoBehaviour
                 Cards[i].SetActive(false);
             }
             pressed = false;
+            for (int i = 0; i <= 13; i++)
+            {
+                BackCardData.instance.HotSpot[i].SetActive(true);
+            }
         }
     }
     public IEnumerator frontBB(string ComponentName)
