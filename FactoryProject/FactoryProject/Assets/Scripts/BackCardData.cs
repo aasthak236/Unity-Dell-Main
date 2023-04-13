@@ -381,11 +381,11 @@ public class BackCardData : MonoBehaviour
         }
         else if (ButtonNaame == 1)
         {
-            numberofhotspots = 4;
+            numberofhotspots = 3;
             hotspotlist[0] = 3;
             hotspotlist[1] = 5;
             hotspotlist[2] = 7;
-            hotspotlist[3] = 2;
+          
             Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
             Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();

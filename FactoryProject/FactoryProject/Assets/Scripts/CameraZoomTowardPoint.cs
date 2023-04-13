@@ -29,6 +29,15 @@ public class CameraZoomTowardPoint : MonoBehaviour
     //This Function Call on the Button Event in Editor
     public void ZoomInToSection(int sectionIndex)
     {
+        try
+        {
+            ImageToggleOnHover.instance.ClosedAllWindow();
+        }
+        catch
+        { 
+        
+        }
+      
         BackCardData.instance.HotSpotSizeDecrease();
         FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
         Vector3 newrotation = new Vector3(0, 0, 0);

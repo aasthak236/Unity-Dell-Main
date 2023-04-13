@@ -10,25 +10,28 @@ public class SaveDataFromXML : MonoBehaviour
    
     //public string INTRO;
     public List<string> INTRO;
-    public int IntroStartIndx;
+   
     public int IntroEndIndx;
-    public List<string> PS;
-    public int PSStartIndx;
-    public int PSEndIndx;
+    
 
     public List<string> EC;
     public int ECStartIndx;
     public int ECEndIndx;
 
-    public string V;
+   
+    public List<string> HARDWARE;
+    public int HARDWAREStartIndx;
+    public int HARDWAREEndIndx;
 
     public List<string> TT;
     public int TTStartIndx;
     public int TTEndIndx;
 
-    public List<string> HARDWARE;
-    public int HARDWAREStartIndx;
-    public int HARDWAREEndIndx;
+    public List<string> PS;
+    public int PSStartIndx;
+    public int PSEndIndx;
+
+    
 
     public List<string> FO;
     public int FOStartIndx;
@@ -55,34 +58,34 @@ public class SaveDataFromXML : MonoBehaviour
     public void ResetSaveData()
     {
         INTRO.Clear();
-        IntroStartIndx = 0;
+       
         IntroEndIndx = 0;
         PS.Clear();
-        PSStartIndx = 0;
+        PSStartIndx = 1;
         PSEndIndx = 0;
 
         EC.Clear();
-        ECStartIndx = 0;
+        ECStartIndx = 1;
         ECEndIndx = 0;
 
-        V = string.Empty;
+        
         TT.Clear();
-        TTStartIndx = 0;
+        TTStartIndx = 1;
         TTEndIndx = 0;
        
 
         HARDWARE.Clear();
         HARDWAREEndIndx = 0;
-        HARDWAREStartIndx = 0;
+        HARDWAREStartIndx = 1;
 
         FO.Clear();
-        FOStartIndx = 0;
+        FOStartIndx = 1;
         FOEndIndx = 0;
 
-        BIStartIndx = 0;
+        BIStartIndx = 1;
         BIEndIndx = 0;
         BI.Clear();
-        CtaStartIndx = 0;
+        CtaStartIndx = 1;
         CtaEndIndx = 0;
     }
 }

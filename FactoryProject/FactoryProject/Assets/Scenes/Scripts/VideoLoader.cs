@@ -11,6 +11,7 @@ public class VideoLoader : MonoBehaviour
     private Renderer videoRenderer;
     public Material videoMaterial;
     public static VideoLoader instance;
+    public bool VideoIsRunning;
     public void Awake()
     {
       
@@ -18,6 +19,12 @@ public class VideoLoader : MonoBehaviour
     public void Start()
     {
         instance = this;
+       
+
+    }
+    public void VideoPlay()
+    {
+        VideoIsRunning = true;
     }
   public  IEnumerator VideoPlay(string url)
     {

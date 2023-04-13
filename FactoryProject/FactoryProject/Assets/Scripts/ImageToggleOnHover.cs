@@ -22,16 +22,17 @@ public class ImageToggleOnHover : MonoBehaviour
     {
         if (Tour_Running == false)
         {
+            SaveDataFromXML.ins.ResetSaveData();
             Tour_Running = true;
             UseCase = transform.GetChild(0).gameObject.name;
             HotSpotName = transform.GetChild(0).transform.GetChild(0).gameObject.name;
             StartCoroutine(Guided_Tour.instance.Loadaudio());
             StartCoroutine(Load_Tour_text.ins.GetAllTexts());
             Guided_Tour.instance.UnClickMenu.SetActive(true);
-            ClosedAllWindow();
-            SaveDataFromXML.ins.ResetSaveData();
+            ClosedAllWindow(); 
             CameraZoomTowardPoint.instance.ZoomInToSection(int.Parse(HotSpotName));
-           Invoke("playguid", 2f);
+           Invoke("playguid", 3f);
+            Guided_Tour.instance.TourStart = true;
 
         }
 
@@ -51,6 +52,7 @@ public class ImageToggleOnHover : MonoBehaviour
     }
     public void ClosedAllWindow()
     {
+      
         BackCardData.instance.DellWindow.SetActive(false);
         BackCardData.instance.PartnerWindow.SetActive(false);
         ImageLoader.instance.BackFlipCard.SetActive(false);
@@ -68,7 +70,11 @@ public class ImageToggleOnHover : MonoBehaviour
     {
         if(!isBtnClick)
         {
-            image1.gameObject.SetActive(true);
+            if (Guided_Tour.instance.TourStart == false)
+            {
+                image1.gameObject.SetActive(true);
+            }
+            
         } 
     }
     void OnMouseExit()

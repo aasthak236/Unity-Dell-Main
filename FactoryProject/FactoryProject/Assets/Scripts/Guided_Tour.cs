@@ -11,7 +11,7 @@ public class Guided_Tour : MonoBehaviour
     public TMP_Text HexagonCardtext;
     public SaveDataFromXML saveDataFile;
     public AudioClip[] audioClips;
-    public AudioClip[] HotSpotAudio;
+   // public AudioClip[] HotSpotAudio;
     public AudioClip[] HotSpotAudioIntro;
     public AudioClip[] OutcomeAudioIntro;
     public float TotalPlayTime = 4f;
@@ -26,7 +26,8 @@ public class Guided_Tour : MonoBehaviour
     public TMP_Text Partner1;
     public TMP_Text Partner2;
     public TMP_Text Partner3;
-    public GameObject Blur_Bg;
+    public GameObject FadeIn;
+    public GameObject FadeOut;
     // public GameObject outcomebtn;
     //public GameObject BB;
     //public GameObject DVSBtn;
@@ -43,7 +44,7 @@ public class Guided_Tour : MonoBehaviour
     private void Awake()
     {
         
-        Assets_Folder = "https://dell-unity-dev.s3.amazonaws.com/Factory+Assets/";
+        Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/Factory+Assets/";
         instance = this;
        screenWidth = Screen.width;
         screenHeight = Screen.height;
@@ -69,7 +70,7 @@ public class Guided_Tour : MonoBehaviour
         //    AudioListener.volume = 0f;
         //   VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, true);
         //}
-        StartCoroutine(LoadaudioHotspots());
+        //StartCoroutine(LoadaudioHotspots());
         StartCoroutine(OutcomeAudioLoader());
         StartCoroutine(LoadaudioHotspotIntros());
         audioSource = GetComponent<AudioSource>();
@@ -87,7 +88,10 @@ public class Guided_Tour : MonoBehaviour
         PlayerPrefs.SetInt("MusicOn", 1);
         AudioListener.volume = 1f;
 
-        VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, false);
+        //if (VideoLoader.instance.VideoIsRunning)
+        //{
+        //    VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, false);
+        //}
     }
     public void soundoff()
     {
@@ -95,7 +99,11 @@ public class Guided_Tour : MonoBehaviour
         Unmute.SetActive(true);
         PlayerPrefs.SetInt("MusicOn", 0);
         AudioListener.volume = 0f;
-        VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, true);
+        //if (VideoLoader.instance.VideoIsRunning)
+        //{
+        //    VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, true);
+        //}
+       
 
     }
     public void Update()
@@ -139,36 +147,36 @@ public class Guided_Tour : MonoBehaviour
             }
         }
     }
-    public IEnumerator LoadaudioHotspots()
-    {
+    //public IEnumerator LoadaudioHotspots()
+    //{
 
-        for (int i = 1; i <= 14; i++)
-        {
-            //am get from hotspot 
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/uc" + i + "/1.mp3", AudioType.MPEG))
-            {
-                yield return www.SendWebRequest();
+    //    for (int i = 1; i <= 14; i++)
+    //    {
+    //        //am get from hotspot 
+    //        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/uc" + i + "/1.mp3", AudioType.MPEG))
+    //        {
+    //            yield return www.SendWebRequest();
 
-                if (www.result == UnityWebRequest.Result.Success)
-                {
-                    HotSpotAudio[i - 1] = DownloadHandlerAudioClip.GetContent(www);
-                    // audioSources.Play();
-                }
-                else
-                {
-                    // Debug.LogError("Failed to download audio: " + www.error);
-                }
-            }
-        }
+    //            if (www.result == UnityWebRequest.Result.Success)
+    //            {
+    //                HotSpotAudio[i - 1] = DownloadHandlerAudioClip.GetContent(www);
+    //                // audioSources.Play();
+    //            }
+    //            else
+    //            {
+    //                // Debug.LogError("Failed to download audio: " + www.error);
+    //            }
+    //        }
+    //    }
 
-    }
+    //}
     public IEnumerator LoadaudioHotspotIntros()
     {
 
         for (int i = 1; i <= 14; i++)
         {
             //am get from hotspot 
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/intros/" + i + ".mp3", AudioType.MPEG))
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/uc" + i + "/2.mp3", AudioType.MPEG))
             {
                 yield return www.SendWebRequest();
 
@@ -257,8 +265,10 @@ public class Guided_Tour : MonoBehaviour
         if (TourStart)
         {
             StopCoroutine(myCoroutine);
+            TourStart = false;
         }
-        Blur_Bg.SetActive(false);
+            FadeIn.SetActive(false);
+            FadeOut.SetActive(false);
             UnClickMenu.SetActive(false);
             card.SetActive(false);
             ImageToggleOnHover.Tour_Running = false;
@@ -278,21 +288,21 @@ public class Guided_Tour : MonoBehaviour
     public IEnumerator PlayAudioClips()
     {
 
-        Blur_Bg.SetActive(true);
+        FadeIn.SetActive(true);
         bInterrupted = false;
-        audioSource.Stop();
-        audioSource.time = 0;
         float StandardDelay = 0.25f;
         //StartCoroutine(LoadImgWithUrl(Assets_Folder + "image/xmpro-logo.png"));
         // Turn on Introduction audio
         //Intro audio Play
         //string usecasenum = ImageToggleOnHover.UseCase;
-        //string EndNumber= usecasenum.Substring(2,usecasenum.Length - 2);
+        //string EndNumber = usecasenum.Substring(2, usecasenum.Length - 2);
+        //audioSource.clip = HotSpotAudio[int.Parse(EndNumber)-1];
+        //audiolength = HotSpotAudio[int.Parse(EndNumber)-1].length;
         audioSource.clip = audioClips[0];
         audiolength = audioClips[0].length;
         audioSource.Play();
         yield return new WaitForSeconds(audiolength + 0.5f);
-        for (int i = saveDataFile.IntroStartIndx; i <= saveDataFile.IntroEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.IntroEndIndx; i++)
         {
             ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.VPInnerColor;
             ImageLoader.instance.HexagonMiddleColor.color = ImageLoader.instance.VPMiddleColor;
@@ -330,7 +340,7 @@ public class Guided_Tour : MonoBehaviour
         //yield return new WaitForSeconds(audiolength + StandardDelay);
         // StartCoroutine(LoadImgWithUrl(Assets_Folder + "image/xmpro-dashboard.png"));
         //Show Edge Chanllenges Text with audio
-        for (int i = saveDataFile.ECStartIndx; i <= saveDataFile.ECEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.ECEndIndx; i++)
         {
 
             ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.ECInnerColor;
@@ -356,7 +366,7 @@ public class Guided_Tour : MonoBehaviour
         card.SetActive(false);
         yield return new WaitForSeconds(1f);
         ////Show Dell Edge Solution Audio And Text
-        for (int i = saveDataFile.HARDWAREStartIndx; i <= saveDataFile.HARDWAREEndIndx; i++)
+        for (int i =1; i <= saveDataFile.HARDWAREEndIndx; i++)
         {
             
             card.SetActive(true);
@@ -392,7 +402,7 @@ public class Guided_Tour : MonoBehaviour
         // card.SetActive(false);
         // yield return new WaitForSeconds(1f);
         //Show Trasformation Themes Audio And Text
-        for (int i = saveDataFile.TTStartIndx; i <= saveDataFile.TTEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.TTEndIndx; i++)
         {
 
             ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.VPInnerColor;
@@ -437,7 +447,7 @@ public class Guided_Tour : MonoBehaviour
         //}
         //hexaTxt.SetActive(true);
         //Hexagon.SetActive(true);
-        for (int i = saveDataFile.PSStartIndx; i <= saveDataFile.PSEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.PSEndIndx; i++)
         {
            
 
@@ -476,7 +486,7 @@ public class Guided_Tour : MonoBehaviour
 
         //yield return new WaitForSeconds(audiolength + StandardDelay);
         //Show Factory Outcomes Audio And Text
-        for (int i = saveDataFile.FOStartIndx; i <= saveDataFile.FOEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.FOEndIndx; i++)
         {
             ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.BOInnerColor;
             ImageLoader.instance.HexagonMiddleColor.color = ImageLoader.instance.BOMiddleColor;
@@ -509,7 +519,7 @@ public class Guided_Tour : MonoBehaviour
         //yield return new WaitForSeconds(audiolength + StandardDelay);
 
         //Show Business Impact Audio And Text
-        for (int i = saveDataFile.BIStartIndx; i <= saveDataFile.BIEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.BIEndIndx; i++)
         {
 
             ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.BOInnerColor;
@@ -556,12 +566,17 @@ public class Guided_Tour : MonoBehaviour
         }
         //audioSource.clip = audioClips[34];
         //audiolength = audioClips[34].length;
+        FadeIn.SetActive(false);
+        FadeOut.SetActive(true);
         EndVO.Play();
         yield return new WaitForSeconds(1f);
         ImageToggleOnHover.Tour_Running = false;
-        Blur_Bg.SetActive(false);
+        FadeIn.SetActive(false);
+     
+        FadeOut.SetActive(false);
+        TourStart = false;
+        yield return new WaitForSeconds(1f);
         UnClickMenu.SetActive(false);
-
     }
 
     public void Partner1Function()
@@ -576,10 +591,10 @@ public class Guided_Tour : MonoBehaviour
     {
         Application.OpenURL(Load_Tour_text.ins.PartnersLink[int.Parse(SaveDataFromXML.ins.PS[2]) - 1]);
     }
-    public void CloseCTAWindow()
-    {
-        UnClickMenu.SetActive(false);
-    }
+    //public void CloseCTAWindow()
+    //{
+    //    UnClickMenu.SetActive(false);
+    //}
     public void TourBtnAnimation()
     {
         //   LeanTween.scale(outcomebtn, new Vector3(2f, 2f, 2f), 0.5f).setEase(LeanTweenType.easeInOutSine);

@@ -41,33 +41,33 @@ public class Load_Tour_text : MonoBehaviour
         //Get & Add  Intro Text from file
 
         // StartCoroutine(Tour_Text("INTRO"));
-        StartCoroutine(Tour_Text("IntroStartIndx"));
+        
         StartCoroutine(Tour_Text("IntroEndIndx"));
         //Get & Add  PS Text from file
-        StartCoroutine(Tour_Text("PSStartIndx"));
+       
         StartCoroutine(Tour_Text("PSEndIndx"));
 
         //Get & Add  EC Text from file
-        StartCoroutine(Tour_Text("ECStartIndx"));
+       
         StartCoroutine(Tour_Text("ECEndIndx"));
 
         //Get & Add  TT Text from file
-        StartCoroutine(Tour_Text("TTStartIndx"));
+     
         StartCoroutine(Tour_Text("TTEndIndx"));
 
 
         //Get & Add  Hardware Text from file
-        StartCoroutine(Tour_Text("HARDWAREStartIndx"));
+       
         StartCoroutine(Tour_Text("HARDWAREEndIndx"));
 
 
         //Get & Add  Factory outcome Text from file
-        StartCoroutine(Tour_Text("FOStartIndx"));
+       
         StartCoroutine(Tour_Text("FOEndIndx"));
 
 
         //Get & Add  Business Impact from file
-        StartCoroutine(Tour_Text("BIStartIndx"));
+      
         StartCoroutine(Tour_Text("BIEndIndx"));
 
         //Get & Add  Vision Text from file
@@ -75,24 +75,24 @@ public class Load_Tour_text : MonoBehaviour
 
 
         //Get & Add  DES Text from file
-        StartCoroutine(Tour_Text("DESStartIndx"));
+       
         StartCoroutine(Tour_Text("DESEndIndx"));
 
-        StartCoroutine(Tour_Text("CTAStartIndx"));
-        StartCoroutine(Tour_Text("CTAEndIndx"));
+       
+      
 
-        StartCoroutine(Tour_Text("CTA1"));
+      
 
         yield return new WaitForSeconds(3f);
 
-        for (int i = saveDataFile.IntroStartIndx; i <= saveDataFile.IntroEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.IntroEndIndx; i++)
         {
             StartCoroutine(Tour_Text("Intro" + i));
             yield return new WaitForSeconds(1f);
             // StartCoroutine(Tour_Text("PSDashboard" + i));
         }
 
-        for (int i = saveDataFile.PSStartIndx; i <= saveDataFile.PSEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.PSEndIndx; i++)
         {
             StartCoroutine(Tour_Text("PS" + i));
             yield return new WaitForSeconds(1f);
@@ -100,24 +100,24 @@ public class Load_Tour_text : MonoBehaviour
         }
 
 
-        for (int i = saveDataFile.ECStartIndx; i <= saveDataFile.ECEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.ECEndIndx; i++)
         {
             StartCoroutine(Tour_Text("EC" + i));
             yield return new WaitForSeconds(1f);
         }
 
-        for (int i = saveDataFile.TTStartIndx; i <= saveDataFile.TTEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.TTEndIndx; i++)
         {
             StartCoroutine(Tour_Text("TT" + i));
             yield return new WaitForSeconds(1f);
         }
 
-        for (int i = saveDataFile.FOStartIndx; i <= saveDataFile.FOEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.FOEndIndx; i++)
         {
             StartCoroutine(Tour_Text("FO" + i));
             yield return new WaitForSeconds(1f);
         }
-        for (int i = saveDataFile.BIStartIndx; i <= saveDataFile.BIEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.BIEndIndx; i++)
         {
             StartCoroutine(Tour_Text("BI" + i));
             yield return new WaitForSeconds(1f);
@@ -128,19 +128,14 @@ public class Load_Tour_text : MonoBehaviour
         //    StartCoroutine(Tour_Text("DES" + i));
         //}
 
-        for (int i = saveDataFile.HARDWAREStartIndx; i <= saveDataFile.HARDWAREEndIndx; i++)
+        for (int i =1; i <= saveDataFile.HARDWAREEndIndx; i++)
         {
             StartCoroutine(Tour_Text("HARDWARE" + i));
             yield return new WaitForSeconds(1f);
 
         }
 
-        for (int i = saveDataFile.CtaStartIndx; i <= saveDataFile.CtaEndIndx; i++)
-        {
-            StartCoroutine(Tour_Text("CTA" + i));
-            yield return new WaitForSeconds(1f);
-
-        }
+       
         StartCoroutine(Tour_Text("CTA1"));
         StartCoroutine(Tour_Text("CTA2"));
         StartCoroutine(Tour_Text("CTA3"));
@@ -190,73 +185,45 @@ public class Load_Tour_text : MonoBehaviour
         switch (componentName)
         {
 
-            case "IntroStartIndx":
-                //Indx = saveDataFile.IntroStartIndx;
-                saveDataFile.IntroStartIndx = int.Parse(nodeText);
-                break;
+           
             case "IntroEndIndx":
                 //Indx = saveDataFile.IntroEndIndx;
                 saveDataFile.IntroEndIndx = int.Parse(nodeText);
 
                 break;
 
-            case "PSStartIndx":
-                //Indx = saveDataFile.PSStartIndx;
-                saveDataFile.PSStartIndx = int.Parse(nodeText);
+            case "ECEndIndx":
+                saveDataFile.ECEndIndx = int.Parse(nodeText);
                 break;
+
+
+            case "HARDWAREEndIndx":
+                saveDataFile.HARDWAREEndIndx = int.Parse(nodeText);
+                break;
+
+            case "TTEndIndx":
+                saveDataFile.TTEndIndx = int.Parse(nodeText);
+                break;
+
+          
+          
+
             case "PSEndIndx":
 
                 saveDataFile.PSEndIndx = int.Parse(nodeText);
 
                 break;
 
-            case "ECStartIndx":
-                //Indx = saveDataFile.PSStartIndx;
-                saveDataFile.ECStartIndx = int.Parse(nodeText);
-                break;
-            case "ECEndIndx":
-                saveDataFile.ECEndIndx = int.Parse(nodeText);
-                break;
-
-            case "TTStartIndx":
-
-                // Indx = saveDataFile.PSStartIndx;
-                saveDataFile.TTStartIndx = int.Parse(nodeText);
-                break;
-            case "TTEndIndx":
-                saveDataFile.TTEndIndx = int.Parse(nodeText);
-                break;
-
-            case "HARDWAREStartIndx":
-                // Indx = saveDataFile.PSStartIndx;
-                saveDataFile.HARDWAREStartIndx = int.Parse(nodeText);
-                break;
-            case "HARDWAREEndIndx":
-                saveDataFile.HARDWAREEndIndx = int.Parse(nodeText);
-                break;
-
-            case "FOStartIndx":
-                // Indx = saveDataFile.PSStartIndx;
-                saveDataFile.FOStartIndx = int.Parse(nodeText);
-                break;
             case "FOEndIndx":
                 saveDataFile.FOEndIndx = int.Parse(nodeText);
                 break;
 
-            case "BIStartIndx":
-                // Indx = saveDataFile.PSStartIndx;
-                saveDataFile.BIStartIndx = int.Parse(nodeText);
-                break;
+           
             case "BIEndIndx":
                 saveDataFile.BIEndIndx = int.Parse(nodeText);
                 break;
-            case "CTAStartIndx":
-                saveDataFile.CtaStartIndx = int.Parse(nodeText);
-                break;
-
-            case "CTAEndIndx":
-                saveDataFile.CtaEndIndx = int.Parse(nodeText);
-                break;
+  
+            
             case "CTA1":
                 saveDataFile.CTA1 = nodeText;
                 break;
@@ -282,12 +249,7 @@ public class Load_Tour_text : MonoBehaviour
                 //  Indx++;
                 break;
 
-            case "PS":
-
-                saveDataFile.PS.Add(nodeText);
-
-                //  Indx++;
-                break;
+         
 
 
             case "EC":
@@ -305,7 +267,11 @@ public class Load_Tour_text : MonoBehaviour
             //    saveDataFile.V = nodeText;
             //    break;
 
+            case "HARDWARE":
+                saveDataFile.HARDWARE.Add(nodeText);
 
+                //nodeText
+                break;
 
             case "TT":
                 saveDataFile.TT.Add(nodeText);
@@ -313,22 +279,13 @@ public class Load_Tour_text : MonoBehaviour
                 //Indx++;
                 break;
 
+            case "PS":
 
+                saveDataFile.PS.Add(nodeText);
 
-         
-
-
-
-
-
-            case "HARDWARE":
-                saveDataFile.HARDWARE.Add(nodeText);
-
-                //nodeText
+                //  Indx++;
                 break;
-
-
-
+           
 
             case "FO":
                 saveDataFile.FO.Add(nodeText);
@@ -375,7 +332,7 @@ public class Load_Tour_text : MonoBehaviour
     public IEnumerator LoadPartnerImages()
     {
        
-            UnityWebRequest www = UnityWebRequest.Get("https://dell-unity-dev.s3.amazonaws.com/Factory+Assets/cards/partners.xml");
+            UnityWebRequest www = UnityWebRequest.Get("https://dell-unity-dev.s3-accelerate.amazonaws.com/Factory+Assets/cards/partners.xml");
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
