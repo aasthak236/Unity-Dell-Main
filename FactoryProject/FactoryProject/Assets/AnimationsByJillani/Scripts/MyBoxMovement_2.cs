@@ -25,7 +25,7 @@ public class MyBoxMovement_2 : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        Vector3 pos = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+        Vector3 pos = new Vector3(transform.position.x -1 , transform.position.y, transform.position.z);
         LeanTween.move(gameObject, pos, 1f);
 
         yield return new WaitForSeconds(0.5f);

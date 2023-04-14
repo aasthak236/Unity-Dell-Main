@@ -29,9 +29,9 @@ public class ImageToggleOnHover : MonoBehaviour
             StartCoroutine(Guided_Tour.instance.Loadaudio());
             StartCoroutine(Load_Tour_text.ins.GetAllTexts());
             Guided_Tour.instance.UnClickMenu.SetActive(true);
-            ClosedAllWindow(); 
+            ClosedAllWindow();
             CameraZoomTowardPoint.instance.ZoomInToSection(int.Parse(HotSpotName));
-           Invoke("playguid", 3f);
+            Invoke("playguid", 3f);
             Guided_Tour.instance.TourStart = true;
 
         }
@@ -52,7 +52,6 @@ public class ImageToggleOnHover : MonoBehaviour
     }
     public void ClosedAllWindow()
     {
-      
         BackCardData.instance.DellWindow.SetActive(false);
         BackCardData.instance.PartnerWindow.SetActive(false);
         ImageLoader.instance.BackFlipCard.SetActive(false);
