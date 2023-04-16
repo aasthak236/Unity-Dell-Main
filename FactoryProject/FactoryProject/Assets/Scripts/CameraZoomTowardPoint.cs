@@ -12,6 +12,7 @@ public class CameraZoomTowardPoint : MonoBehaviour
     [Header("Section Point Transforms")]
     public Transform[] sectionPointTransform;
     public Transform backcamera;
+    public Transform CameraAnim;
     public static bool CameraZoom;
     public GameObject FactoryMdel;
     public static CameraZoomTowardPoint instance;
@@ -77,6 +78,28 @@ public class CameraZoomTowardPoint : MonoBehaviour
             }
         }
     }
+    public void CameraAnimFunction()
+    {
+      //  myCamera.orthographic = false;
+
+
+        //Move Camera Toward Point
+        LeanTween.move(myCamera.gameObject, new Vector3(
+           backcamera.transform.localPosition.x,
+            backcamera.transform.localPosition.y,
+            backcamera.transform.localPosition.z), 3f).setEaseOutQuint().setOnComplete
+
+            (onComplete =>
+            {
+                isCameraMoving = false;
+            });
+
+        //Rotate Camera According to Ref Point Rotation
+        LeanTween.rotate(myCamera.gameObject, new Vector3(
+           backcamera.transform.eulerAngles.x,
+           backcamera.transform.eulerAngles.y,
+           backcamera.transform.eulerAngles.z), 3f).setEaseOutQuint();
+    }
     public void ZoomBack()
     {
         BackCardData.instance.HotSpotsRuninng = false;
@@ -99,9 +122,9 @@ public class CameraZoomTowardPoint : MonoBehaviour
 
                     //Move Camera Toward Point
                     LeanTween.move(myCamera.gameObject, new Vector3(
-                       backcamera.transform.localPosition.x,
-                        backcamera.transform.localPosition.y,
-                        backcamera.transform.localPosition.z), 3f).setEaseOutQuint().setOnComplete
+                       CameraAnim.transform.localPosition.x,
+                        CameraAnim.transform.localPosition.y,
+                        CameraAnim.transform.localPosition.z), 3f).setEaseOutQuint().setOnComplete
 
                         (onComplete =>
                         {
@@ -110,10 +133,10 @@ public class CameraZoomTowardPoint : MonoBehaviour
 
                     //Rotate Camera According to Ref Point Rotation
                     LeanTween.rotate(myCamera.gameObject, new Vector3(
-                       backcamera.transform.eulerAngles.x,
-                       backcamera.transform.eulerAngles.y,
-                       backcamera.transform.eulerAngles.z), 3f).setEaseOutQuint();
-
+                       CameraAnim.transform.eulerAngles.x,
+                       CameraAnim.transform.eulerAngles.y,
+                       CameraAnim.transform.eulerAngles.z), 3f).setEaseOutQuint();
+                      Invoke("CameraAnimFunction",3f);
                 }
            
        

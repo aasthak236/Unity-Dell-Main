@@ -456,10 +456,8 @@ public class Guided_Tour : MonoBehaviour
             audiolength = audioClips[i + 18].length;
             audioSource.Play();
             yield return new WaitForSeconds(audiolength + StandardDelay);
-            card.SetActive(false);
-
         }
-
+        card.SetActive(false);
         // card.SetActive(false);
 
         ////Show Hardware Audio And IMage

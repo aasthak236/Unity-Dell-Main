@@ -6,8 +6,10 @@ using UnityEngine.Networking;
 using UnityEngine.Playables;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using TMPro;
 public class Guided_Tour : MonoBehaviour
 {
+    public TextMeshProUGUI[] TourText;
     public AudioClip[] audioClips;
     public float TotalPlayTime = 4f;
     public GameObject card;
@@ -173,6 +175,7 @@ public class Guided_Tour : MonoBehaviour
     IEnumerator myCoroutine;
     public  IEnumerator PlayAudioClips()
     {
+        ResetTourText();
        // bInterrupted = false;
         if (bInterrupted)
         {
@@ -181,13 +184,14 @@ public class Guided_Tour : MonoBehaviour
         audioSource.clip = audioClips[0];
         audioSource.Play();
         card.SetActive(true);
-        Load_Tour_text.ins.Front.text = Load_Tour_text.ins.Intro.ToString();
+       TourText[0].text = Load_Tour_text.ins.Intro.ToString();
         yield return new WaitForSeconds(5.5f);
         card.SetActive(false);
         audioSource.clip = audioClips[1];
         audioSource.Play();
         card.SetActive(true);
-        Load_Tour_text.ins.Front.text = Load_Tour_text.ins.OutcomeIntro.ToString();
+        ResetTourText();
+        TourText[0].text = Load_Tour_text.ins.OutcomeIntro.ToString();
         OutBtmAnim.SetActive(true);
        // TourBtnAnimation();
         card.SetActive(true);
@@ -202,7 +206,7 @@ public class Guided_Tour : MonoBehaviour
             }
             card.SetActive(true);
             //StartCoroutine(LoadTourtext.ins.Tour_Text("Outcome"+(i-1)));
-            Load_Tour_text.ins.Front.text = Load_Tour_text.ins.OutcomeCardFace[i - 2].ToString();
+            TourText[i-1].text = Load_Tour_text.ins.OutcomeCardFace[i - 2].ToString();
                //LoadTourtext.ins.Front.text = LoadTourtext.ins.CardFace[1][i-2].ToString();
                audioSource.clip = audioClips[i];
             audioSource.Play();
@@ -211,16 +215,18 @@ public class Guided_Tour : MonoBehaviour
             yield return new WaitForSeconds(4f);
             OutBtmAnim.SetActive(false);
             // StartCoroutine(Load_Tour_text.ins.Tour_Text("BlankText"));
-            card.SetActive(false);
+            
             yield return new WaitForSeconds(1f);
         }
-       // StartCoroutine(Load_Tour_text.ins.Tour_Text("BlankText"));
+        card.SetActive(false);
+        // StartCoroutine(Load_Tour_text.ins.Tour_Text("BlankText"));
+        ResetTourText();
         card.SetActive(false);
         audioSource.clip = audioClips[7];
         BBBtnAnim.SetActive(true);
         audioSource.Play();
         card.SetActive(true);
-        Load_Tour_text.ins.Front.text = Load_Tour_text.ins.BBIntro.ToString();
+        TourText[0].text = Load_Tour_text.ins.BBIntro.ToString();
         BBBtnAnim.SetActive(true);
        // TourBtnAnimationBB();
         yield return new WaitForSeconds(4f);
@@ -237,20 +243,24 @@ public class Guided_Tour : MonoBehaviour
             audioSource.clip = audioClips[i];
             audioSource.Play();
             // StartCoroutine(LoadTourtext.ins.Tour_Text("BB" + (i - 7)));
-            Load_Tour_text.ins.Front.text = Load_Tour_text.ins.BBCardFace[i - 8].ToString();
+            TourText[i-7].text = Load_Tour_text.ins.BBCardFace[i - 8].ToString();
             card.SetActive(true);
             yield return new WaitForSeconds(3f);
            // StartCoroutine(Load_Tour_text.ins.Tour_Text("BlankText"));
-            card.SetActive(false);
+            
             yield return new WaitForSeconds(1f);
             BBBtnAnim.SetActive(false);
         }
+
+
+        ResetTourText();
+        card.SetActive(false);
         audioSource.clip = audioClips[13];
         DellBtnAnim.SetActive(true);
        // StartCoroutine(Load_Tour_text.ins.Tour_Text("BlankText"));
         audioSource.Play();
         card.SetActive(true);
-        Load_Tour_text.ins.Front.text = Load_Tour_text.ins.DVSIntro.ToString();
+        TourText[0].text = Load_Tour_text.ins.DVSIntro.ToString();
         if (bInterrupted)
         {
             yield return null;
@@ -263,19 +273,21 @@ public class Guided_Tour : MonoBehaviour
                 yield return null;
             }
             //StartCoroutine(LoadTourtext.ins.Tour_Text("DVS" + (i)));
-            Load_Tour_text.ins.Front.text = Load_Tour_text.ins.DVSCardFace[i - 1].ToString();
+            TourText[i].text = Load_Tour_text.ins.DVSCardFace[i - 1].ToString();
 
             card.SetActive(true);
             yield return new WaitForSeconds(1.5f);
           
             // StartCoroutine(Load_Tour_text.ins.Tour_Text("BlankText"));
-            card.SetActive(false);
+            
             yield return new WaitForSeconds(1.5f);
             DellBtnAnim.SetActive(false);
         }
+        ResetTourText();
+        card.SetActive(false);
         audioSource.clip = audioClips[14];
         card.SetActive(true);
-        Load_Tour_text.ins.Front.text = Load_Tour_text.ins.Ending.ToString();
+        TourText[0].text = Load_Tour_text.ins.Ending.ToString();
         audioSource.Play();
         yield return new WaitForSeconds(8f);
         Videoplayer.SetActive(true);
@@ -287,8 +299,15 @@ public class Guided_Tour : MonoBehaviour
         }
 
     }
- 
-   
+
+    public void ResetTourText()
+    { 
+    for(int i=0;i<=5;i++)
+        {
+            TourText[i].text = null;
+
+        }
+    }
  
     //public void TourBtnAnimation()
     //{
