@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,10 +17,11 @@ public class ImageToggleOnHover : MonoBehaviour
         instance = this;
 
     }
-    
+ 
     public static string HotSpotName;
     void OnMouseDown()
     {
+        int loopcounter;
         if (Tour_Running == false)
         {
             SaveDataFromXML.ins.ResetSaveData();
@@ -27,11 +29,19 @@ public class ImageToggleOnHover : MonoBehaviour
             UseCase = transform.GetChild(0).gameObject.name;
             HotSpotName = transform.GetChild(0).transform.GetChild(0).gameObject.name;
             StartCoroutine(Guided_Tour.instance.Loadaudio());
-            StartCoroutine(Load_Tour_text.ins.GetAllTexts());
+            //StartCoroutine(Load_Tour_text.ins.GetAllTexts());
+            Load_Tour_text.ins.GetAllTexts();
             Guided_Tour.instance.UnClickMenu.SetActive(true);
             ClosedAllWindow();
             CameraZoomTowardPoint.instance.ZoomInToSection(int.Parse(HotSpotName));
-            Invoke("playguid", 3f);
+            loopcounter = 0;
+            while (Guided_Tour.instance.AudioClipsLoaded < 3 && loopcounter<10)
+            {
+                Thread.Sleep(250);
+                loopcounter++;
+            }
+           Guided_Tour.instance.PlayGuidedTour(UseCase);
+           // Invoke("playguid", 2f);
             Guided_Tour.instance.TourStart = true;
 
         }
@@ -50,11 +60,14 @@ public class ImageToggleOnHover : MonoBehaviour
         //image1.gameObject.SetActive(false);
         //   Debug.Log("image name"+image.name);
     }
+  
     public void ClosedAllWindow()
     {
+        Time.timeScale = 1;
         BackCardData.instance.DellWindow.SetActive(false);
         BackCardData.instance.PartnerWindow.SetActive(false);
         ImageLoader.instance.BackFlipCard.SetActive(false);
+   
         for (int i = 0; i <= 6; i++)
         {
             ImageLoader.instance.Cards[i].SetActive(false);

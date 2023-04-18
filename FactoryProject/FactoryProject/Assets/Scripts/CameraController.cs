@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform cameraTransform;
-    public float movementSpeed = 1f;
+    public float movementSpeed = 2f;
     public float zoomSpeed = 0.5f;
     public float verticalInput;
    

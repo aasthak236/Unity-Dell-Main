@@ -60,6 +60,14 @@ public class BackCardData : MonoBehaviour
             HotSpot[i].transform.GetChild(0).transform.localScale = new Vector3(1, 1, 1);
         }
     }
+
+    public void HotSpotSizeDecreaseTouranim()
+    {
+        for (int i = 0; i <= 13; i++)
+        {
+            HotSpot[i].transform.GetChild(0).transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -304,7 +312,7 @@ public class BackCardData : MonoBehaviour
             {
                 HotSpot[i].SetActive(true);
             }
-
+           // BusinessOutcomeWindow.SetActive(false);
 
         }
 

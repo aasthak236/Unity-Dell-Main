@@ -36,285 +36,487 @@ public class Load_Tour_text : MonoBehaviour
 
     }
 
-    public IEnumerator GetAllTexts()
+    //public IEnumerator GetAllTexts()
+    //public IEnumerator GetAllTexts()
+    //{
+    //    //Get & Add  Intro Text from file
+
+    //    // StartCoroutine(Tour_Text("INTRO"));
+
+    //    StartCoroutine(Tour_Text("IntroEndIndx"));
+    //    //Get & Add  PS Text from file
+    //    StartCoroutine(Tour_Text("Intro0"));
+    //    StartCoroutine(Tour_Text("PSEndIndx"));
+
+    //    //Get & Add  EC Text from file
+
+    //    StartCoroutine(Tour_Text("ECEndIndx"));
+
+    //    //Get & Add  TT Text from file
+
+    //    StartCoroutine(Tour_Text("TTEndIndx"));
+
+
+    //    //Get & Add  Hardware Text from file
+
+    //    StartCoroutine(Tour_Text("HARDWAREEndIndx"));
+
+
+    //    //Get & Add  Factory outcome Text from file
+
+    //    StartCoroutine(Tour_Text("FOEndIndx"));
+
+
+    //    //Get & Add  Business Impact from file
+
+    //    StartCoroutine(Tour_Text("BIEndIndx"));
+
+    //    //Get & Add  Vision Text from file
+    //    // StartCoroutine(Tour_Text("V"));
+
+
+    //    //Get & Add  DES Text from file
+
+    //    StartCoroutine(Tour_Text("DESEndIndx"));
+
+
+
+
+
+
+    //    yield return new WaitForSeconds(3f);
+
+    //    for (int i = 1; i <= saveDataFile.IntroEndIndx; i++)
+    //    {
+    //        StartCoroutine(Tour_Text("Intro" + i));
+    //        yield return new WaitForSeconds(1f);
+    //        // StartCoroutine(Tour_Text("PSDashboard" + i));
+    //    }
+
+    //    for (int i = 1; i <= saveDataFile.PSEndIndx; i++)
+    //    {
+    //        StartCoroutine(Tour_Text("PS" + i));
+    //        yield return new WaitForSeconds(1f);
+    //        // StartCoroutine(Tour_Text("PSDashboard" + i));
+    //    }
+
+
+    //    for (int i = 1; i <= saveDataFile.ECEndIndx; i++)
+    //    {
+    //        StartCoroutine(Tour_Text("EC" + i));
+    //        yield return new WaitForSeconds(1f);
+    //    }
+
+    //    for (int i = 1; i <= saveDataFile.TTEndIndx; i++)
+    //    {
+    //        StartCoroutine(Tour_Text("TT" + i));
+    //        yield return new WaitForSeconds(1f);
+    //    }
+
+    //    for (int i = 1; i <= saveDataFile.FOEndIndx; i++)
+    //    {
+    //        StartCoroutine(Tour_Text("FO" + i));
+    //        yield return new WaitForSeconds(1f);
+    //    }
+    //    for (int i = 1; i <= saveDataFile.BIEndIndx; i++)
+    //    {
+    //        StartCoroutine(Tour_Text("BI" + i));
+    //        yield return new WaitForSeconds(1f);
+    //    }
+
+    //    //for (int i = saveDataFile.DesStartIndx; i <= saveDataFile.DesEndIndx; i++)
+    //    //{
+    //    //    StartCoroutine(Tour_Text("DES" + i));
+    //    //}
+
+    //    for (int i = 1; i <= saveDataFile.HARDWAREEndIndx; i++)
+    //    {
+    //        StartCoroutine(Tour_Text("HARDWARE" + i));
+    //        yield return new WaitForSeconds(1f);
+
+    //    }
+
+
+    //    StartCoroutine(Tour_Text("CTA1"));
+    //    StartCoroutine(Tour_Text("CTA2"));
+    //    StartCoroutine(Tour_Text("CTA3"));
+    //    StartCoroutine(Tour_Text("CTA4"));
+    //}
+
+   
+    public void GetAllTexts()
     {
-        //Get & Add  Intro Text from file
-
-        // StartCoroutine(Tour_Text("INTRO"));
-        
-        StartCoroutine(Tour_Text("IntroEndIndx"));
-        //Get & Add  PS Text from file
-       
-        StartCoroutine(Tour_Text("PSEndIndx"));
-
-        //Get & Add  EC Text from file
-       
-        StartCoroutine(Tour_Text("ECEndIndx"));
-
-        //Get & Add  TT Text from file
-     
-        StartCoroutine(Tour_Text("TTEndIndx"));
-
-
-        //Get & Add  Hardware Text from file
-       
-        StartCoroutine(Tour_Text("HARDWAREEndIndx"));
-
-
-        //Get & Add  Factory outcome Text from file
-       
-        StartCoroutine(Tour_Text("FOEndIndx"));
-
-
-        //Get & Add  Business Impact from file
-      
-        StartCoroutine(Tour_Text("BIEndIndx"));
-
-        //Get & Add  Vision Text from file
-        // StartCoroutine(Tour_Text("V"));
-
-
-        //Get & Add  DES Text from file
-       
-        StartCoroutine(Tour_Text("DESEndIndx"));
-
-       
-      
-
-      
-
-        yield return new WaitForSeconds(3f);
-
-        for (int i = 1; i <= saveDataFile.IntroEndIndx; i++)
+        using (XmlReader reader = XmlReader.Create(Guided_Tour.instance.Assets_Folder + "cards/" + ImageToggleOnHover.UseCase + ".xml"))
         {
-            StartCoroutine(Tour_Text("Intro" + i));
-            yield return new WaitForSeconds(1f);
-            // StartCoroutine(Tour_Text("PSDashboard" + i));
+            while (reader.Read())
+            {
+                if (reader.IsStartElement())
+                {
+                    //return only when you have START tag  
+                    switch (reader.Name.ToString())
+                    {
+                        case "IntroEndIndx":
+                            //Indx = saveDataFile.IntroEndIndx;
+                            saveDataFile.IntroEndIndx = int.Parse(reader.ReadString());
+
+                            break;
+
+                        case "ECEndIndx":
+                            saveDataFile.ECEndIndx = int.Parse(reader.ReadString());
+                            break;
+
+
+                        case "HARDWAREEndIndx":
+                            saveDataFile.HARDWAREEndIndx = int.Parse(reader.ReadString());
+                            break;
+
+                        case "TTEndIndx":
+                            saveDataFile.TTEndIndx = int.Parse(reader.ReadString());
+                            break;
+
+
+
+
+                        case "PSEndIndx":
+
+                            saveDataFile.PSEndIndx = int.Parse(reader.ReadString());
+
+                            break;
+
+                        case "FOEndIndx":
+                            saveDataFile.FOEndIndx = int.Parse(reader.ReadString());
+                            break;
+
+
+                        case "BIEndIndx":
+                            saveDataFile.BIEndIndx = int.Parse(reader.ReadString());
+                            break;
+
+
+                        case "CTA1":
+                            saveDataFile.CTA1 = reader.ReadString();
+                            break;
+                        case "CTA2":
+                            saveDataFile.CTA2 = reader.ReadString();
+                            break;
+                        case "CTA3":
+                            saveDataFile.CTA3 = reader.ReadString();
+                            break;
+                        case "CTA4":
+                            saveDataFile.CTA4 = reader.ReadString();
+                            break;
+
+
+                        case "EC1":
+                            saveDataFile.EC[0] = reader.ReadString();
+                            break;
+                        case "EC2":
+                            saveDataFile.EC[1] = reader.ReadString();
+                            break;
+                        case "EC3":
+                            saveDataFile.EC[2] = reader.ReadString();
+                            break;
+                        case "EC4":
+                            saveDataFile.EC[3] = reader.ReadString();
+                            break;
+                        case "EC5":
+                            saveDataFile.EC[4] = reader.ReadString();
+                            break;
+
+                        //INTRO
+
+                        case "Intro0":
+                            saveDataFile.INTRO[0] = reader.ReadString();
+                            break;
+                        case "Intro1":
+                            saveDataFile.INTRO[1] = reader.ReadString();
+                            break;
+                        case "Intro2":
+                            saveDataFile.INTRO[2] = reader.ReadString();
+                            break;
+                        case "Intro3":
+                            saveDataFile.INTRO[3] = reader.ReadString();
+                            break;
+                        case "Intro4":
+                            saveDataFile.INTRO[4] = reader.ReadString();
+                            break;
+
+                        //Hardware
+
+                        case "HARDWARE1":
+                            saveDataFile.HARDWARE[0] = reader.ReadString();
+                            break;
+                        case "HARDWARE2":
+                            saveDataFile.HARDWARE[1] = reader.ReadString();
+                            break;
+                        case "HARDWARE3":
+                            saveDataFile.HARDWARE[2] = reader.ReadString();
+                            break;
+                        case "HARDWARE4":
+                            saveDataFile.HARDWARE[3] = reader.ReadString();
+                            break;
+                        case "HARDWARE5":
+                            saveDataFile.HARDWARE[4] = reader.ReadString();
+                            break;
+
+                        //tt
+
+                        case "TT1":
+                            saveDataFile.TT[0] = reader.ReadString();
+                            break;
+                        case "TT2":
+                            saveDataFile.TT[1] = reader.ReadString();
+                            break;
+                        case "TT3":
+                            saveDataFile.TT[2] = reader.ReadString();
+                            break;
+                        case "TT4":
+                            saveDataFile.TT[3] = reader.ReadString();
+                            break;
+                        case "TT5":
+                            saveDataFile.TT[4] = reader.ReadString();
+                            break;
+
+
+                        //PS
+
+                        case "PS1":
+                            saveDataFile.PS[0] = reader.ReadString();
+                            break;
+                        case "PS2":
+                            saveDataFile.PS[1] = reader.ReadString();
+                            break;
+                        case "PS3":
+                            saveDataFile.PS[2] = reader.ReadString();
+                            break;
+                        case "PS4":
+                            saveDataFile.PS[3] = reader.ReadString();
+                            break;
+                        case "PS5":
+                            saveDataFile.PS[4] = reader.ReadString();
+                            break;
+
+
+                        //FO
+
+                        case "FO1":
+                            saveDataFile.FO[0] = reader.ReadString();
+                            break;
+                        case "FO2":
+                            saveDataFile.FO[1] = reader.ReadString();
+                            break;
+                        case "FO3":
+                            saveDataFile.FO[2] = reader.ReadString();
+                            break;
+                        case "FO4":
+                            saveDataFile.FO[3] = reader.ReadString();
+                            break;
+                        case "FO5":
+                            saveDataFile.FO[4] = reader.ReadString();
+                            break;
+
+
+                        //BI
+
+                        case "BI1":
+                            saveDataFile.BI[0] = reader.ReadString();
+                            break;
+                        case "BI2":
+                            saveDataFile.BI[1] = reader.ReadString();
+                            break;
+                        case "BI3":
+                            saveDataFile.BI[2] = reader.ReadString();
+                            break;
+                        case "BI4":
+                            saveDataFile.BI[3] = reader.ReadString();
+                            break;
+                        case "BI5":
+                            saveDataFile.BI[4] = reader.ReadString();
+                            break;
+                    }
+               
+                }
+            }
         }
-
-        for (int i = 1; i <= saveDataFile.PSEndIndx; i++)
-        {
-            StartCoroutine(Tour_Text("PS" + i));
-            yield return new WaitForSeconds(1f);
-            // StartCoroutine(Tour_Text("PSDashboard" + i));
-        }
-
-
-        for (int i = 1; i <= saveDataFile.ECEndIndx; i++)
-        {
-            StartCoroutine(Tour_Text("EC" + i));
-            yield return new WaitForSeconds(1f);
-        }
-
-        for (int i = 1; i <= saveDataFile.TTEndIndx; i++)
-        {
-            StartCoroutine(Tour_Text("TT" + i));
-            yield return new WaitForSeconds(1f);
-        }
-
-        for (int i = 1; i <= saveDataFile.FOEndIndx; i++)
-        {
-            StartCoroutine(Tour_Text("FO" + i));
-            yield return new WaitForSeconds(1f);
-        }
-        for (int i = 1; i <= saveDataFile.BIEndIndx; i++)
-        {
-            StartCoroutine(Tour_Text("BI" + i));
-            yield return new WaitForSeconds(1f);
-        }
-
-        //for (int i = saveDataFile.DesStartIndx; i <= saveDataFile.DesEndIndx; i++)
-        //{
-        //    StartCoroutine(Tour_Text("DES" + i));
-        //}
-
-        for (int i =1; i <= saveDataFile.HARDWAREEndIndx; i++)
-        {
-            StartCoroutine(Tour_Text("HARDWARE" + i));
-            yield return new WaitForSeconds(1f);
-
-        }
-
-       
-        StartCoroutine(Tour_Text("CTA1"));
-        StartCoroutine(Tour_Text("CTA2"));
-        StartCoroutine(Tour_Text("CTA3"));
-        StartCoroutine(Tour_Text("CTA4"));
+    
     }
 
     //For Getting String Values
-    public IEnumerator Tour_Text(string ComponentName)
-    {
+   
 
-        UnityWebRequest www = UnityWebRequest.Get(Guided_Tour.instance.Assets_Folder + "cards/" + ImageToggleOnHover.UseCase + ".xml");
-        yield return www.SendWebRequest();
+    //For Getting String Values
+    //public IEnumerator Tour_Text(string ComponentName)
+    //{
 
-        if (www.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            string xmlText = www.downloadHandler.text;
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(xmlText);
-            XmlNode node = xmlDoc.SelectSingleNode("fp/" + ComponentName);
-            XmlElement root = xmlDoc.DocumentElement;
+    //    UnityWebRequest www = UnityWebRequest.Get(Guided_Tour.instance.Assets_Folder + "cards/" + ImageToggleOnHover.UseCase + ".xml");
+    //    yield return www.SendWebRequest();
 
-            if (node != null)
-            {
-                nodeText = node.InnerText;
+    //    if (www.result != UnityWebRequest.Result.Success)
+    //    {
+    //        Debug.Log(www.error);
+    //    }
+    //    else
+    //    {
+    //        string xmlText = www.downloadHandler.text;
+    //        XmlDocument xmlDoc = new XmlDocument();
+    //        xmlDoc.LoadXml(xmlText);
+    //        XmlNode node = xmlDoc.SelectSingleNode("fp/" + ComponentName);
+    //        XmlElement root = xmlDoc.DocumentElement;
 
-            }
+    //        if (node != null)
+    //        {
+    //            nodeText = node.InnerText;
 
-           
-            //This will remove integer from string
-            var output = Regex.Replace(ComponentName, @"[\d-]", string.Empty);
-
-            if (string.IsNullOrEmpty(output))
-            {
-                output = ComponentName;
-            }
-            SaveDataAccToKey(output,ComponentName);
-
-        }
-    }
-
-    private void SaveDataAccToKey(string output, string componentName)
-    {
-        switch (componentName)
-        {
+    //        }
 
            
-            case "IntroEndIndx":
-                //Indx = saveDataFile.IntroEndIndx;
-                saveDataFile.IntroEndIndx = int.Parse(nodeText);
+    //        //This will remove integer from string
+    //        var output = Regex.Replace(ComponentName, @"[\d-]", string.Empty);
 
-                break;
+    //        if (string.IsNullOrEmpty(output))
+    //        {
+    //            output = ComponentName;
+    //        }
+    //        SaveDataAccToKey(output,ComponentName);
 
-            case "ECEndIndx":
-                saveDataFile.ECEndIndx = int.Parse(nodeText);
-                break;
+    //    }
+    //}
+
+    //private void SaveDataAccToKey(string output, string componentName)
+    //{
+    //    switch (componentName)
+    //    {
+
+           
+    //        case "IntroEndIndx":
+    //            //Indx = saveDataFile.IntroEndIndx;
+    //            saveDataFile.IntroEndIndx = int.Parse(nodeText);
+
+    //            break;
+
+    //        case "ECEndIndx":
+    //            saveDataFile.ECEndIndx = int.Parse(nodeText);
+    //            break;
 
 
-            case "HARDWAREEndIndx":
-                saveDataFile.HARDWAREEndIndx = int.Parse(nodeText);
-                break;
+    //        case "HARDWAREEndIndx":
+    //            saveDataFile.HARDWAREEndIndx = int.Parse(nodeText);
+    //            break;
 
-            case "TTEndIndx":
-                saveDataFile.TTEndIndx = int.Parse(nodeText);
-                break;
+    //        case "TTEndIndx":
+    //            saveDataFile.TTEndIndx = int.Parse(nodeText);
+    //            break;
 
           
           
 
-            case "PSEndIndx":
+    //        case "PSEndIndx":
 
-                saveDataFile.PSEndIndx = int.Parse(nodeText);
+    //            saveDataFile.PSEndIndx = int.Parse(nodeText);
 
-                break;
+    //            break;
 
-            case "FOEndIndx":
-                saveDataFile.FOEndIndx = int.Parse(nodeText);
-                break;
+    //        case "FOEndIndx":
+    //            saveDataFile.FOEndIndx = int.Parse(nodeText);
+    //            break;
 
            
-            case "BIEndIndx":
-                saveDataFile.BIEndIndx = int.Parse(nodeText);
-                break;
+    //        case "BIEndIndx":
+    //            saveDataFile.BIEndIndx = int.Parse(nodeText);
+    //            break;
   
             
-            case "CTA1":
-                saveDataFile.CTA1 = nodeText;
-                break;
-            case "CTA2":
-                saveDataFile.CTA2 = nodeText;
-                break;
-            case "CTA3":
-                saveDataFile.CTA3 = nodeText;
-                break;
-            case "CTA4":
-                saveDataFile.CTA4 = nodeText;
-                break;
-        }
-        switch (output)
-        {
-            //case "INTRO":
-            //    saveDataFile.INTRO = nodeText;
-            //    break;
-            case "Intro":
+    //        case "CTA1":
+    //            saveDataFile.CTA1 = nodeText;
+    //            break;
+    //        case "CTA2":
+    //            saveDataFile.CTA2 = nodeText;
+    //            break;
+    //        case "CTA3":
+    //            saveDataFile.CTA3 = nodeText;
+    //            break;
+    //        case "CTA4":
+    //            saveDataFile.CTA4 = nodeText;
+    //            break;
+    //    }
+    //    switch (output)
+    //    {
+    //        //case "INTRO":
+    //        //    saveDataFile.INTRO = nodeText;
+    //        //    break;
+    //        case "Intro":
 
-                saveDataFile.INTRO.Add(nodeText);
+    //            saveDataFile.INTRO.Add(nodeText);
 
-                //  Indx++;
-                break;
+    //            //  Indx++;
+    //            break;
 
          
 
 
-            case "EC":
-                saveDataFile.EC.Add(nodeText);
+    //        case "EC":
+    //            saveDataFile.EC.Add(nodeText);
 
 
-                // string temp = saveDataFile.EC[0];
+    //            // string temp = saveDataFile.EC[0];
 
-                //saveDataFile.EC[1] = temp;
-                //saveDataFile.EC[2] = saveDataFile.EC[1];
-                //Indx++;
-                break;
+    //            //saveDataFile.EC[1] = temp;
+    //            //saveDataFile.EC[2] = saveDataFile.EC[1];
+    //            //Indx++;
+    //            break;
 
-            //case "V":
-            //    saveDataFile.V = nodeText;
-            //    break;
+    //        //case "V":
+    //        //    saveDataFile.V = nodeText;
+    //        //    break;
 
-            case "HARDWARE":
-                saveDataFile.HARDWARE.Add(nodeText);
+    //        case "HARDWARE":
+    //            saveDataFile.HARDWARE.Add(nodeText);
 
-                //nodeText
-                break;
+    //            //nodeText
+    //            break;
 
-            case "TT":
-                saveDataFile.TT.Add(nodeText);
+    //        case "TT":
+    //            saveDataFile.TT.Add(nodeText);
 
-                //Indx++;
-                break;
+    //            //Indx++;
+    //            break;
 
-            case "PS":
+    //        case "PS":
 
-                saveDataFile.PS.Add(nodeText);
+    //            saveDataFile.PS.Add(nodeText);
 
-                //  Indx++;
-                break;
+    //            //  Indx++;
+    //            break;
            
 
-            case "FO":
-                saveDataFile.FO.Add(nodeText);
+    //        case "FO":
+    //            saveDataFile.FO.Add(nodeText);
 
-                break;
+    //            break;
 
-            case "BI":
-                saveDataFile.BI.Add(nodeText);
-                break;
+    //        case "BI":
+    //            saveDataFile.BI.Add(nodeText);
+    //            break;
 
-            //case "CTA":
-            //    saveDataFile.CTA.Add(nodeText);
-            //    break;
-            case "CTA1":
-                saveDataFile.CTA1 = nodeText;
-                break;
-            case "CTA2":
-                saveDataFile.CTA2 = nodeText;
-                break;
-            case "CTA3":
-                saveDataFile.CTA3 = nodeText;
-                break;
-            case "CTA4":
-                saveDataFile.CTA4 = nodeText;
-                break;
+    //        //case "CTA":
+    //        //    saveDataFile.CTA.Add(nodeText);
+    //        //    break;
+    //        case "CTA1":
+    //            saveDataFile.CTA1 = nodeText;
+    //            break;
+    //        case "CTA2":
+    //            saveDataFile.CTA2 = nodeText;
+    //            break;
+    //        case "CTA3":
+    //            saveDataFile.CTA3 = nodeText;
+    //            break;
+    //        case "CTA4":
+    //            saveDataFile.CTA4 = nodeText;
+    //            break;
 
 
-        }
-    }
+    //    }
+    //}
 
     //private void OnApplicationQuit()
     //{

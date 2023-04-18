@@ -8,7 +8,7 @@ public class BackCardData : MonoBehaviour
 {
     public TextMeshProUGUI BackCardText;
     public TextMeshProUGUI BackCardLowerText;
-
+    public Button clickedButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +22,19 @@ public class BackCardData : MonoBehaviour
     }
     public void ShowBackFlipper()
     {
+        for (int i = 1; i <= 5; i++)
+        {
+            ImageLoader.instance.NewCard[i - 1].SetActive(false);
+        }
         ImageLoader.instance.BackFlipCard.SetActive(true);
-        Button clickedButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+         clickedButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
         string buttonName = clickedButton.name;
         BackCardText.text = Load_Tour_text.ins.OutcomeCardFaceBack[int.Parse(buttonName)].ToString();
-        BackCardLowerText.text = Load_Tour_text.ins.DVSCardFace[int.Parse(buttonName)].ToString();
+       // BackCardLowerText.text = Load_Tour_text.ins.DVSCardFace[int.Parse(buttonName)].ToString();
 
     }
+   
+
+
+    
 }

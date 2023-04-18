@@ -76,6 +76,7 @@ public class ImageLoader : MonoBehaviour
     public static string ComponentName;
     public void OpenCard(string Component)
     {
+        BackCardData.instance.StopCoroutineTour();
         BackCardData.instance.DellWindow.SetActive(false);
         BackCardData.instance.PartnerWindow.SetActive(false);
         BackFlipCard.SetActive(false);

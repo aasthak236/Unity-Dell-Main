@@ -19,6 +19,7 @@ public class MyBoxMovement : MonoBehaviour
     private void Start()
     {
        StartCoroutine( MoveBoxes());
+        
     }
     public IEnumerator MoveBoxes()
     {
@@ -29,7 +30,8 @@ public class MyBoxMovement : MonoBehaviour
         LeanTween.move(gameObject, pos, 1f);
 
        yield return new WaitForSeconds(0.5f);
-       // StartCoroutine(MoveBoxes());
+        // StartCoroutine(MoveBoxes());
+       // Invoke("Start",1);
 
     }
 

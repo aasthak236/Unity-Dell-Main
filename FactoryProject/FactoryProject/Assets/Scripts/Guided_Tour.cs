@@ -221,7 +221,7 @@ public class Guided_Tour : MonoBehaviour
 
     public IEnumerator Loadaudio()
     {
-
+        AudioClipsLoaded = 0;
         for (int i = 1; i <= 36; i++)
         {
             //am get from hotspot 
@@ -232,6 +232,7 @@ public class Guided_Tour : MonoBehaviour
                 if (www.result == UnityWebRequest.Result.Success)
                 {
                     audioClips[i - 1] = DownloadHandlerAudioClip.GetContent(www);
+                    AudioClipsLoaded++;
                     // audioSources.Play();
                 }
                 else
@@ -285,6 +286,7 @@ public class Guided_Tour : MonoBehaviour
 
     }
     public bool bInterrupted=false;
+    public int AudioClipsLoaded;
     public GameObject UnClickMenu;
     IEnumerator myCoroutine;
     public IEnumerator PlayAudioClips()
@@ -296,6 +298,7 @@ public class Guided_Tour : MonoBehaviour
         }
         FadeIn.SetActive(true);
         bInterrupted = false;
+       
         float StandardDelay = 0.25f;
         //StartCoroutine(LoadImgWithUrl(Assets_Folder + "image/xmpro-logo.png"));
         // Turn on Introduction audio
@@ -313,20 +316,15 @@ public class Guided_Tour : MonoBehaviour
 
         //  hexaTxt.SetActive(true);
         
-        //hexaTxt[0].text = saveDataFile.INTRO[i - 1];
+       
         yield return new WaitForSeconds(audiolength);
         card.SetActive(true);
+        hexaTxt[0].text = saveDataFile.INTRO[0];
         Hexagon.SetActive(true);
         for (int i = 1; i <= saveDataFile.IntroEndIndx; i++)
         {
            
-            hexaTxt[i].text = saveDataFile.INTRO[i - 1];
-            
-            
-            //Audio will be played
-            // audioSource.Play();
-
-            //EC Audio with 3 & 4
+            hexaTxt[i].text = saveDataFile.INTRO[i];
             audioSource.clip = audioClips[i];
             audiolength = audioClips[i].length;
             audioSource.Play();
@@ -445,11 +443,12 @@ public class Guided_Tour : MonoBehaviour
         ImageLoader.instance.HexagonMiddleColor.color = ImageLoader.instance.VPMiddleColor;
         ImageLoader.instance.HexagonOuterColor.color = ImageLoader.instance.VPOuterColor;
         card.SetActive(true);
+        hexaTxt[0].text = "Value Pillars";
         // hexaTxt.SetActive(true);
         Hexagon.SetActive(true);
         for (int i = 1; i <= saveDataFile.TTEndIndx; i++)
         {
-            hexaTxt[i-1].text = saveDataFile.TT[i - 1];
+            hexaTxt[i].text = saveDataFile.TT[i - 1];
             //Audio will be played
             // audioSource.Play();
             audioSource.clip = audioClips[i + 18];

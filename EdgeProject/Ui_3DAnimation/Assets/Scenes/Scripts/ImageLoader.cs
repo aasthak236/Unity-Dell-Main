@@ -129,5 +129,14 @@ public class ImageLoader : MonoBehaviour
         
        
     }
-  
-}
+    public void BackCard()
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            NewCard[i - 1].SetActive(true);
+            Front1[i - 1].text = Load_Tour_text.ins.OutcomeCardFace[i - 1].ToString();
+        }
+        BackFlipCard.SetActive(false);
+    }
+
+    }
