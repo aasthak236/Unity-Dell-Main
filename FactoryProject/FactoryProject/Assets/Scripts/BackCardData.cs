@@ -14,6 +14,8 @@ public class BackCardData : MonoBehaviour
     public GameObject Manufaturing_Video_Button;
     public GameObject VideoButton;
     public TextMeshProUGUI[] BusinessOutcomeText;
+    public TextMeshProUGUI[] PartnerSolutionText;
+    public TextMeshProUGUI[] DellSolutionText;
     public TextMeshProUGUI BackCardText;
     public TextMeshProUGUI PartnerName;
     public Image PartnerImage;
@@ -26,6 +28,8 @@ public class BackCardData : MonoBehaviour
     public Image DellImage;
     public TextMeshProUGUI DellDescription;
     public GameObject DellWindow;
+    public GameObject PartnerFrontWindow;
+    public GameObject DellFrontWindow;
     public GameObject BusinessOutcomeWindow;
     public GameObject[] HotSpot;
     public static BackCardData instance;
@@ -207,18 +211,10 @@ public class BackCardData : MonoBehaviour
             {
                 OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
             }
-            for (int i = 0; i <= 6; i++)
-            {
-                ImageLoader.instance.Cards[i].SetActive(false);
-            }
+            PartnerFrontWindow.SetActive(false);
             PartnerWindow.SetActive(true);
-            // BackCardText.text = ImageLoader.instance.PSr[int.Parse(buttonName)].ToString();
-            // name, 
             PartnerName.text = ImageLoader.instance.PS[int.Parse(buttonName)];
-            // image,
             StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.partners[int.Parse(buttonName)]));
-            // Guided_Tour.instance.PartnerImg[int.Parse(buttonName)].gameObject.SetActive(true);
-            // desc,
             PartnerDescription.text = Load_Tour_text.ins.PartnerDescription[int.Parse(buttonName)];
             // link, More Details
             // video 
@@ -244,17 +240,11 @@ public class BackCardData : MonoBehaviour
     }
     public void parntnerclose()
     {
-        for (int i = 0; i <= 5; i++)
-        {
-            ImageLoader.instance.Cards[i].SetActive(true);
-        }
+        PartnerFrontWindow.SetActive(true);
     }
     public void Dellclose()
     {
-        for (int i = 0; i <= 5; i++)
-        {
-            ImageLoader.instance.Cards[i].SetActive(true);
-        }
+        DellFrontWindow.SetActive(true);
     }
     public void ValuePillarsclose()
     {

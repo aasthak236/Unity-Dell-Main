@@ -21,7 +21,7 @@ public class ImageToggleOnHover : MonoBehaviour
     public static string HotSpotName;
     void OnMouseDown()
     {
-        int loopcounter;
+       // int loopcounter;
         if (Tour_Running == false)
         {
             SaveDataFromXML.ins.ResetSaveData();
@@ -34,14 +34,14 @@ public class ImageToggleOnHover : MonoBehaviour
             Guided_Tour.instance.UnClickMenu.SetActive(true);
             ClosedAllWindow();
             CameraZoomTowardPoint.instance.ZoomInToSection(int.Parse(HotSpotName));
-            loopcounter = 0;
-            while (Guided_Tour.instance.AudioClipsLoaded < 3 && loopcounter<10)
-            {
-                Thread.Sleep(250);
-                loopcounter++;
-            }
-           Guided_Tour.instance.PlayGuidedTour(UseCase);
-           // Invoke("playguid", 2f);
+            //loopcounter = 0;
+           // while (Guided_Tour.instance.AudioClipsLoaded < 5 && loopcounter<10)
+           // {
+           //     Thread.Sleep(250);
+           //     loopcounter++;
+           // }
+           //Guided_Tour.instance.PlayGuidedTour(UseCase);
+           Invoke("playguid", 3f);
             Guided_Tour.instance.TourStart = true;
 
         }

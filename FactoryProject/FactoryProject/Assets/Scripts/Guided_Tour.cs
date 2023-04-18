@@ -479,12 +479,20 @@ public class Guided_Tour : MonoBehaviour
         //hexaTxt.SetActive(true);
         //Hexagon.SetActive(true);
         yield return new WaitForSeconds(StandardDelay);
-        for (int i = 1; i <= saveDataFile.PSEndIndx; i++)
+        for (int i = 1; i <= saveDataFile.PSEndIndx+1; i++)
         {
-           
+
 
             //StartCoroutine(LoadImgWithUrl(saveDataFile.PS[i - 1]));
-            PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 1]) - 1].gameObject.SetActive(true);
+            if (i == 1)
+            {
+                DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(true);
+            }
+            else
+            {
+                PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 2]) - 1].gameObject.SetActive(true);
+            }
+            
             card.SetActive(true);
             //Partner Solution audio Play
             audioSource.clip = audioClips[i + 3];
@@ -500,7 +508,16 @@ public class Guided_Tour : MonoBehaviour
 
             yield return new WaitForSeconds(audiolength + StandardDelay);
             // Image.gameObject.SetActive(false);
-            PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 1]) - 1].gameObject.SetActive(false);
+            
+            if (i == 1)
+            {
+                DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(false);
+            }
+            else
+            {
+                PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 2]) - 1].gameObject.SetActive(false);
+            }
+          
             card.SetActive(false);
 
         }
@@ -534,6 +551,10 @@ public class Guided_Tour : MonoBehaviour
             // audioSource.Play();
             audioSource.clip = audioClips[i + 23];
             audiolength = audioClips[i + 23].length;
+            if (audiolength < 1f)
+            {
+                audiolength = 1f;
+            }
             audioSource.Play();
             yield return new WaitForSeconds(audiolength+StandardDelay);
            // card.SetActive(false);

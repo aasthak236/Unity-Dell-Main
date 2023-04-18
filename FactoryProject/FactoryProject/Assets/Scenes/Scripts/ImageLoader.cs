@@ -45,23 +45,23 @@ public class ImageLoader : MonoBehaviour
     }
     public void Start()
     {
-        ECInnerColor = ColorUtility.TryParseHtmlString("#691D3F", out Color color) ? color : Color.white;
-        VPInnerColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color1) ? color1 : Color.white;
+        ECInnerColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color) ? color : Color.white;
+        VPInnerColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color1) ? color1 : Color.white;
         BOInnerColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color2) ? color2 : Color.white;
-        DSInnerColor = ColorUtility.TryParseHtmlString("#2A145A", out Color color3) ? color3 : Color.white;
-        PSInnerColor = ColorUtility.TryParseHtmlString("#2A145A", out Color color4) ? color4 : Color.white;
+        DSInnerColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color3) ? color3 : Color.white;
+        PSInnerColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color4) ? color4 : Color.white;
 
-        ECMiddleColor = ColorUtility.TryParseHtmlString("#691D3F", out Color color5) ? color5 : Color.white;
-        VPMiddleColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color6) ? color6 : Color.white;
+        ECMiddleColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color5) ? color5 : Color.white;
+        VPMiddleColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color6) ? color6 : Color.white;
         BOMiddleColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color7) ? color7 : Color.white;
-        DSMiddleColor = ColorUtility.TryParseHtmlString("#2A145A", out Color color8) ? color8 : Color.white;
-        PSMiddleColor = ColorUtility.TryParseHtmlString("#2A145A", out Color color9) ? color9 : Color.white;
+        DSMiddleColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color8) ? color8 : Color.white;
+        PSMiddleColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color9) ? color9 : Color.white;
 
-        ECOuterColor = ColorUtility.TryParseHtmlString("#F4BB5E", out Color color10) ? color10 : Color.white;
-        VPOuterColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color11) ? color11 : Color.white;
-        BOOuterColor = ColorUtility.TryParseHtmlString("#80C7FB", out Color color12) ? color12 : Color.white;
-        DSOuterColor = ColorUtility.TryParseHtmlString("#BEAFFF", out Color color13) ? color13 : Color.white;
-        PSOuterColor = ColorUtility.TryParseHtmlString("#BEAFFF", out Color color14) ? color14 : Color.white;
+        ECOuterColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color10) ? color10 : Color.white;
+        VPOuterColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color11) ? color11 : Color.white;
+        BOOuterColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color12) ? color12 : Color.white;
+        DSOuterColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color13) ? color13 : Color.white;
+        PSOuterColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color14) ? color14 : Color.white;
 
         StartCoroutine(LoadAllComponentFrontFaces());
         StartCoroutine(LoadAllComponentBackFaces());
@@ -80,6 +80,8 @@ public class ImageLoader : MonoBehaviour
         BackCardData.instance.DellWindow.SetActive(false);
         BackCardData.instance.PartnerWindow.SetActive(false);
         BackFlipCard.SetActive(false);
+        BackCardData.instance.PartnerFrontWindow.SetActive(false);
+        BackCardData.instance.DellFrontWindow.SetActive(false);
         for (int i = 0; i <= 6; i++)
         {
             Cards[i].SetActive(false);
@@ -167,10 +169,11 @@ public class ImageLoader : MonoBehaviour
                 HexagonInnerColor.color = DSInnerColor;
                 HexagonMiddleColor.color = DSMiddleColor;
                 HexagonOuterColor.color = DSOuterColor;
+                BackCardData.instance.DellFrontWindow.SetActive(true);
                 for (int i = 0; i <= DSCount; i++)
                 {
-                    Cards[i].SetActive(true);
-                    Front[i].text = DS[i].ToString();
+                    //Cards[i].SetActive(true);
+                    BackCardData.instance.DellSolutionText[i].text = DS[i].ToString();
                 }
                 pressed = true;
 
@@ -186,10 +189,11 @@ public class ImageLoader : MonoBehaviour
                 HexagonInnerColor.color = PSInnerColor;
                 HexagonMiddleColor.color = PSMiddleColor;
                 HexagonOuterColor.color = PSOuterColor;
+                BackCardData.instance.PartnerFrontWindow.SetActive(true);
                 for (int i = 0; i <= PSCount; i++)
                 {
-                    Cards[i].SetActive(true);
-                    Front[i].text = PS[i].ToString();
+                   // Cards[i].SetActive(true);
+                    BackCardData.instance.PartnerSolutionText[i].text = PS[i].ToString();
                 }
                 pressed = true;
 
@@ -210,6 +214,8 @@ public class ImageLoader : MonoBehaviour
             {
                 BackCardData.instance.HotSpot[i].SetActive(true);
             }
+            BackCardData.instance.PartnerFrontWindow.SetActive(false);
+            BackCardData.instance.DellFrontWindow.SetActive(false);
         }
     }
     public IEnumerator frontBB(string ComponentName)
