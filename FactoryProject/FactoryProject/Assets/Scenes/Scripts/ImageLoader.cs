@@ -5,6 +5,7 @@ using System.Xml;
 using TMPro;
 using System.IO;
 using System.Collections.Generic;
+using UnityEngine.UI;
 public class ImageLoader : MonoBehaviour
 {
    // public GameObject loading;
@@ -36,6 +37,8 @@ public class ImageLoader : MonoBehaviour
     public Color DSInnerColor, DSMiddleColor, DSOuterColor;
     public Color PSInnerColor, PSMiddleColor, PSOuterColor;
     public Color CTAInnerColor, CTAMiddleColor, CTAOuterColor;
+    public Color NormalColor;
+    public Color PressedColor;
     public void Awake()
     {
         instance = this;
@@ -62,7 +65,8 @@ public class ImageLoader : MonoBehaviour
         BOOuterColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color12) ? color12 : Color.white;
         DSOuterColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color13) ? color13 : Color.white;
         PSOuterColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color14) ? color14 : Color.white;
-
+        NormalColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color20) ? color20 : Color.white;
+        PressedColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color21) ? color21 : Color.white;
         StartCoroutine(LoadAllComponentFrontFaces());
         StartCoroutine(LoadAllComponentBackFaces());
     }
@@ -74,8 +78,15 @@ public class ImageLoader : MonoBehaviour
     }
     public bool pressed;
     public static string ComponentName;
+    public Button[] MenuButton;
     public void OpenCard(string Component)
     {
+        for (int i = 0; i <= 4; i++)
+        {
+            MenuButton[i].GetComponent<Image>().color = NormalColor;
+        }
+       
+        
         BackCardData.instance.StopCoroutineTour();
         BackCardData.instance.DellWindow.SetActive(false);
         BackCardData.instance.PartnerWindow.SetActive(false);
@@ -100,8 +111,10 @@ public class ImageLoader : MonoBehaviour
 
         if (pressed == false)
         {
+           
              if (Component == "VP")
             {
+                MenuButton[3].GetComponent<Image>().color = PressedColor;
                 CameraZoomTowardPoint.instance.ZoomBack();
                 HexagonInnerColor.color = VPInnerColor;
                 HexagonMiddleColor.color = VPMiddleColor;
@@ -121,6 +134,7 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "EC")
             {
+                MenuButton[1].GetComponent<Image>().color = PressedColor;
                 CameraZoomTowardPoint.instance.ZoomBack();
                 HexagonInnerColor.color = ECInnerColor;
                 HexagonMiddleColor.color = ECMiddleColor;
@@ -140,6 +154,11 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "BO")
             {
+                MenuButton[0].GetComponent<Image>().color = PressedColor;
+                //Image myImage = MenuButton[0].image;
+                //Color newColor = myImage.color;
+                //newColor.a = 255f; // Set the alpha value to 0.5 (half transparent)
+                //myImage.color = newColor;
                 CameraZoomTowardPoint.instance.ZoomBack();
                 HexagonInnerColor.color = BOInnerColor;
                 HexagonMiddleColor.color = BOMiddleColor;
@@ -165,6 +184,7 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "DS")
             {
+                MenuButton[2].GetComponent<Image>().color = PressedColor;
                 CameraZoomTowardPoint.instance.ZoomBack();
                 HexagonInnerColor.color = DSInnerColor;
                 HexagonMiddleColor.color = DSMiddleColor;
@@ -185,6 +205,7 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "PS")
             {
+                MenuButton[4].GetComponent<Image>().color = PressedColor;
                 CameraZoomTowardPoint.instance.ZoomBack();
                 HexagonInnerColor.color = PSInnerColor;
                 HexagonMiddleColor.color = PSMiddleColor;

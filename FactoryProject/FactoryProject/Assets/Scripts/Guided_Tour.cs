@@ -291,6 +291,7 @@ public class Guided_Tour : MonoBehaviour
     IEnumerator myCoroutine;
     public IEnumerator PlayAudioClips()
     {
+        BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
         HexagonBlank();
         for (int i = 0; i <= 2; i++)
         {
@@ -303,10 +304,7 @@ public class Guided_Tour : MonoBehaviour
         //StartCoroutine(LoadImgWithUrl(Assets_Folder + "image/xmpro-logo.png"));
         // Turn on Introduction audio
         //Intro audio Play
-        //string usecasenum = ImageToggleOnHover.UseCase;
-        //string EndNumber = usecasenum.Substring(2, usecasenum.Length - 2);
-        //audioSource.clip = HotSpotAudio[int.Parse(EndNumber)-1];
-        //audiolength = HotSpotAudio[int.Parse(EndNumber)-1].length;
+
         audioSource.clip = audioClips[0];
         audiolength = audioClips[0].length;
         audioSource.Play();
@@ -318,6 +316,11 @@ public class Guided_Tour : MonoBehaviour
         
        
         yield return new WaitForSeconds(audiolength);
+        string usecasenum = ImageToggleOnHover.UseCase;
+        string EndNumber = usecasenum.Substring(2, usecasenum.Length - 2);
+        audioClips[1] = HotSpotAudioIntro[int.Parse(EndNumber) - 1];
+        
+       
         card.SetActive(true);
         hexaTxt[0].text = saveDataFile.INTRO[0];
         Hexagon.SetActive(true);
@@ -330,6 +333,7 @@ public class Guided_Tour : MonoBehaviour
             audioSource.Play();
 
             yield return new WaitForSeconds(audiolength + StandardDelay);
+
             //card.SetActive(false);
 
         }
@@ -638,12 +642,35 @@ public class Guided_Tour : MonoBehaviour
         FadeOut.SetActive(false);
         TourStart = false;
         yield return new WaitForSeconds(1f);
-        ImageToggleOnHover.Tour_Running = false;
+        
         UnClickMenu.SetActive(false);
-        CameraZoomTowardPoint.instance.Trail1.SetActive(false);
         HexagonBlank();
       
 
+    }
+    public void CloseCTA()
+    {
+        ImageToggleOnHover.Tour_Running = false;
+    }
+    public void ClosedAllWindow()
+    {
+        Guided_Tour.instance.StopCoroutine();
+        BackCardData.instance.StopCoroutineTour();
+        Time.timeScale = 1;
+        BackCardData.instance.DellWindow.SetActive(false);
+        BackCardData.instance.PartnerWindow.SetActive(false);
+        ImageLoader.instance.BackFlipCard.SetActive(false);
+        BackCardData.instance.DellFrontWindow.SetActive(false);
+        BackCardData.instance.PartnerFrontWindow.SetActive(false);
+        BackCardData.instance.PartnerWindow.SetActive(false);
+        BackCardData.instance.DellWindow.SetActive(false);
+
+
+
+        for (int i = 0; i <= 6; i++)
+        {
+            ImageLoader.instance.Cards[i].SetActive(false);
+        }
     }
     public void HexagonBlank()
     { 

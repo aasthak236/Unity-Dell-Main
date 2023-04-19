@@ -16,6 +16,7 @@ public class CameraZoomTowardPoint : MonoBehaviour
     public static bool CameraZoom;
     public GameObject FactoryMdel;
     public static CameraZoomTowardPoint instance;
+    public GameObject TopBar;
     private void Awake()
     {
         myCamera = Camera.main;
@@ -25,6 +26,7 @@ public class CameraZoomTowardPoint : MonoBehaviour
     }
     public void Start()
     {
+       
         instance = this;
       //  ZoomInToSection(0);
     }
@@ -33,19 +35,19 @@ public class CameraZoomTowardPoint : MonoBehaviour
     {
         try
         {
-            ImageToggleOnHover.instance.ClosedAllWindow();
+            Guided_Tour.instance.ClosedAllWindow();
           
         }
         catch
         { 
         
         }
-        
+        TopBar.SetActive(true);
         BackCardData.instance.HotSpotSizeDecrease();
         FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
         Vector3 newrotation = new Vector3(0, 0, 0);
         FactoryMdel.transform.eulerAngles = newrotation;
-       
+        BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
         CameraZoom = true;
         if(sectionIndex< sectionPointTransform.Length && !isCameraMoving)
         {
@@ -103,12 +105,13 @@ public class CameraZoomTowardPoint : MonoBehaviour
     }
     public void ZoomBack()
     {
+        TopBar.SetActive(false);
         BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
         //BackCardData.instance.HotSpotsRuninng = false;
         CameraZoom = false;
         FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
         BackCardData.instance.HotSpotSizeIncrease();
-        ImageToggleOnHover.instance.ClosedAllWindow();
+        Guided_Tour.instance.ClosedAllWindow();
         for (int i = 0; i <= 13; i++)
         {
             BackCardData.instance.HotSpot[i].SetActive(true);

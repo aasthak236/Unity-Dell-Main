@@ -257,7 +257,7 @@ public class BackCardData : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i <= 6; i++)
             {
                 ImageLoader.instance.Cards[i].SetActive(true);
             }
@@ -276,6 +276,7 @@ public class BackCardData : MonoBehaviour
         myCoroutine = OutcomeBtnF(i);
         StartCoroutine(myCoroutine);
         BusinessOutcomeStart = true;
+        ImageToggleOnHover.Tour_Running = true;
     }
     public void StopCoroutineTour()
     {
@@ -302,7 +303,8 @@ public class BackCardData : MonoBehaviour
             {
                 HotSpot[i].SetActive(true);
             }
-           // BusinessOutcomeWindow.SetActive(false);
+            // BusinessOutcomeWindow.SetActive(false);
+            ImageToggleOnHover.Tour_Running = false;
 
         }
 
@@ -310,22 +312,14 @@ public class BackCardData : MonoBehaviour
     IEnumerator myCoroutine;
     public IEnumerator OutcomeBtnF(int ButtonNaame)
     {
-        
+        Guided_Tour.instance.ClosedAllWindow();
         for (int i = 0; i <= 5; i++)
         {
             OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
         }
         OutcomeBtn[ButtonNaame].GetComponent<Image>().color = PressedColor;
-        ImageToggleOnHover.instance.ClosedAllWindow();
-      
-        HotSpotsRuninng = true;
-        if (HotSpotsRuninng)
-        {
-            HotSpotsRuninng = true;
-           // ImageToggleOnHover.Tour_Running = false;
-
-            yield return null;
-        }
+        
+        ImageToggleOnHover.Tour_Running = true;
         HotSpotsRuninng = true;
         for (int i = 0; i <= 13; i++)
         {
@@ -546,7 +540,7 @@ public class BackCardData : MonoBehaviour
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(false);
                 }
             }
-          //  HotSpot[12].SetActive(true);
+            ImageToggleOnHover.Tour_Running = false;
         }
     }
     public void OutcomeCrossBtn()
