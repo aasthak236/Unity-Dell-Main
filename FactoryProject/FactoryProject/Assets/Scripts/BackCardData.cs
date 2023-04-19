@@ -73,10 +73,7 @@ public class BackCardData : MonoBehaviour
         }
     }
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
     public void ShowBackFlipper()
     {
         
@@ -272,7 +269,7 @@ public class BackCardData : MonoBehaviour
     public bool BusinessOutcomeStart;
     public void FlashHotspot(int i)
     {
-        StopCoroutineTour();
+        //StopCoroutineTour();
         myCoroutine = OutcomeBtnF(i);
         StartCoroutine(myCoroutine);
         BusinessOutcomeStart = true;
@@ -365,8 +362,6 @@ public class BackCardData : MonoBehaviour
                     {
                         HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(false);
                     }
-
-                    yield return null;
                 }
             }
            

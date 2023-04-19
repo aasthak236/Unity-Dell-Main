@@ -105,13 +105,14 @@ public class CameraZoomTowardPoint : MonoBehaviour
     }
     public void ZoomBack()
     {
+        Guided_Tour.instance.ClosedAllWindow();
         TopBar.SetActive(false);
         BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
         //BackCardData.instance.HotSpotsRuninng = false;
         CameraZoom = false;
         FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
         BackCardData.instance.HotSpotSizeIncrease();
-        Guided_Tour.instance.ClosedAllWindow();
+        
         for (int i = 0; i <= 13; i++)
         {
             BackCardData.instance.HotSpot[i].SetActive(true);

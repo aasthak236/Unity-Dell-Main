@@ -39,6 +39,11 @@ public class ImageLoader : MonoBehaviour
     public Color CTAInnerColor, CTAMiddleColor, CTAOuterColor;
     public Color NormalColor;
     public Color PressedColor;
+
+    public Color BackColor1, HeadingColor1, TextColor1;
+    public Color BackColor2, HeadingColor2, TextColor2;
+
+
     public void Awake()
     {
         instance = this;
@@ -48,6 +53,15 @@ public class ImageLoader : MonoBehaviour
     }
     public void Start()
     {
+        BackColor1 = ColorUtility.TryParseHtmlString("#2A145A", out Color color30) ? color30 : Color.white;
+        HeadingColor1 = ColorUtility.TryParseHtmlString("#BEAFFF", out Color color31) ? color31 : Color.white;
+        TextColor1 = ColorUtility.TryParseHtmlString("#DEDDFF", out Color color32) ? color32 : Color.white;
+
+        BackColor2 = ColorUtility.TryParseHtmlString("#0D2155", out Color color33) ? color33 : Color.white;
+        HeadingColor2 = ColorUtility.TryParseHtmlString("#80C7FB", out Color color34) ? color34 : Color.white;
+        TextColor2 = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color35) ? color35 : Color.white;
+
+
         ECInnerColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color) ? color : Color.white;
         VPInnerColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color1) ? color1 : Color.white;
         BOInnerColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color2) ? color2 : Color.white;

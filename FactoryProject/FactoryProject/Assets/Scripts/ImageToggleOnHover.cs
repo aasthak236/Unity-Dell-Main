@@ -25,17 +25,17 @@ public class ImageToggleOnHover : MonoBehaviour
         if (Tour_Running == false)
         {
             SaveDataFromXML.ins.ResetSaveData();
-            
+            Guided_Tour.instance.ClosedAllWindow();
             UseCase = transform.GetChild(0).gameObject.name;
             HotSpotName = transform.GetChild(0).transform.GetChild(0).gameObject.name;
             StartCoroutine(Guided_Tour.instance.Loadaudio());
             StartCoroutine(Load_Tour_text.ins.GetAllTexts());
            // Load_Tour_text.ins.GetAllTexts();
             Guided_Tour.instance.UnClickMenu.SetActive(true);
-            Guided_Tour.instance.ClosedAllWindow();
+            
             CameraZoomTowardPoint.instance.ZoomInToSection(int.Parse(HotSpotName));
             Tour_Running = true;
-            Invoke("playguid", 2.5f);
+            Invoke("playguid", 1f);
             Guided_Tour.instance.TourStart = true;
 
 
