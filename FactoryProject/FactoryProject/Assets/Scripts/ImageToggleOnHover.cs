@@ -1,4 +1,4 @@
-using System.Threading;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,19 +29,12 @@ public class ImageToggleOnHover : MonoBehaviour
             UseCase = transform.GetChild(0).gameObject.name;
             HotSpotName = transform.GetChild(0).transform.GetChild(0).gameObject.name;
             StartCoroutine(Guided_Tour.instance.Loadaudio());
-            //StartCoroutine(Load_Tour_text.ins.GetAllTexts());
-            Load_Tour_text.ins.GetAllTexts();
+            StartCoroutine(Load_Tour_text.ins.GetAllTexts());
+           // Load_Tour_text.ins.GetAllTexts();
             Guided_Tour.instance.UnClickMenu.SetActive(true);
             ClosedAllWindow();
             CameraZoomTowardPoint.instance.ZoomInToSection(int.Parse(HotSpotName));
-            //loopcounter = 0;
-           // while (Guided_Tour.instance.AudioClipsLoaded < 5 && loopcounter<10)
-           // {
-           //     Thread.Sleep(250);
-           //     loopcounter++;
-           // }
-           //Guided_Tour.instance.PlayGuidedTour(UseCase);
-           Invoke("playguid", 3f);
+            Invoke("playguid", 3f);
             Guided_Tour.instance.TourStart = true;
 
         }

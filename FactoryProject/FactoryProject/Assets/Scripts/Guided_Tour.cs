@@ -221,7 +221,7 @@ public class Guided_Tour : MonoBehaviour
 
     public IEnumerator Loadaudio()
     {
-        AudioClipsLoaded = 0;
+        //AudioClipsLoaded = 0;
         for (int i = 1; i <= 36; i++)
         {
             //am get from hotspot 
@@ -232,7 +232,7 @@ public class Guided_Tour : MonoBehaviour
                 if (www.result == UnityWebRequest.Result.Success)
                 {
                     audioClips[i - 1] = DownloadHandlerAudioClip.GetContent(www);
-                    AudioClipsLoaded++;
+                    //AudioClipsLoaded++;
                     // audioSources.Play();
                 }
                 else

@@ -5,6 +5,7 @@ using System.Xml;
 using TMPro;
 using UnityEngine.Networking;
 using System.Text.RegularExpressions;
+using System.IO;
 
 public class Load_Tour_text : MonoBehaviour
 {
@@ -143,203 +144,418 @@ public class Load_Tour_text : MonoBehaviour
     //    StartCoroutine(Tour_Text("CTA4"));
     //}
 
-   
-    public void GetAllTexts()
+    public void ProcessFileContent(string content)
     {
-        using (XmlReader reader = XmlReader.Create(Guided_Tour.instance.Assets_Folder + "cards/" + ImageToggleOnHover.UseCase + ".xml"))
+        using (TextReader textReader = new StringReader(content))
         {
-            while (reader.Read())
+            using (XmlReader reader = XmlReader.Create(textReader))
             {
-                if (reader.IsStartElement())
+                while (reader.Read())
                 {
-                    //return only when you have START tag  
-                    switch (reader.Name.ToString())
+                    if (reader.IsStartElement())
                     {
-                        case "IntroEndIndx":
-                            //Indx = saveDataFile.IntroEndIndx;
-                            saveDataFile.IntroEndIndx = int.Parse(reader.ReadString());
+                        //return only when you have START tag  
+                        switch (reader.Name.ToString())
+                        {
+                            case "IntroEndIndx":
+                                //Indx = saveDataFile.IntroEndIndx;
+                                saveDataFile.IntroEndIndx = int.Parse(reader.ReadString());
 
-                            break;
+                                break;
 
-                        case "ECEndIndx":
-                            saveDataFile.ECEndIndx = int.Parse(reader.ReadString());
-                            break;
-
-
-                        case "HARDWAREEndIndx":
-                            saveDataFile.HARDWAREEndIndx = int.Parse(reader.ReadString());
-                            break;
-
-                        case "TTEndIndx":
-                            saveDataFile.TTEndIndx = int.Parse(reader.ReadString());
-                            break;
+                            case "ECEndIndx":
+                                saveDataFile.ECEndIndx = int.Parse(reader.ReadString());
+                                break;
 
 
+                            case "HARDWAREEndIndx":
+                                saveDataFile.HARDWAREEndIndx = int.Parse(reader.ReadString());
+                                break;
+
+                            case "TTEndIndx":
+                                saveDataFile.TTEndIndx = int.Parse(reader.ReadString());
+                                break;
 
 
-                        case "PSEndIndx":
-
-                            saveDataFile.PSEndIndx = int.Parse(reader.ReadString());
-
-                            break;
-
-                        case "FOEndIndx":
-                            saveDataFile.FOEndIndx = int.Parse(reader.ReadString());
-                            break;
 
 
-                        case "BIEndIndx":
-                            saveDataFile.BIEndIndx = int.Parse(reader.ReadString());
-                            break;
+                            case "PSEndIndx":
+
+                                saveDataFile.PSEndIndx = int.Parse(reader.ReadString());
+
+                                break;
+
+                            case "FOEndIndx":
+                                saveDataFile.FOEndIndx = int.Parse(reader.ReadString());
+                                break;
 
 
-                        case "CTA1":
-                            saveDataFile.CTA1 = reader.ReadString();
-                            break;
-                        case "CTA2":
-                            saveDataFile.CTA2 = reader.ReadString();
-                            break;
-                        case "CTA3":
-                            saveDataFile.CTA3 = reader.ReadString();
-                            break;
-                        case "CTA4":
-                            saveDataFile.CTA4 = reader.ReadString();
-                            break;
+                            case "BIEndIndx":
+                                saveDataFile.BIEndIndx = int.Parse(reader.ReadString());
+                                break;
 
 
-                        case "EC1":
-                            saveDataFile.EC[0] = reader.ReadString();
-                            break;
-                        case "EC2":
-                            saveDataFile.EC[1] = reader.ReadString();
-                            break;
-                        case "EC3":
-                            saveDataFile.EC[2] = reader.ReadString();
-                            break;
-                        case "EC4":
-                            saveDataFile.EC[3] = reader.ReadString();
-                            break;
-                        case "EC5":
-                            saveDataFile.EC[4] = reader.ReadString();
-                            break;
-
-                        //INTRO
-
-                        case "Intro0":
-                            saveDataFile.INTRO[0] = reader.ReadString();
-                            break;
-                        case "Intro1":
-                            saveDataFile.INTRO[1] = reader.ReadString();
-                            break;
-                        case "Intro2":
-                            saveDataFile.INTRO[2] = reader.ReadString();
-                            break;
-                        case "Intro3":
-                            saveDataFile.INTRO[3] = reader.ReadString();
-                            break;
-                        case "Intro4":
-                            saveDataFile.INTRO[4] = reader.ReadString();
-                            break;
-
-                        //Hardware
-
-                        case "HARDWARE1":
-                            saveDataFile.HARDWARE[0] = reader.ReadString();
-                            break;
-                        case "HARDWARE2":
-                            saveDataFile.HARDWARE[1] = reader.ReadString();
-                            break;
-                        case "HARDWARE3":
-                            saveDataFile.HARDWARE[2] = reader.ReadString();
-                            break;
-                        case "HARDWARE4":
-                            saveDataFile.HARDWARE[3] = reader.ReadString();
-                            break;
-                        case "HARDWARE5":
-                            saveDataFile.HARDWARE[4] = reader.ReadString();
-                            break;
-
-                        //tt
-
-                        case "TT1":
-                            saveDataFile.TT[0] = reader.ReadString();
-                            break;
-                        case "TT2":
-                            saveDataFile.TT[1] = reader.ReadString();
-                            break;
-                        case "TT3":
-                            saveDataFile.TT[2] = reader.ReadString();
-                            break;
-                        case "TT4":
-                            saveDataFile.TT[3] = reader.ReadString();
-                            break;
-                        case "TT5":
-                            saveDataFile.TT[4] = reader.ReadString();
-                            break;
+                            case "CTA1":
+                                saveDataFile.CTA1 = reader.ReadString();
+                                break;
+                            case "CTA2":
+                                saveDataFile.CTA2 = reader.ReadString();
+                                break;
+                            case "CTA3":
+                                saveDataFile.CTA3 = reader.ReadString();
+                                break;
+                            case "CTA4":
+                                saveDataFile.CTA4 = reader.ReadString();
+                                break;
 
 
-                        //PS
+                            case "EC1":
+                                saveDataFile.EC[0] = reader.ReadString();
+                                break;
+                            case "EC2":
+                                saveDataFile.EC[1] = reader.ReadString();
+                                break;
+                            case "EC3":
+                                saveDataFile.EC[2] = reader.ReadString();
+                                break;
+                            case "EC4":
+                                saveDataFile.EC[3] = reader.ReadString();
+                                break;
+                            case "EC5":
+                                saveDataFile.EC[4] = reader.ReadString();
+                                break;
 
-                        case "PS1":
-                            saveDataFile.PS[0] = reader.ReadString();
-                            break;
-                        case "PS2":
-                            saveDataFile.PS[1] = reader.ReadString();
-                            break;
-                        case "PS3":
-                            saveDataFile.PS[2] = reader.ReadString();
-                            break;
-                        case "PS4":
-                            saveDataFile.PS[3] = reader.ReadString();
-                            break;
-                        case "PS5":
-                            saveDataFile.PS[4] = reader.ReadString();
-                            break;
+                            //INTRO
+
+                            case "Intro0":
+                                saveDataFile.INTRO[0] = reader.ReadString();
+                                break;
+                            case "Intro1":
+                                saveDataFile.INTRO[1] = reader.ReadString();
+                                break;
+                            case "Intro2":
+                                saveDataFile.INTRO[2] = reader.ReadString();
+                                break;
+                            case "Intro3":
+                                saveDataFile.INTRO[3] = reader.ReadString();
+                                break;
+                            case "Intro4":
+                                saveDataFile.INTRO[4] = reader.ReadString();
+                                break;
+
+                            //Hardware
+
+                            case "HARDWARE1":
+                                saveDataFile.HARDWARE[0] = reader.ReadString();
+                                break;
+                            case "HARDWARE2":
+                                saveDataFile.HARDWARE[1] = reader.ReadString();
+                                break;
+                            case "HARDWARE3":
+                                saveDataFile.HARDWARE[2] = reader.ReadString();
+                                break;
+                            case "HARDWARE4":
+                                saveDataFile.HARDWARE[3] = reader.ReadString();
+                                break;
+                            case "HARDWARE5":
+                                saveDataFile.HARDWARE[4] = reader.ReadString();
+                                break;
+
+                            //tt
+
+                            case "TT1":
+                                saveDataFile.TT[0] = reader.ReadString();
+                                break;
+                            case "TT2":
+                                saveDataFile.TT[1] = reader.ReadString();
+                                break;
+                            case "TT3":
+                                saveDataFile.TT[2] = reader.ReadString();
+                                break;
+                            case "TT4":
+                                saveDataFile.TT[3] = reader.ReadString();
+                                break;
+                            case "TT5":
+                                saveDataFile.TT[4] = reader.ReadString();
+                                break;
 
 
-                        //FO
+                            //PS
 
-                        case "FO1":
-                            saveDataFile.FO[0] = reader.ReadString();
-                            break;
-                        case "FO2":
-                            saveDataFile.FO[1] = reader.ReadString();
-                            break;
-                        case "FO3":
-                            saveDataFile.FO[2] = reader.ReadString();
-                            break;
-                        case "FO4":
-                            saveDataFile.FO[3] = reader.ReadString();
-                            break;
-                        case "FO5":
-                            saveDataFile.FO[4] = reader.ReadString();
-                            break;
+                            case "PS1":
+                                saveDataFile.PS[0] = reader.ReadString();
+                                break;
+                            case "PS2":
+                                saveDataFile.PS[1] = reader.ReadString();
+                                break;
+                            case "PS3":
+                                saveDataFile.PS[2] = reader.ReadString();
+                                break;
+                            case "PS4":
+                                saveDataFile.PS[3] = reader.ReadString();
+                                break;
+                            case "PS5":
+                                saveDataFile.PS[4] = reader.ReadString();
+                                break;
 
 
-                        //BI
+                            //FO
 
-                        case "BI1":
-                            saveDataFile.BI[0] = reader.ReadString();
-                            break;
-                        case "BI2":
-                            saveDataFile.BI[1] = reader.ReadString();
-                            break;
-                        case "BI3":
-                            saveDataFile.BI[2] = reader.ReadString();
-                            break;
-                        case "BI4":
-                            saveDataFile.BI[3] = reader.ReadString();
-                            break;
-                        case "BI5":
-                            saveDataFile.BI[4] = reader.ReadString();
-                            break;
+                            case "FO1":
+                                saveDataFile.FO[0] = reader.ReadString();
+                                break;
+                            case "FO2":
+                                saveDataFile.FO[1] = reader.ReadString();
+                                break;
+                            case "FO3":
+                                saveDataFile.FO[2] = reader.ReadString();
+                                break;
+                            case "FO4":
+                                saveDataFile.FO[3] = reader.ReadString();
+                                break;
+                            case "FO5":
+                                saveDataFile.FO[4] = reader.ReadString();
+                                break;
+
+
+                            //BI
+
+                            case "BI1":
+                                saveDataFile.BI[0] = reader.ReadString();
+                                break;
+                            case "BI2":
+                                saveDataFile.BI[1] = reader.ReadString();
+                                break;
+                            case "BI3":
+                                saveDataFile.BI[2] = reader.ReadString();
+                                break;
+                            case "BI4":
+                                saveDataFile.BI[3] = reader.ReadString();
+                                break;
+                            case "BI5":
+                                saveDataFile.BI[4] = reader.ReadString();
+                                break;
+                        }
+
                     }
-               
                 }
             }
         }
-    
     }
+
+    public IEnumerator GetAllTexts()
+    {
+        url = Guided_Tour.instance.Assets_Folder + "cards/" + ImageToggleOnHover.UseCase + ".xml";
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError(www.error);
+        }
+        else
+        {
+            string fileContent = www.downloadHandler.text;
+            ProcessFileContent(fileContent);
+        }
+    }
+    //public void GetAllTexts()
+                
+    //{
+    //    using (XmlReader reader = XmlReader.Create(Guided_Tour.instance.Assets_Folder + "cards/" + ImageToggleOnHover.UseCase + ".xml"))
+    //    {
+    //        while (reader.Read())
+    //        {
+    //            if (reader.IsStartElement())
+    //            {
+    //                //return only when you have START tag  
+    //                switch (reader.Name.ToString())
+    //                {
+    //                    case "IntroEndIndx":
+    //                        //Indx = saveDataFile.IntroEndIndx;
+    //                        saveDataFile.IntroEndIndx = int.Parse(reader.ReadString());
+
+    //                        break;
+
+    //                    case "ECEndIndx":
+    //                        saveDataFile.ECEndIndx = int.Parse(reader.ReadString());
+    //                        break;
+
+
+    //                    case "HARDWAREEndIndx":
+    //                        saveDataFile.HARDWAREEndIndx = int.Parse(reader.ReadString());
+    //                        break;
+
+    //                    case "TTEndIndx":
+    //                        saveDataFile.TTEndIndx = int.Parse(reader.ReadString());
+    //                        break;
+
+
+
+
+    //                    case "PSEndIndx":
+
+    //                        saveDataFile.PSEndIndx = int.Parse(reader.ReadString());
+
+    //                        break;
+
+    //                    case "FOEndIndx":
+    //                        saveDataFile.FOEndIndx = int.Parse(reader.ReadString());
+    //                        break;
+
+
+    //                    case "BIEndIndx":
+    //                        saveDataFile.BIEndIndx = int.Parse(reader.ReadString());
+    //                        break;
+
+
+    //                    case "CTA1":
+    //                        saveDataFile.CTA1 = reader.ReadString();
+    //                        break;
+    //                    case "CTA2":
+    //                        saveDataFile.CTA2 = reader.ReadString();
+    //                        break;
+    //                    case "CTA3":
+    //                        saveDataFile.CTA3 = reader.ReadString();
+    //                        break;
+    //                    case "CTA4":
+    //                        saveDataFile.CTA4 = reader.ReadString();
+    //                        break;
+
+
+    //                    case "EC1":
+    //                        saveDataFile.EC[0] = reader.ReadString();
+    //                        break;
+    //                    case "EC2":
+    //                        saveDataFile.EC[1] = reader.ReadString();
+    //                        break;
+    //                    case "EC3":
+    //                        saveDataFile.EC[2] = reader.ReadString();
+    //                        break;
+    //                    case "EC4":
+    //                        saveDataFile.EC[3] = reader.ReadString();
+    //                        break;
+    //                    case "EC5":
+    //                        saveDataFile.EC[4] = reader.ReadString();
+    //                        break;
+
+    //                    //INTRO
+
+    //                    case "Intro0":
+    //                        saveDataFile.INTRO[0] = reader.ReadString();
+    //                        break;
+    //                    case "Intro1":
+    //                        saveDataFile.INTRO[1] = reader.ReadString();
+    //                        break;
+    //                    case "Intro2":
+    //                        saveDataFile.INTRO[2] = reader.ReadString();
+    //                        break;
+    //                    case "Intro3":
+    //                        saveDataFile.INTRO[3] = reader.ReadString();
+    //                        break;
+    //                    case "Intro4":
+    //                        saveDataFile.INTRO[4] = reader.ReadString();
+    //                        break;
+
+    //                    //Hardware
+
+    //                    case "HARDWARE1":
+    //                        saveDataFile.HARDWARE[0] = reader.ReadString();
+    //                        break;
+    //                    case "HARDWARE2":
+    //                        saveDataFile.HARDWARE[1] = reader.ReadString();
+    //                        break;
+    //                    case "HARDWARE3":
+    //                        saveDataFile.HARDWARE[2] = reader.ReadString();
+    //                        break;
+    //                    case "HARDWARE4":
+    //                        saveDataFile.HARDWARE[3] = reader.ReadString();
+    //                        break;
+    //                    case "HARDWARE5":
+    //                        saveDataFile.HARDWARE[4] = reader.ReadString();
+    //                        break;
+
+    //                    //tt
+
+    //                    case "TT1":
+    //                        saveDataFile.TT[0] = reader.ReadString();
+    //                        break;
+    //                    case "TT2":
+    //                        saveDataFile.TT[1] = reader.ReadString();
+    //                        break;
+    //                    case "TT3":
+    //                        saveDataFile.TT[2] = reader.ReadString();
+    //                        break;
+    //                    case "TT4":
+    //                        saveDataFile.TT[3] = reader.ReadString();
+    //                        break;
+    //                    case "TT5":
+    //                        saveDataFile.TT[4] = reader.ReadString();
+    //                        break;
+
+
+    //                    //PS
+
+    //                    case "PS1":
+    //                        saveDataFile.PS[0] = reader.ReadString();
+    //                        break;
+    //                    case "PS2":
+    //                        saveDataFile.PS[1] = reader.ReadString();
+    //                        break;
+    //                    case "PS3":
+    //                        saveDataFile.PS[2] = reader.ReadString();
+    //                        break;
+    //                    case "PS4":
+    //                        saveDataFile.PS[3] = reader.ReadString();
+    //                        break;
+    //                    case "PS5":
+    //                        saveDataFile.PS[4] = reader.ReadString();
+    //                        break;
+
+
+    //                    //FO
+
+    //                    case "FO1":
+    //                        saveDataFile.FO[0] = reader.ReadString();
+    //                        break;
+    //                    case "FO2":
+    //                        saveDataFile.FO[1] = reader.ReadString();
+    //                        break;
+    //                    case "FO3":
+    //                        saveDataFile.FO[2] = reader.ReadString();
+    //                        break;
+    //                    case "FO4":
+    //                        saveDataFile.FO[3] = reader.ReadString();
+    //                        break;
+    //                    case "FO5":
+    //                        saveDataFile.FO[4] = reader.ReadString();
+    //                        break;
+
+
+    //                    //BI
+
+    //                    case "BI1":
+    //                        saveDataFile.BI[0] = reader.ReadString();
+    //                        break;
+    //                    case "BI2":
+    //                        saveDataFile.BI[1] = reader.ReadString();
+    //                        break;
+    //                    case "BI3":
+    //                        saveDataFile.BI[2] = reader.ReadString();
+    //                        break;
+    //                    case "BI4":
+    //                        saveDataFile.BI[3] = reader.ReadString();
+    //                        break;
+    //                    case "BI5":
+    //                        saveDataFile.BI[4] = reader.ReadString();
+    //                        break;
+    //                }
+               
+    //            }
+    //        }
+    //    }
+    
+    //}
 
     //For Getting String Values
    

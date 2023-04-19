@@ -45,23 +45,23 @@ public class ImageLoader : MonoBehaviour
     }
     public void Start()
     {
-        ECInnerColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color) ? color : Color.white;
-        VPInnerColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color1) ? color1 : Color.white;
-        BOInnerColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color2) ? color2 : Color.white;
-        DSInnerColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color3) ? color3 : Color.white;
-        PSInnerColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color4) ? color4 : Color.white;
+        ECInnerColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color) ? color : Color.white;
+        VPInnerColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color1) ? color1 : Color.white;
+        BOInnerColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color2) ? color2 : Color.white;
+        DSInnerColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color3) ? color3 : Color.white;
+        PSInnerColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color4) ? color4 : Color.white;
 
-        ECMiddleColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color5) ? color5 : Color.white;
-        VPMiddleColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color6) ? color6 : Color.white;
-        BOMiddleColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color7) ? color7 : Color.white;
-        DSMiddleColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color8) ? color8 : Color.white;
-        PSMiddleColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color9) ? color9 : Color.white;
+        ECMiddleColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color5) ? color5 : Color.white;
+        VPMiddleColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color6) ? color6 : Color.white;
+        BOMiddleColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color7) ? color7 : Color.white;
+        DSMiddleColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color8) ? color8 : Color.white;
+        PSMiddleColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color9) ? color9 : Color.white;
 
-        ECOuterColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color10) ? color10 : Color.white;
-        VPOuterColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color11) ? color11 : Color.white;
-        BOOuterColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color12) ? color12 : Color.white;
-        DSOuterColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color13) ? color13 : Color.white;
-        PSOuterColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color14) ? color14 : Color.white;
+        ECOuterColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color10) ? color10 : Color.white;
+        VPOuterColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color11) ? color11 : Color.white;
+        BOOuterColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color12) ? color12 : Color.white;
+        DSOuterColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color13) ? color13 : Color.white;
+        PSOuterColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color14) ? color14 : Color.white;
 
         StartCoroutine(LoadAllComponentFrontFaces());
         StartCoroutine(LoadAllComponentBackFaces());
