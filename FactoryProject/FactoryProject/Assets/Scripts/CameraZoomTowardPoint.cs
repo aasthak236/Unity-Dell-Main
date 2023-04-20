@@ -35,6 +35,8 @@ public class CameraZoomTowardPoint : MonoBehaviour
     {
         try
         {
+            Guided_Tour.instance.StopCoroutine();//stop for usecase
+            BackCardData.instance.StopCoroutineTour();//stop for outcome
             Guided_Tour.instance.ClosedAllWindow();
           
         }
@@ -105,6 +107,11 @@ public class CameraZoomTowardPoint : MonoBehaviour
     }
     public void ZoomBack()
     {
+        FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
+        Vector3 newrotation = new Vector3(0, 0, 0);
+        FactoryMdel.transform.eulerAngles = newrotation;
+        Guided_Tour.instance.StopCoroutine();//stop for usecase
+        BackCardData.instance.StopCoroutineTour();//stop for outcome
         Guided_Tour.instance.ClosedAllWindow();
         TopBar.SetActive(false);
         BackCardData.instance.BusinessOutcomeWindow.SetActive(false);

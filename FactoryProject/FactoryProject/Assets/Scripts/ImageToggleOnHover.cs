@@ -24,6 +24,8 @@ public class ImageToggleOnHover : MonoBehaviour
        // int loopcounter;
         if (Tour_Running == false)
         {
+            Guided_Tour.instance.StopCoroutine();//stop for usecase
+            BackCardData.instance.StopCoroutineTour();//stop for outcome
             SaveDataFromXML.ins.ResetSaveData();
             Guided_Tour.instance.ClosedAllWindow();
             UseCase = transform.GetChild(0).gameObject.name;

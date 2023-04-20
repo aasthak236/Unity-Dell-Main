@@ -128,8 +128,9 @@ public class ImageLoader : MonoBehaviour
            
              if (Component == "VP")
             {
-                MenuButton[3].GetComponent<Image>().color = PressedColor;
+               
                 CameraZoomTowardPoint.instance.ZoomBack();
+                MenuButton[3].GetComponent<Image>().color = PressedColor;
                 HexagonInnerColor.color = VPInnerColor;
                 HexagonMiddleColor.color = VPMiddleColor;
                 HexagonOuterColor.color = VPOuterColor;
@@ -148,8 +149,9 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "EC")
             {
-                MenuButton[1].GetComponent<Image>().color = PressedColor;
+               
                 CameraZoomTowardPoint.instance.ZoomBack();
+                MenuButton[1].GetComponent<Image>().color = PressedColor;
                 HexagonInnerColor.color = ECInnerColor;
                 HexagonMiddleColor.color = ECMiddleColor;
                 HexagonOuterColor.color = ECOuterColor;
@@ -168,12 +170,13 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "BO")
             {
-                MenuButton[0].GetComponent<Image>().color = PressedColor;
+                
                 //Image myImage = MenuButton[0].image;
                 //Color newColor = myImage.color;
                 //newColor.a = 255f; // Set the alpha value to 0.5 (half transparent)
                 //myImage.color = newColor;
                 CameraZoomTowardPoint.instance.ZoomBack();
+                MenuButton[0].GetComponent<Image>().color = PressedColor;
                 HexagonInnerColor.color = BOInnerColor;
                 HexagonMiddleColor.color = BOMiddleColor;
                 HexagonOuterColor.color = BOOuterColor;
@@ -198,8 +201,9 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "DS")
             {
-                MenuButton[2].GetComponent<Image>().color = PressedColor;
+              
                 CameraZoomTowardPoint.instance.ZoomBack();
+                MenuButton[2].GetComponent<Image>().color = PressedColor;
                 HexagonInnerColor.color = DSInnerColor;
                 HexagonMiddleColor.color = DSMiddleColor;
                 HexagonOuterColor.color = DSOuterColor;
@@ -219,8 +223,9 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "PS")
             {
-                MenuButton[4].GetComponent<Image>().color = PressedColor;
+                
                 CameraZoomTowardPoint.instance.ZoomBack();
+                MenuButton[4].GetComponent<Image>().color = PressedColor;
                 HexagonInnerColor.color = PSInnerColor;
                 HexagonMiddleColor.color = PSMiddleColor;
                 HexagonOuterColor.color = PSOuterColor;

@@ -269,7 +269,8 @@ public class BackCardData : MonoBehaviour
     public bool BusinessOutcomeStart;
     public void FlashHotspot(int i)
     {
-        //StopCoroutineTour();
+        Guided_Tour.instance.StopCoroutine();//stop for usecase
+        StopCoroutineTour();//stop for outcome
         myCoroutine = OutcomeBtnF(i);
         StartCoroutine(myCoroutine);
         BusinessOutcomeStart = true;
@@ -300,20 +301,21 @@ public class BackCardData : MonoBehaviour
             {
                 HotSpot[i].SetActive(true);
             }
+       
             // BusinessOutcomeWindow.SetActive(false);
             ImageToggleOnHover.Tour_Running = false;
 
         }
-
+        for (int i = 0; i <= 4; i++)
+        {
+          ImageLoader.instance.MenuButton[i].GetComponent<Image>().color = ImageLoader.instance.NormalColor;
+        }
     }
     IEnumerator myCoroutine;
     public IEnumerator OutcomeBtnF(int ButtonNaame)
     {
         Guided_Tour.instance.ClosedAllWindow();
-        for (int i = 0; i <= 5; i++)
-        {
-            OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
-        }
+      
         OutcomeBtn[ButtonNaame].GetComponent<Image>().color = PressedColor;
         
         ImageToggleOnHover.Tour_Running = true;
