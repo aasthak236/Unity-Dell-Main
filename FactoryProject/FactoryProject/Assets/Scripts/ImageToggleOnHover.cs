@@ -37,7 +37,7 @@ public class ImageToggleOnHover : MonoBehaviour
             
             CameraZoomTowardPoint.instance.ZoomInToSection(int.Parse(HotSpotName));
             Tour_Running = true;
-            Invoke("playguid", 1f);
+            Invoke("playguid", 1.5f);
             Guided_Tour.instance.TourStart = true;
 
 

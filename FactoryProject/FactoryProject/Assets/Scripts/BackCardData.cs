@@ -38,10 +38,10 @@ public class BackCardData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         
-      
-        NormalColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color) ? color : Color.white;
-        PressedColor = ColorUtility.TryParseHtmlString("#80C7FB", out Color color1) ? color1 : Color.white;
+          NormalColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color) ? color : Color.white;
+        PressedColor = ColorUtility.TryParseHtmlString("#0C32A4", out Color color1) ? color1 : Color.white;
         instance = this;
         HotSpotSizeIncrease();
         Invoke("ActiveEnterButton", 10f);
@@ -267,6 +267,7 @@ public class BackCardData : MonoBehaviour
     public Color NormalColor;
     public Color PressedColor;
     public bool BusinessOutcomeStart;
+    public AudioSource Silence;
     public void FlashHotspot(int i)
     {
         Guided_Tour.instance.StopCoroutine();//stop for usecase
@@ -317,14 +318,18 @@ public class BackCardData : MonoBehaviour
         Guided_Tour.instance.ClosedAllWindow();
       
         OutcomeBtn[ButtonNaame].GetComponent<Image>().color = PressedColor;
-        
+        ImageLoader.instance.MenuButton[0].GetComponent<Image>().color = ImageLoader.instance.PressedColor;
+
         ImageToggleOnHover.Tour_Running = true;
         HotSpotsRuninng = true;
         for (int i = 0; i <= 13; i++)
         {
             HotSpot[i].SetActive(false);
         }
-
+        Guided_Tour.instance.audioSource.clip = Silence.clip;
+        Guided_Tour.instance.audiolength = Silence.clip.length;
+        Guided_Tour.instance.audioSource.Play();
+        yield return new WaitForSeconds(0.5f);
         if (ButtonNaame == 0)
         {
             numberofhotspots = 6;
@@ -366,7 +371,7 @@ public class BackCardData : MonoBehaviour
                     }
                 }
             }
-           
+            ImageToggleOnHover.Tour_Running = false;
         }
         else if (ButtonNaame == 1)
         {
@@ -402,6 +407,7 @@ public class BackCardData : MonoBehaviour
             //HotSpot[5].SetActive(true);
             //HotSpot[7].SetActive(true);
             //HotSpot[2].SetActive(true);
+            ImageToggleOnHover.Tour_Running = false;
 
         }
         else if (ButtonNaame == 2)
@@ -438,7 +444,7 @@ public class BackCardData : MonoBehaviour
             //HotSpot[5].SetActive(true);
             //HotSpot[7].SetActive(true);
             //HotSpot[13].SetActive(true);
-
+            ImageToggleOnHover.Tour_Running = false;
         }
         else if (ButtonNaame == 3)
         {
@@ -472,7 +478,7 @@ public class BackCardData : MonoBehaviour
             //HotSpot[4].SetActive(true);
             //HotSpot[11].SetActive(true);
             //HotSpot[1].SetActive(true);
-
+            ImageToggleOnHover.Tour_Running = false;
         }
         else if (ButtonNaame == 4)
         {
@@ -508,7 +514,7 @@ public class BackCardData : MonoBehaviour
             //HotSpot[11].SetActive(true);
             //HotSpot[6].SetActive(true);
             //HotSpot[13].SetActive(true);
-
+            ImageToggleOnHover.Tour_Running = false;
         }
         else
         {

@@ -308,9 +308,9 @@ public class Guided_Tour : MonoBehaviour
         // Turn on Introduction audio
         //Intro audio Play
 
-        //audioSource.clip = audioClips[0];
-        //audiolength = audioClips[0].length;
-        //audioSource.Play();
+        audioSource.clip = audioClips[0];
+        audiolength = audioClips[0].length;
+        audioSource.Play();
         ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.VPInnerColor;
         ImageLoader.instance.HexagonMiddleColor.color = ImageLoader.instance.VPMiddleColor;
         ImageLoader.instance.HexagonOuterColor.color = ImageLoader.instance.VPOuterColor;
@@ -693,7 +693,7 @@ public class Guided_Tour : MonoBehaviour
         FadeOut.SetActive(false);
         TourStart = false;
         yield return new WaitForSeconds(1f);
-        
+        ImageToggleOnHover.Tour_Running = false;
         UnClickMenu.SetActive(false);
         HexagonBlank();
       
@@ -714,6 +714,7 @@ public class Guided_Tour : MonoBehaviour
         BackCardData.instance.PartnerFrontWindow.SetActive(false);
         BackCardData.instance.PartnerWindow.SetActive(false);
         BackCardData.instance.DellWindow.SetActive(false);
+        CTAHexa.SetActive(false);
         audioSource.clip = null;
      
 
