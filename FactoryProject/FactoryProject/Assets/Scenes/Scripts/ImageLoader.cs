@@ -79,8 +79,10 @@ public class ImageLoader : MonoBehaviour
         BOOuterColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color12) ? color12 : Color.white;
         DSOuterColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color13) ? color13 : Color.white;
         PSOuterColor = ColorUtility.TryParseHtmlString("#E5F8FF", out Color color14) ? color14 : Color.white;
-        NormalColor = ColorUtility.TryParseHtmlString("#0D2155", out Color color20) ? color20 : Color.white;
-        PressedColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color21) ? color21 : Color.white;
+
+
+        NormalColor = ColorUtility.TryParseHtmlString("#2A145A", out Color color20) ? color20 : Color.white;
+        PressedColor = ColorUtility.TryParseHtmlString("#612CB0", out Color color21) ? color21 : Color.white;
         StartCoroutine(LoadAllComponentFrontFaces());
         StartCoroutine(LoadAllComponentBackFaces());
     }

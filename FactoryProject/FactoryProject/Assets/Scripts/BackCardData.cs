@@ -40,8 +40,8 @@ public class BackCardData : MonoBehaviour
     {
 
         
-          NormalColor = ColorUtility.TryParseHtmlString("#0672CB", out Color color) ? color : Color.white;
-        PressedColor = ColorUtility.TryParseHtmlString("#0C32A4", out Color color1) ? color1 : Color.white;
+          NormalColor = ColorUtility.TryParseHtmlString("#612CB0", out Color color) ? color : Color.white;
+        PressedColor = ColorUtility.TryParseHtmlString("#2A145A", out Color color1) ? color1 : Color.white;
         instance = this;
         HotSpotSizeIncrease();
         Invoke("ActiveEnterButton", 10f);

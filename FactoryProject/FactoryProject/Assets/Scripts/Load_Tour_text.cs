@@ -146,6 +146,7 @@ public class Load_Tour_text : MonoBehaviour
 
     public void ProcessFileContent(string content)
     {
+        
         using (TextReader textReader = new StringReader(content))
         {
             using (XmlReader reader = XmlReader.Create(textReader))
@@ -225,6 +226,42 @@ public class Load_Tour_text : MonoBehaviour
                                 saveDataFile.EC[4] = reader.ReadString();
                                 break;
 
+                                //img
+
+                            case "img_EC1":
+                                saveDataFile.Img_EC[0] = reader.ReadString();
+                                break;
+                            case "img_EC2":
+                                saveDataFile.Img_EC[1] = reader.ReadString();
+                                break;
+                            case "img_EC3":
+                                saveDataFile.Img_EC[2] = reader.ReadString();
+                                break;
+                            case "img_EC4":
+                                saveDataFile.Img_EC[3] = reader.ReadString();
+                                break;
+                            case "img_EC5":
+                                saveDataFile.Img_EC[4] = reader.ReadString();
+                                break;
+
+                                //sub
+
+                            case "sub_EC1":
+                                saveDataFile.Sub_EC[0] = reader.ReadString();
+                                break;
+                            case "sub_EC2":
+                                saveDataFile.Sub_EC[1] = reader.ReadString();
+                                break;
+                            case "sub_EC3":
+                                saveDataFile.Sub_EC[2] = reader.ReadString();
+                                break;
+                            case "sub_EC4":
+                                saveDataFile.Sub_EC[3] = reader.ReadString();
+                                break;
+                            case "sub_EC5":
+                                saveDataFile.Sub_EC[4] = reader.ReadString();
+                                break;
+
                             //INTRO
 
                             case "Intro0":
@@ -242,6 +279,44 @@ public class Load_Tour_text : MonoBehaviour
                             case "Intro4":
                                 saveDataFile.INTRO[4] = reader.ReadString();
                                 break;
+
+                            //img
+
+                            case "img_Intro1":
+                                saveDataFile.Img_INTRO[0] = reader.ReadString();
+                                break;
+                            case "img_Intro2":
+                                saveDataFile.Img_INTRO[1] = reader.ReadString();
+                                break;
+                            case "img_Intro3":
+                                saveDataFile.Img_INTRO[2] = reader.ReadString();
+                                break;
+                            case "img_Intro4":
+                                saveDataFile.Img_INTRO[3] = reader.ReadString();
+                                break;
+                            case "img_Intro5":
+                                saveDataFile.Img_INTRO[4] = reader.ReadString();
+                                break;
+
+                            //sub
+
+                            case "sub_Intro1":
+                                saveDataFile.Sub_INTRO[0] = reader.ReadString();
+                                break;
+                            case "sub_Intro2":
+                                saveDataFile.Sub_INTRO[1] = reader.ReadString();
+                                break;
+                            case "sub_Intro3":
+                                saveDataFile.Sub_INTRO[2] = reader.ReadString();
+                                break;
+                            case "sub_Intro4":
+                                saveDataFile.Sub_INTRO[3] = reader.ReadString();
+                                break;
+                            case "sub_Intro5":
+                                saveDataFile.Sub_INTRO[4] = reader.ReadString();
+                                break;
+
+
 
                             //Hardware
 
@@ -261,6 +336,43 @@ public class Load_Tour_text : MonoBehaviour
                                 saveDataFile.HARDWARE[4] = reader.ReadString();
                                 break;
 
+                            //img
+
+                            case "img_HARDWARE1":
+                                saveDataFile.Img_HARDWARE[0] = reader.ReadString();
+                                break;
+                            case "img_HARDWARE2":
+                                saveDataFile.Img_HARDWARE[1] = reader.ReadString();
+                                break;
+                            case "img_HARDWARE3":
+                                saveDataFile.Img_HARDWARE[2] = reader.ReadString();
+                                break;
+                            case "img_HARDWARE4":
+                                saveDataFile.Img_HARDWARE[3] = reader.ReadString();
+                                break;
+                            case "img_HARDWARE5":
+                                saveDataFile.Img_HARDWARE[4] = reader.ReadString();
+                                break;
+
+                            //sub
+
+                            case "sub_HARDWARE1":
+                                saveDataFile.Sub_HARDWARE[0] = reader.ReadString();
+                                break;
+                            case "sub_HARDWARE2":
+                                saveDataFile.Sub_HARDWARE[1] = reader.ReadString();
+                                break;
+                            case "sub_HARDWARE3":
+                                saveDataFile.Sub_HARDWARE[2] = reader.ReadString();
+                                break;
+                            case "sub_HARDWARE4":
+                                saveDataFile.Sub_HARDWARE[3] = reader.ReadString();
+                                break;
+                            case "sub_HARDWARE5":
+                                saveDataFile.Sub_HARDWARE[4] = reader.ReadString();
+                                break;
+
+
                             //tt
 
                             case "TT1":
@@ -278,6 +390,44 @@ public class Load_Tour_text : MonoBehaviour
                             case "TT5":
                                 saveDataFile.TT[4] = reader.ReadString();
                                 break;
+
+
+                            //img
+
+                            case "img_TT1":
+                                saveDataFile.Img_TT[0] = reader.ReadString();
+                                break;
+                            case "img_TT2":
+                                saveDataFile.Img_TT[1] = reader.ReadString();
+                                break;
+                            case "img_TT3":
+                                saveDataFile.Img_TT[2] = reader.ReadString();
+                                break;
+                            case "img_TT4":
+                                saveDataFile.Img_TT[3] = reader.ReadString();
+                                break;
+                            case "img_TT5":
+                                saveDataFile.Img_TT[4] = reader.ReadString();
+                                break;
+
+                            //sub
+
+                            case "sub_TT1":
+                                saveDataFile.Sub_TT[0] = reader.ReadString();
+                                break;
+                            case "sub_TT2":
+                                saveDataFile.Sub_TT[1] = reader.ReadString();
+                                break;
+                            case "sub_TT3":
+                                saveDataFile.Sub_TT[2] = reader.ReadString();
+                                break;
+                            case "sub_TT4":
+                                saveDataFile.Sub_TT[3] = reader.ReadString();
+                                break;
+                            case "sub_TT5":
+                                saveDataFile.Sub_TT[4] = reader.ReadString();
+                                break;
+
 
 
                             //PS
@@ -299,6 +449,43 @@ public class Load_Tour_text : MonoBehaviour
                                 break;
 
 
+                            //img
+
+                            case "img_PS1":
+                                saveDataFile.Img_TT[0] = reader.ReadString();
+                                break;
+                            case "img_PS2":
+                                saveDataFile.Img_TT[1] = reader.ReadString();
+                                break;
+                            case "img_PS3":
+                                saveDataFile.Img_TT[2] = reader.ReadString();
+                                break;
+                            case "img_PS4":
+                                saveDataFile.Img_TT[3] = reader.ReadString();
+                                break;
+                            case "img_PS5":
+                                saveDataFile.Img_TT[4] = reader.ReadString();
+                                break;
+
+                            //sub
+
+                            case "sub_PS1":
+                                saveDataFile.Sub_TT[0] = reader.ReadString();
+                                break;
+                            case "sub_PS2":
+                                saveDataFile.Sub_TT[1] = reader.ReadString();
+                                break;
+                            case "sub_PS3":
+                                saveDataFile.Sub_TT[2] = reader.ReadString();
+                                break;
+                            case "sub_PS4":
+                                saveDataFile.Sub_TT[3] = reader.ReadString();
+                                break;
+                            case "sub_PS5":
+                                saveDataFile.Sub_TT[4] = reader.ReadString();
+                                break;
+
+
                             //FO
 
                             case "FO1":
@@ -316,6 +503,43 @@ public class Load_Tour_text : MonoBehaviour
                             case "FO5":
                                 saveDataFile.FO[4] = reader.ReadString();
                                 break;
+
+                            //img
+
+                            case "img_FO1":
+                                saveDataFile.Img_FO[0] = reader.ReadString();
+                                break;
+                            case "img_FO2":
+                                saveDataFile.Img_FO[1] = reader.ReadString();
+                                break;
+                            case "img_FO3":
+                                saveDataFile.Img_FO[2] = reader.ReadString();
+                                break;
+                            case "img_FO4":
+                                saveDataFile.Img_FO[3] = reader.ReadString();
+                                break;
+                            case "img_FO5":
+                                saveDataFile.Img_FO[4] = reader.ReadString();
+                                break;
+
+                            //sub
+
+                            case "sub_FO1":
+                                saveDataFile.Sub_FO[0] = reader.ReadString();
+                                break;
+                            case "sub_FO2":
+                                saveDataFile.Sub_FO[1] = reader.ReadString();
+                                break;
+                            case "sub_FO3":
+                                saveDataFile.Sub_FO[2] = reader.ReadString();
+                                break;
+                            case "sub_FO4":
+                                saveDataFile.Sub_FO[3] = reader.ReadString();
+                                break;
+                            case "sub_FO5":
+                                saveDataFile.Sub_FO[4] = reader.ReadString();
+                                break;
+
 
 
                             //BI
@@ -335,14 +559,108 @@ public class Load_Tour_text : MonoBehaviour
                             case "BI5":
                                 saveDataFile.BI[4] = reader.ReadString();
                                 break;
+
+                            //img
+
+                            case "img_BI1":
+                                saveDataFile.Img_BI[0] = reader.ReadString();
+                                break;
+                            case "img_BI2":
+                                saveDataFile.Img_BI[1] = reader.ReadString();
+                                break;
+                            case "img_BI3":
+                                saveDataFile.Img_BI[2] = reader.ReadString();
+                                break;
+                            case "img_BI4":
+                                saveDataFile.Img_BI[3] = reader.ReadString();
+                                break;
+                            case "img_BI5":
+                                saveDataFile.Img_BI[4] = reader.ReadString();
+                                break;
+
+                            //sub
+
+                            case "sub_BI1":
+                                saveDataFile.Sub_BI[0] = reader.ReadString();
+                                break;
+                            case "sub_BI2":
+                                saveDataFile.Sub_BI[1] = reader.ReadString();
+                                break;
+                            case "sub_BI3":
+                                saveDataFile.Sub_BI[2] = reader.ReadString();
+                                break;
+                            case "sub_BI4":
+                                saveDataFile.Sub_BI[3] = reader.ReadString();
+                                break;
+                            case "sub_BI5":
+                                saveDataFile.Sub_BI[4] = reader.ReadString();
+                                break;
+
                         }
 
                     }
                 }
             }
+           
+        }
+       // StartCoroutine(LoadTourImages());
+    }
+    public IEnumerator LoadTourImages()
+    {
+        Guided_Tour.instance.nTourImages = 0;
+        for (int i = 0; i <= 4; i++)
+        {
+            if (saveDataFile.Img_EC[i] != "")
+            {
+                using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(saveDataFile.Img_EC[i]))
+                {
+                    yield return request.SendWebRequest();
+
+                    if (request.result == UnityWebRequest.Result.Success)
+                    {
+                        Texture2D texture = DownloadHandlerTexture.GetContent(request);
+
+                        // Create a sprite from the texture and assign it to the Image component
+                        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+                        Guided_Tour.instance.TourImages[Guided_Tour.instance.nTourImages].sprite = sprite;
+                    }
+                    else
+                    {
+                        Debug.LogError("Image download failed: " + request.error);
+                    }
+                }
+
+                saveDataFile.Img_EC[i] = Guided_Tour.instance.nTourImages.ToString();
+                Guided_Tour.instance.nTourImages++;
+            }
+
+            //intro
+            if (saveDataFile.Img_INTRO[i] != "")
+            {
+
+                using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(saveDataFile.Img_INTRO[i]))
+                {
+                    yield return request.SendWebRequest();
+
+                    if (request.result == UnityWebRequest.Result.Success)
+                    {
+                        Texture2D texture = DownloadHandlerTexture.GetContent(request);
+
+                        // Create a sprite from the texture and assign it to the Image component
+                        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+                        Guided_Tour.instance.TourImages[Guided_Tour.instance.nTourImages].sprite = sprite;
+                    }
+                    else
+                    {
+                        Debug.LogError("Image download failed: " + request.error);
+                    }
+                }
+                saveDataFile.Img_INTRO[i] = Guided_Tour.instance.nTourImages.ToString();
+                Guided_Tour.instance.nTourImages++;
+            }
+
         }
     }
-
     public IEnumerator GetAllTexts()
     {
         url = Guided_Tour.instance.Assets_Folder + "cards/" + ImageToggleOnHover.UseCase + ".xml";
