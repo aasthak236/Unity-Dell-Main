@@ -258,6 +258,7 @@ public class ImageLoader : MonoBehaviour
             }
             BackCardData.instance.PartnerFrontWindow.SetActive(false);
             BackCardData.instance.DellFrontWindow.SetActive(false);
+            BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
         }
     }
     public IEnumerator frontBB(string ComponentName)

@@ -452,37 +452,37 @@ public class Load_Tour_text : MonoBehaviour
                             //img
 
                             case "img_PS1":
-                                saveDataFile.Img_TT[0] = reader.ReadString();
+                                saveDataFile.Img_PS[0] = reader.ReadString();
                                 break;
                             case "img_PS2":
-                                saveDataFile.Img_TT[1] = reader.ReadString();
+                                saveDataFile.Img_PS[1] = reader.ReadString();
                                 break;
                             case "img_PS3":
-                                saveDataFile.Img_TT[2] = reader.ReadString();
+                                saveDataFile.Img_PS[2] = reader.ReadString();
                                 break;
                             case "img_PS4":
-                                saveDataFile.Img_TT[3] = reader.ReadString();
+                                saveDataFile.Img_PS[3] = reader.ReadString();
                                 break;
                             case "img_PS5":
-                                saveDataFile.Img_TT[4] = reader.ReadString();
+                                saveDataFile.Img_PS[4] = reader.ReadString();
                                 break;
 
                             //sub
 
+                            case "sub_PS0":
+                                saveDataFile.Sub_PS[0] = reader.ReadString();
+                                break;
                             case "sub_PS1":
-                                saveDataFile.Sub_TT[0] = reader.ReadString();
+                                saveDataFile.Sub_PS[1] = reader.ReadString();
                                 break;
                             case "sub_PS2":
-                                saveDataFile.Sub_TT[1] = reader.ReadString();
+                                saveDataFile.Sub_PS[2] = reader.ReadString();
                                 break;
                             case "sub_PS3":
-                                saveDataFile.Sub_TT[2] = reader.ReadString();
+                                saveDataFile.Sub_PS[3] = reader.ReadString();
                                 break;
                             case "sub_PS4":
-                                saveDataFile.Sub_TT[3] = reader.ReadString();
-                                break;
-                            case "sub_PS5":
-                                saveDataFile.Sub_TT[4] = reader.ReadString();
+                                saveDataFile.Sub_PS[4] = reader.ReadString();
                                 break;
 
 
@@ -603,7 +603,7 @@ public class Load_Tour_text : MonoBehaviour
             }
            
         }
-       // StartCoroutine(LoadTourImages());
+        //StartCoroutine(LoadTourImages());
     }
     public IEnumerator LoadTourImages()
     {
@@ -645,7 +645,6 @@ public class Load_Tour_text : MonoBehaviour
                     if (request.result == UnityWebRequest.Result.Success)
                     {
                         Texture2D texture = DownloadHandlerTexture.GetContent(request);
-
                         // Create a sprite from the texture and assign it to the Image component
                         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
                         Guided_Tour.instance.TourImages[Guided_Tour.instance.nTourImages].sprite = sprite;
