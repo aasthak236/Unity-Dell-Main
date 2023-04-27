@@ -38,8 +38,8 @@ public class CameraController : MonoBehaviour
             float newZoomDistanceY = transform.position.y- (scrollInput * zoomSpeed);
 
             // Clamp zoom distance within min/max range
-            newZoomDistanceY = Mathf.Clamp(newZoomDistanceY, 20f, 50f);
-            newZoomDistance = Mathf.Clamp(newZoomDistance, 40.5f, 70.5f);
+            newZoomDistanceY = Mathf.Clamp(newZoomDistanceY, 23f, 50f);
+            newZoomDistance = Mathf.Clamp(newZoomDistance, 43.5f, 70.5f);
 
             // Set new camera position
             transform.position = new Vector3(transform.position.x, newZoomDistanceY, newZoomDistance);

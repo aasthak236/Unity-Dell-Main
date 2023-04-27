@@ -91,6 +91,7 @@ public class ImageLoader : MonoBehaviour
         StartCoroutine(frontBB(Component));
         StartCoroutine(backBB(Component));
         Invoke("OpenCard", 2f);
+
     }
     public bool pressed;
     public static string ComponentName;

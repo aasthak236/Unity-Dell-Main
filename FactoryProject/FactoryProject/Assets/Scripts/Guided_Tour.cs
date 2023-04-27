@@ -334,20 +334,21 @@ public class Guided_Tour : MonoBehaviour
         //StartCoroutine(LoadImgWithUrl(Assets_Folder + "image/xmpro-logo.png"));
         // Turn on Introduction audio
         //Intro audio Play
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         
         audioSource.clip = audioClips[0];
         audiolength = audioClips[0].length;
         audioSource.Play();
+        yield return new WaitForSeconds(audiolength);
         //ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.VPInnerColor;
         //ImageLoader.instance.HexagonMiddleColor.color = ImageLoader.instance.VPMiddleColor;
         //ImageLoader.instance.HexagonOuterColor.color = ImageLoader.instance.VPOuterColor;
 
         //  hexaTxt.SetActive(true);
-        
-       
-        
+
+
+
         string usecasenum = ImageToggleOnHover.UseCase;
         string EndNumber = usecasenum.Substring(2, usecasenum.Length - 2);
         audioClips[1] = HotSpotAudioIntro[int.Parse(EndNumber) - 1];
@@ -913,7 +914,7 @@ public class Guided_Tour : MonoBehaviour
 
         if (saveDataFile.PSEndIndx == 0)
         {
-            StopCoroutine();
+           
         }
         else
         {
@@ -950,7 +951,12 @@ public class Guided_Tour : MonoBehaviour
         ImageToggleOnHover.Tour_Running = false;
         UnClickMenu.SetActive(false);
         HexagonBlank();
-      
+        if (saveDataFile.PSEndIndx == 0)
+        {
+            StopCoroutine();
+            BackCardData.instance.StopCoroutineTour();
+            ClosedAllWindow();
+        }
 
     }
     public void ResetTourTextBox()
@@ -971,6 +977,8 @@ public class Guided_Tour : MonoBehaviour
     public void CloseCTA()
     {
         StopCoroutine();
+        BackCardData.instance.StopCoroutineTour();
+        ClosedAllWindow();
         ImageToggleOnHover.Tour_Running = false;
     }
     public void ClosedAllWindow()
@@ -984,6 +992,7 @@ public class Guided_Tour : MonoBehaviour
         BackCardData.instance.PartnerFrontWindow.SetActive(false);
         BackCardData.instance.PartnerWindow.SetActive(false);
         BackCardData.instance.DellWindow.SetActive(false);
+        ValuePillarsWindow.SetActive(false);
         CTAHexa.SetActive(false);
         audioSource.clip = null;
      

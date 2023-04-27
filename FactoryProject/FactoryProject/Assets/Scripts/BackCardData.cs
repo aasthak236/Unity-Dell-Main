@@ -279,12 +279,16 @@ public class BackCardData : MonoBehaviour
     }
     public void StopCoroutineTour()
     {
+        BusinessOutcomeWindow.SetActive(false);
+        
         if (HotSpotsRuninng)
         {
             Guided_Tour.instance.audioSource.Stop();
             if (BusinessOutcomeStart)
             {
                 StopCoroutine(myCoroutine);
+                ImageLoader.ComponentName = null;
+
             }
     
             for (int j = 0; j < 14; j++)
@@ -302,8 +306,8 @@ public class BackCardData : MonoBehaviour
             {
                 HotSpot[i].SetActive(true);
             }
-       
-            // BusinessOutcomeWindow.SetActive(false);
+            BusinessOutcomeStart = false;
+            //
             ImageToggleOnHover.Tour_Running = false;
 
         }
@@ -316,7 +320,7 @@ public class BackCardData : MonoBehaviour
     public IEnumerator OutcomeBtnF(int ButtonNaame)
     {
         Guided_Tour.instance.ClosedAllWindow();
-      
+        BusinessOutcomeWindow.SetActive(true);
         OutcomeBtn[ButtonNaame].GetComponent<Image>().color = PressedColor;
         ImageLoader.instance.MenuButton[0].GetComponent<Image>().color = ImageLoader.instance.PressedColor;
 
@@ -326,10 +330,10 @@ public class BackCardData : MonoBehaviour
         {
             HotSpot[i].SetActive(false);
         }
-        Guided_Tour.instance.audioSource.clip = Silence.clip;
-        Guided_Tour.instance.audiolength = Silence.clip.length;
+        Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.audioClips[0];
+        Guided_Tour.instance.audiolength = Guided_Tour.instance.audioClips[0].length;
         Guided_Tour.instance.audioSource.Play();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
         if (ButtonNaame == 0)
         {
             numberofhotspots = 6;
@@ -445,6 +449,7 @@ public class BackCardData : MonoBehaviour
             //HotSpot[7].SetActive(true);
             //HotSpot[13].SetActive(true);
             ImageToggleOnHover.Tour_Running = false;
+           
         }
         else if (ButtonNaame == 3)
         {
@@ -545,6 +550,9 @@ public class BackCardData : MonoBehaviour
             }
             ImageToggleOnHover.Tour_Running = false;
         }
+        Guided_Tour.instance.StopCoroutine();
+        //StopCoroutineTour();
+        //Guided_Tour.instance.ClosedAllWindow();
     }
     public void OutcomeCrossBtn()
     {
