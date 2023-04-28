@@ -319,6 +319,7 @@ public class BackCardData : MonoBehaviour
     IEnumerator myCoroutine;
     public IEnumerator OutcomeBtnF(int ButtonNaame)
     {
+       
         Guided_Tour.instance.ClosedAllWindow();
         BusinessOutcomeWindow.SetActive(true);
         OutcomeBtn[ButtonNaame].GetComponent<Image>().color = PressedColor;
@@ -330,8 +331,10 @@ public class BackCardData : MonoBehaviour
         {
             HotSpot[i].SetActive(false);
         }
-        Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.audioClips[0];
-        Guided_Tour.instance.audiolength = Guided_Tour.instance.audioClips[0].length;
+        Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[6];
+        Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[6].length;
+        Guided_Tour.instance.audioSource.Play();
+        yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
         Guided_Tour.instance.audioSource.Play();
         yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
         if (ButtonNaame == 0)
@@ -550,7 +553,12 @@ public class BackCardData : MonoBehaviour
             }
             ImageToggleOnHover.Tour_Running = false;
         }
+        Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[6];
+        Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[6].length;
+        Guided_Tour.instance.audioSource.Play();
+        yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
         Guided_Tour.instance.StopCoroutine();
+
         //StopCoroutineTour();
         //Guided_Tour.instance.ClosedAllWindow();
     }

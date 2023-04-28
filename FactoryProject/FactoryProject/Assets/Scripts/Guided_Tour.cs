@@ -222,7 +222,7 @@ public class Guided_Tour : MonoBehaviour
     public IEnumerator OutcomeAudioLoader()
     {
 
-        for (int i = 1; i <= 6; i++)
+        for (int i = 1; i <= 7; i++)
         {
             //am get from hotspot 
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/outcomes/" + i + ".mp3", AudioType.MPEG))
@@ -335,8 +335,6 @@ public class Guided_Tour : MonoBehaviour
         // Turn on Introduction audio
         //Intro audio Play
         yield return new WaitForSeconds(0.5f);
-
-        
         audioSource.clip = audioClips[0];
         audiolength = audioClips[0].length;
         audioSource.Play();
@@ -955,6 +953,10 @@ public class Guided_Tour : MonoBehaviour
         ImageToggleOnHover.Tour_Running = false;
         UnClickMenu.SetActive(false);
         HexagonBlank();
+        audioSource.clip = audioClips[0];
+        audiolength = audioClips[0].length;
+        audioSource.Play();
+        yield return new WaitForSeconds(audiolength);
         if (saveDataFile.PSEndIndx == 0)
         {
             StopCoroutine();
