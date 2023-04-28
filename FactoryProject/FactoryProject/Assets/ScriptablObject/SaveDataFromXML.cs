@@ -116,7 +116,7 @@ public class SaveDataFromXML : MonoBehaviour
             FO.Add("");
             Img_FO.Add("");
             Sub_FO.Add("");
-            Guided_Tour.instance.TourImages[i] = null;
+           // Guided_Tour.instance.TourImages[i] = null;
         }
         //INTRO.Clear();
        

@@ -26,8 +26,8 @@ public class Guided_Tour : MonoBehaviour
     public TMP_Text[] Sub_Text;
     public TMP_Text[] CTAText;
     public GameObject[] TextBox;
-    public int nTourImages=0;
-    public Image[] TourImages;
+    //public int nTourImages=0;
+    //public Image[] TourImages;
     public  AudioSource audioSource, audioSource1;
     private bool buttonClicked = false;
     private bool PreviousButtonClicked = false;
@@ -246,7 +246,7 @@ public class Guided_Tour : MonoBehaviour
     public IEnumerator Loadaudio()
     {
         //AudioClipsLoaded = 0;
-        for (int i = 2; i <= 36; i++)
+        for (int i = 0; i <= 36; i++)
         {
             //am get from hotspot 
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/" + ImageToggleOnHover.UseCase + "/" + i + ".mp3", AudioType.MPEG))
@@ -329,7 +329,7 @@ public class Guided_Tour : MonoBehaviour
         FadeIn.SetActive(true);
         bInterrupted = false;
         ResetTourTextBox();
-        ResetTourImages();
+        //ResetTourImages();
         float StandardDelay = 0f;
         //StartCoroutine(LoadImgWithUrl(Assets_Folder + "image/xmpro-logo.png"));
         // Turn on Introduction audio
@@ -337,6 +337,10 @@ public class Guided_Tour : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         
+        audioSource.clip = audioClips[0];
+        audiolength = audioClips[0].length;
+        audioSource.Play();
+        yield return new WaitForSeconds(audiolength);
         audioSource.clip = audioClips[0];
         audiolength = audioClips[0].length;
         audioSource.Play();
@@ -362,7 +366,7 @@ public class Guided_Tour : MonoBehaviour
         //HeadinLine.color = ImageLoader.instance.HeadingColor2;
         for (int i = 1; i <= saveDataFile.IntroEndIndx; i++)
         {
-            ResetTourImages();
+           // ResetTourImages();
 
             hexaTxt[i].text = saveDataFile.INTRO[i];
             Sub_Text[i].text = saveDataFile.Sub_INTRO[i - 1];
@@ -396,7 +400,7 @@ public class Guided_Tour : MonoBehaviour
         //Hexagon.SetActive(false); 
         //card.SetActive(false);
         ResetTourTextBox();
-        ResetTourImages();
+        //ResetTourImages();
         yield return new WaitForSeconds(StandardDelay);
         // for(int i=0;i<)
         //// Turn on Partner Solution audio & image
@@ -447,7 +451,7 @@ public class Guided_Tour : MonoBehaviour
         //HeadinLine.color = ImageLoader.instance.HeadingColor1;
         for (int i = 1; i <= saveDataFile.ECEndIndx; i++)
         {
-            ResetTourImages();
+          //  ResetTourImages();
             card.SetActive(true);
             hexaTxt[i - 1].text = saveDataFile.EC[i - 1];
             Sub_Text[i - 1].text = saveDataFile.Sub_EC[i - 1];
@@ -492,7 +496,7 @@ public class Guided_Tour : MonoBehaviour
         DS_Start:
         
         ResetTourTextBox();
-        ResetTourImages();
+       // ResetTourImages();
         yield return new WaitForSeconds(StandardDelay);
         hexaTxt[0].text = "Dell Solutions";
         ////Show Dell Edge Solution Audio And Text
@@ -645,7 +649,7 @@ public class Guided_Tour : MonoBehaviour
     PS_Start:
        
         ResetTourTextBox();
-        ResetTourImages();
+        //ResetTourImages();
         // card.SetActive(false);
 
         ////Show Hardware Audio And IMage
@@ -669,7 +673,7 @@ public class Guided_Tour : MonoBehaviour
         //Hexagon.SetActive(true);
         yield return new WaitForSeconds(StandardDelay);
         ResetTourTextBox();
-        ResetTourImages();
+       // ResetTourImages();
         hexaTxt[0].text = "Validated Partners";
         if (saveDataFile.PSEndIndx > 0)
         {
@@ -793,7 +797,7 @@ public class Guided_Tour : MonoBehaviour
         FO_Start:
         HexagonBlank();
         ResetTourTextBox();
-        ResetTourImages();
+       // ResetTourImages();
         //ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.BOInnerColor;
         //ImageLoader.instance.HexagonMiddleColor.color = ImageLoader.instance.BOMiddleColor;
         //ImageLoader.instance.HexagonOuterColor.color = ImageLoader.instance.BOOuterColor;
@@ -851,7 +855,7 @@ public class Guided_Tour : MonoBehaviour
         BI_Start:
         //card.SetActive(false);
         ResetTourTextBox();
-        ResetTourImages();
+       // ResetTourImages();
         // hexaTxt.SetActive(true);
         //Hexagon.SetActive(false);
         //if (bInterrupted)
@@ -937,7 +941,7 @@ public class Guided_Tour : MonoBehaviour
         //audioSource.clip = audioClips[34];
         //audiolength = audioClips[34].length;
         ResetTourTextBox();
-        ResetTourImages();
+       // ResetTourImages();
         card.SetActive(false);
         FadeIn.SetActive(false);
         FadeOut.SetActive(true);
@@ -967,13 +971,13 @@ public class Guided_Tour : MonoBehaviour
             TextBox[i].SetActive(false);
         }
     }
-    public void ResetTourImages()
-    {
-        for (int i = 0; i <nTourImages; i++)
-        {
-            TourImages[i].gameObject.SetActive(false);
-        }
-    }
+    //public void ResetTourImages()
+    //{
+    //    for (int i = 0; i <nTourImages; i++)
+    //    {
+    //        TourImages[i].gameObject.SetActive(false);
+    //    }
+    //}
     public void CloseCTA()
     {
         StopCoroutine();

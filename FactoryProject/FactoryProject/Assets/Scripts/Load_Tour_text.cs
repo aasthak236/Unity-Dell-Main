@@ -607,7 +607,7 @@ public class Load_Tour_text : MonoBehaviour
     }
     public IEnumerator LoadTourImages()
     {
-        Guided_Tour.instance.nTourImages = 0;
+        //Guided_Tour.instance.nTourImages = 0;
         for (int i = 0; i <= 4; i++)
         {
             if (saveDataFile.Img_EC[i] != "")
@@ -622,7 +622,7 @@ public class Load_Tour_text : MonoBehaviour
 
                         // Create a sprite from the texture and assign it to the Image component
                         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-                        Guided_Tour.instance.TourImages[Guided_Tour.instance.nTourImages].sprite = sprite;
+                       // Guided_Tour.instance.TourImages[Guided_Tour.instance.nTourImages].sprite = sprite;
                     }
                     else
                     {
@@ -630,8 +630,8 @@ public class Load_Tour_text : MonoBehaviour
                     }
                 }
 
-                saveDataFile.Img_EC[i] = Guided_Tour.instance.nTourImages.ToString();
-                Guided_Tour.instance.nTourImages++;
+                //saveDataFile.Img_EC[i] = Guided_Tour.instance.nTourImages.ToString();
+               // Guided_Tour.instance.nTourImages++;
             }
 
             //intro
@@ -647,15 +647,15 @@ public class Load_Tour_text : MonoBehaviour
                         Texture2D texture = DownloadHandlerTexture.GetContent(request);
                         // Create a sprite from the texture and assign it to the Image component
                         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-                        Guided_Tour.instance.TourImages[Guided_Tour.instance.nTourImages].sprite = sprite;
+                       // Guided_Tour.instance.TourImages[Guided_Tour.instance.nTourImages].sprite = sprite;
                     }
                     else
                     {
                         Debug.LogError("Image download failed: " + request.error);
                     }
                 }
-                saveDataFile.Img_INTRO[i] = Guided_Tour.instance.nTourImages.ToString();
-                Guided_Tour.instance.nTourImages++;
+              //  saveDataFile.Img_INTRO[i] = Guided_Tour.instance.nTourImages.ToString();
+               // Guided_Tour.instance.nTourImages++;
             }
 
         }
