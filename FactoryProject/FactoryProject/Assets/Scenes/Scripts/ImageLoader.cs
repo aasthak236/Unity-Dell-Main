@@ -406,7 +406,7 @@ public class ImageLoader : MonoBehaviour
                 XmlElement root1 = xmlDoc.DocumentElement;
                 string nodeText1 = node1.InnerText;
                 PSCount = int.Parse(nodeText1)-1;
-                
+             
                 XmlElement root = xmlDoc.DocumentElement;
                 string nodeText = node.InnerText;
                 PS[i] = nodeText;

@@ -14,6 +14,7 @@ public class Guided_Tour : MonoBehaviour
     public AudioClip[] audioClips;
    // public AudioClip[] HotSpotAudio;
     public AudioClip[] HotSpotAudioIntro;
+    public TMP_Text[] HotSpotTextIntro;
     public AudioClip[] OutcomeAudioIntro;
     public float TotalPlayTime = 4f;
 
@@ -208,7 +209,7 @@ public class Guided_Tour : MonoBehaviour
                 if (www.result == UnityWebRequest.Result.Success)
                 {
                     HotSpotAudioIntro[i - 1] = DownloadHandlerAudioClip.GetContent(www);
-                    // audioSources.Play();
+                   // HotSpotTextIntro[i - 1].text = "Use Case Details " + i.ToString();
                 }
                 else
                 {
@@ -218,7 +219,29 @@ public class Guided_Tour : MonoBehaviour
         }
 
     }
+    //public IEnumerator LoadUseCaseIntros()
+    //{
 
+    //    for (int i = 1; i <= 14; i++)
+    //    {
+    //        am get from hotspot
+    //        using (UnityWebRequest www = UnityWebRequest.Get(Assets_Folder + "C/uc" + i + "/2.mp3", AudioType.MPEG))
+    //        {
+    //            yield return www.SendWebRequest();
+
+    //            if (www.result == UnityWebRequest.Result.Success)
+    //            {
+    //                HotSpotAudioIntro[i - 1] = DownloadHandlerAudioClip.GetContent(www);
+    //                HotSpotTextIntro[i - 1].text = "Use Case Details " + i.ToString();
+    //            }
+    //            else
+    //            {
+    //                Debug.LogError("Failed to download audio: " + www.error);
+    //            }
+    //        }
+    //    }
+
+    //}
     public IEnumerator OutcomeAudioLoader()
     {
 
@@ -312,7 +335,7 @@ public class Guided_Tour : MonoBehaviour
     public bool bInterrupted=false;
     public int AudioClipsLoaded;
     public GameObject UnClickMenu;
-    
+    public GameObject videoplayer;
     IEnumerator myCoroutine;
     public IEnumerator PlayAudioClips()
     {
@@ -359,6 +382,7 @@ public class Guided_Tour : MonoBehaviour
         card.SetActive(true);
         hexaTxt[0].text = saveDataFile.INTRO[0];
         Hexagon.SetActive(true);
+        videoplayer.SetActive(true);
         //hexaTxt[0].color = ImageLoader.instance.HeadingColor2;
         //Hexagon.GetComponent<Image>().color = ImageLoader.instance.BackColor2;
         //HeadinLine.color = ImageLoader.instance.HeadingColor2;
@@ -388,6 +412,7 @@ public class Guided_Tour : MonoBehaviour
         {
             yield return null;
         }
+        videoplayer.SetActive(false);
         if (PreviousButtonClicked)
         {
             PreviousButtonClicked = false;
@@ -447,6 +472,7 @@ public class Guided_Tour : MonoBehaviour
         //hexaTxt[0].color = ImageLoader.instance.HeadingColor1;
         //Hexagon.GetComponent<Image>().color = ImageLoader.instance.BackColor1;
         //HeadinLine.color = ImageLoader.instance.HeadingColor1;
+        videoplayer.SetActive(true);
         for (int i = 1; i <= saveDataFile.ECEndIndx; i++)
         {
           //  ResetTourImages();
@@ -484,6 +510,7 @@ public class Guided_Tour : MonoBehaviour
         {
             yield return null;
         }
+        videoplayer.SetActive(false);
         if (PreviousButtonClicked)
         {
             PreviousButtonClicked = false;
