@@ -279,10 +279,9 @@ public class BackCardData : MonoBehaviour
         BusinessOutcomeStart = true;
         ImageToggleOnHover.Tour_Running = true;
     }
-    
     public void StopCoroutineTour()
     {
-        BusinessOutcomeWindow.SetActive(false);
+       // BusinessOutcomeWindow.SetActive(false);
         
         if (HotSpotsRuninng)
         {
@@ -324,7 +323,7 @@ public class BackCardData : MonoBehaviour
     {
        
         Guided_Tour.instance.ClosedAllWindow();
-        BusinessOutcomeWindow.SetActive(true);
+        //BusinessOutcomeWindow.SetActive(true);
         OutcomeBtn[ButtonNaame].GetComponent<Image>().color = PressedColor;
         ImageLoader.instance.MenuButton[0].GetComponent<Image>().color = ImageLoader.instance.PressedColor;
 
@@ -340,6 +339,7 @@ public class BackCardData : MonoBehaviour
         yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
         Guided_Tour.instance.audioSource.Play();
         yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+        BOText.text = ImageLoader.instance.BOr[ButtonNaame];
         if (ButtonNaame == 0)
         {
             numberofhotspots = 6;
@@ -350,7 +350,7 @@ public class BackCardData : MonoBehaviour
             hotspotlist[4] = 1;
             hotspotlist[5] = 13;
             OutcomeTextPanel.SetActive(true);
-            BOText.text = ImageLoader.instance.BOr[0];
+            
             Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
             Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();
@@ -359,7 +359,7 @@ public class BackCardData : MonoBehaviour
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
-                BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
+               // BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
                 {
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);
@@ -394,7 +394,7 @@ public class BackCardData : MonoBehaviour
             hotspotlist[1] = 5;
             hotspotlist[2] = 7;
             OutcomeTextPanel.SetActive(true);
-            BOText.text = ImageLoader.instance.BOr[0];
+           
             Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
             Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();
@@ -402,7 +402,7 @@ public class BackCardData : MonoBehaviour
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
-                BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
+               // BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
                 {
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);
@@ -434,7 +434,6 @@ public class BackCardData : MonoBehaviour
             hotspotlist[2] = 7;
             hotspotlist[3] = 13;
             OutcomeTextPanel.SetActive(true);
-            BOText.text = ImageLoader.instance.BOr[0];
             Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
             Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();
@@ -442,7 +441,7 @@ public class BackCardData : MonoBehaviour
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
-                BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
+               // BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
                 {
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);
@@ -474,7 +473,6 @@ public class BackCardData : MonoBehaviour
             hotspotlist[1] = 11;
             hotspotlist[2] = 1;
             OutcomeTextPanel.SetActive(true);
-            BOText.text = ImageLoader.instance.BOr[0];
             Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
             Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();
@@ -482,7 +480,7 @@ public class BackCardData : MonoBehaviour
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
-                BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
+               // BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
                 {
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);
@@ -513,7 +511,6 @@ public class BackCardData : MonoBehaviour
             hotspotlist[2] = 6;
             hotspotlist[3] = 13;
             OutcomeTextPanel.SetActive(true);
-            BOText.text = ImageLoader.instance.BOr[0];
             Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
             Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();
@@ -521,7 +518,7 @@ public class BackCardData : MonoBehaviour
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
-                BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
+                //BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
                 {
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);
@@ -550,7 +547,6 @@ public class BackCardData : MonoBehaviour
             numberofhotspots = 1;
             hotspotlist[0] = 12;
             OutcomeTextPanel.SetActive(true);
-            BOText.text = ImageLoader.instance.BOr[0];
             Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
             Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
             Guided_Tour.instance.audioSource.Play();
@@ -558,7 +554,7 @@ public class BackCardData : MonoBehaviour
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
-                BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
+                //BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
                 {
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);
@@ -583,10 +579,6 @@ public class BackCardData : MonoBehaviour
         Guided_Tour.instance.audioSource.Play();
         yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
         OutcomeTextPanel.SetActive(false);
-        Guided_Tour.instance.StopCoroutine();
-
-        //StopCoroutineTour();
-        //Guided_Tour.instance.ClosedAllWindow();
     }
     public void OutcomeCrossBtn()
     {

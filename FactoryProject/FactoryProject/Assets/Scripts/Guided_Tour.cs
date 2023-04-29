@@ -342,7 +342,7 @@ public class Guided_Tour : MonoBehaviour
       
         Intro_Start:
         
-        BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
+       // BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
         HexagonBlank();
         for (int i = 0; i <= 2; i++)
         {
@@ -984,12 +984,7 @@ public class Guided_Tour : MonoBehaviour
         audiolength = audioClips[0].length;
         audioSource.Play();
         yield return new WaitForSeconds(audiolength);
-        if (saveDataFile.PSEndIndx == 0)
-        {
-            StopCoroutine();
-            BackCardData.instance.StopCoroutineTour();
-            ClosedAllWindow();
-        }
+     
 
     }
     public void ResetTourTextBox()
@@ -1009,9 +1004,6 @@ public class Guided_Tour : MonoBehaviour
     //}
     public void CloseCTA()
     {
-        StopCoroutine();
-        BackCardData.instance.StopCoroutineTour();
-        ClosedAllWindow();
         ImageToggleOnHover.Tour_Running = false;
     }
     public void ClosedAllWindow()
@@ -1027,6 +1019,8 @@ public class Guided_Tour : MonoBehaviour
         BackCardData.instance.DellWindow.SetActive(false);
         ValuePillarsWindow.SetActive(false);
         CTAHexa.SetActive(false);
+        BackCardData.instance.OutcomeTextPanel.SetActive(false);
+        videoplayer.SetActive(false);
         audioSource.clip = null;
      
 
