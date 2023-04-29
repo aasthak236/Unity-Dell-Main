@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
+using System.Xml;
 using UnityEngine.EventSystems;
 public class Guided_Tour : MonoBehaviour
 {
+    string url;
     public AudioSource EndVO;
     public static Guided_Tour instance;
     public TMP_Text HexagonCardtext;
@@ -90,6 +93,7 @@ public class Guided_Tour : MonoBehaviour
         //StartCoroutine(LoadaudioHotspots());
         StartCoroutine(OutcomeAudioLoader());
         StartCoroutine(LoadaudioHotspotIntros());
+        StartCoroutine(LoadUseCaseIntros());
         audioSource = GetComponent<AudioSource>();
         Debug.Log("Screen width"+screenWidth+"X"+screenHeight);
         //if (screenWidth <= 480)
@@ -219,29 +223,112 @@ public class Guided_Tour : MonoBehaviour
         }
 
     }
-    //public IEnumerator LoadUseCaseIntros()
-    //{
+    public IEnumerator LoadUseCaseIntros()
+    {
+        url = Assets_Folder + "cards/usecases.xml";
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
 
-    //    for (int i = 1; i <= 14; i++)
-    //    {
-    //        am get from hotspot
-    //        using (UnityWebRequest www = UnityWebRequest.Get(Assets_Folder + "C/uc" + i + "/2.mp3", AudioType.MPEG))
-    //        {
-    //            yield return www.SendWebRequest();
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError(www.error);
+        }
+        else
+        {
+            string fileContent = www.downloadHandler.text;
+            ProcessFileContent(fileContent);
+        }
 
-    //            if (www.result == UnityWebRequest.Result.Success)
-    //            {
-    //                HotSpotAudioIntro[i - 1] = DownloadHandlerAudioClip.GetContent(www);
-    //                HotSpotTextIntro[i - 1].text = "Use Case Details " + i.ToString();
-    //            }
-    //            else
-    //            {
-    //                Debug.LogError("Failed to download audio: " + www.error);
-    //            }
-    //        }
-    //    }
+    }
+    public void ProcessFileContent(string content)
+    {
 
-    //}
+        using (TextReader textReader = new StringReader(content))
+        {
+            using (XmlReader reader = XmlReader.Create(textReader))
+            {
+                while (reader.Read())
+                {
+                    if (reader.IsStartElement())
+                    {
+                        switch (reader.Name.ToString())
+                        {
+                            case "uc1":
+
+                                HotSpotTextIntro[0].text = reader.ReadString().ToString();
+
+                                break;
+
+                            case "uc2":
+
+                                HotSpotTextIntro[1].text = reader.ReadString().ToString();
+
+                                break;
+                            case "uc3":
+
+                                HotSpotTextIntro[2].text = reader.ReadString().ToString();
+
+                                break;
+                            case "uc4":
+
+                                HotSpotTextIntro[3].text = reader.ReadString().ToString();
+
+                                break;
+                            case "uc5":
+
+                                HotSpotTextIntro[4].text = reader.ReadString().ToString();
+
+                                break;
+                            case "uc6":
+
+                                HotSpotTextIntro[5].text = reader.ReadString().ToString();
+
+                                break;
+                            case "uc7":
+
+                                HotSpotTextIntro[6].text = reader.ReadString().ToString();
+
+                                break;
+                            case "uc8":
+
+                                HotSpotTextIntro[7].text = reader.ReadString().ToString();
+
+                                break;
+                            case "uc9":
+
+                                HotSpotTextIntro[8].text = reader.ReadString().ToString();
+
+                                break;
+                            case "uc10":
+
+                                HotSpotTextIntro[9].text = reader.ReadString().ToString();
+
+                                break;
+
+                            case "uc11":
+
+                                HotSpotTextIntro[10].text = reader.ReadString().ToString();
+
+                                break;
+                            case "uc12":
+
+                                HotSpotTextIntro[11].text = reader.ReadString().ToString();
+
+                                break;
+                            case "uc13":
+
+                                HotSpotTextIntro[12].text = reader.ReadString().ToString();
+
+                                break;
+                        }
+
+                    }
+                }
+            }
+
+        }
+        //StartCoroutine(LoadTourImages());
+    }
     public IEnumerator OutcomeAudioLoader()
     {
 

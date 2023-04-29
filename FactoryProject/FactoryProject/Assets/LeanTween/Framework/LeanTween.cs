@@ -2860,7 +2860,10 @@ public class LeanTween : MonoBehaviour {
         }
     }
 
-
+    internal static object rotateTowards(GameObject gameObject, object position, float rotateTime)
+    {
+        throw new NotImplementedException();
+    }
 } // End LeanTween class
 
 public class LTUtility {

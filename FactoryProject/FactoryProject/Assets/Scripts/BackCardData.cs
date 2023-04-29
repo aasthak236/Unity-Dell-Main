@@ -486,7 +486,6 @@ public class BackCardData : MonoBehaviour
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);
 
                 }
-                BOText.text = ImageLoader.instance.BOr[k];
                 HotSpot[k].SetActive(true);
                 Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[k];
                 Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[k].length;
