@@ -9,6 +9,7 @@ using System.Xml;
 using UnityEngine.EventSystems;
 public class Guided_Tour : MonoBehaviour
 {
+    public GameObject dellvideopanel;
     string url;
     public AudioSource EndVO;
     public static Guided_Tour instance;
@@ -17,7 +18,7 @@ public class Guided_Tour : MonoBehaviour
     public AudioClip[] audioClips;
    // public AudioClip[] HotSpotAudio;
     public AudioClip[] HotSpotAudioIntro;
-    public TMP_Text[] HotSpotTextIntro;
+    public string[] HotSpotTextIntro;
     public AudioClip[] OutcomeAudioIntro;
     public float TotalPlayTime = 4f;
 
@@ -60,10 +61,12 @@ public class Guided_Tour : MonoBehaviour
     public GameObject BG_Music, Tour_Music;
     public GameObject Mute, Unmute;
     public GameObject NextPreviousBtn;
+    public XmlDocument Configxml;
+    
     private void Awake()
     {
         
-        Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/Factory+Assets/";
+        Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/FactoryAssetsDev/";
         instance = this;
        screenWidth = Screen.width;
         screenHeight = Screen.height;
@@ -254,71 +257,45 @@ public class Guided_Tour : MonoBehaviour
                         switch (reader.Name.ToString())
                         {
                             case "uc1":
-
-                                HotSpotTextIntro[0].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[0] = reader.ReadString();
                                 break;
 
                             case "uc2":
-
-                                HotSpotTextIntro[1].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[1] = reader.ReadString();
                                 break;
+
                             case "uc3":
-
-                                HotSpotTextIntro[2].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[2] = reader.ReadString();
                                 break;
                             case "uc4":
-
-                                HotSpotTextIntro[3].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[3] = reader.ReadString();
                                 break;
                             case "uc5":
-
-                                HotSpotTextIntro[4].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[4] = reader.ReadString();
                                 break;
                             case "uc6":
-
-                                HotSpotTextIntro[5].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[5] = reader.ReadString();
                                 break;
                             case "uc7":
-
-                                HotSpotTextIntro[6].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[6] = reader.ReadString();
                                 break;
                             case "uc8":
-
-                                HotSpotTextIntro[7].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[7] = reader.ReadString();
                                 break;
                             case "uc9":
-
-                                HotSpotTextIntro[8].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[8] = reader.ReadString();
                                 break;
                             case "uc10":
-
-                                HotSpotTextIntro[9].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[9] = reader.ReadString();
                                 break;
-
                             case "uc11":
-
-                                HotSpotTextIntro[10].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[10] = reader.ReadString();
                                 break;
                             case "uc12":
-
-                                HotSpotTextIntro[11].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[11] = reader.ReadString();
                                 break;
                             case "uc13":
-
-                                HotSpotTextIntro[12].text = reader.ReadString().ToString();
-
+                                HotSpotTextIntro[12] = reader.ReadString();
                                 break;
                         }
 
@@ -411,6 +388,7 @@ public class Guided_Tour : MonoBehaviour
             bInterrupted = true;
             pausebtn.SetActive(true);
             playbtn.SetActive(false);
+            dellvideopanel.SetActive(false);
             Time.timeScale = 1f;
             checkpressed = false;
             audioSource.Stop();
@@ -426,9 +404,9 @@ public class Guided_Tour : MonoBehaviour
     IEnumerator myCoroutine;
     public IEnumerator PlayAudioClips()
     {
-      
-        Intro_Start:
-        
+
+    Intro_Start:
+     
        // BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
         HexagonBlank();
         for (int i = 0; i <= 2; i++)
@@ -467,9 +445,14 @@ public class Guided_Tour : MonoBehaviour
         
        
         card.SetActive(true);
+        if (SaveDataFromXML.ins.IntroVideo != "")
+        {
+            string url = SaveDataFromXML.ins.IntroVideo;
+            VideoLoader.instance.videoplay(url);
+        }
         hexaTxt[0].text = saveDataFile.INTRO[0];
         Hexagon.SetActive(true);
-        videoplayer.SetActive(true);
+        
         //hexaTxt[0].color = ImageLoader.instance.HeadingColor2;
         //Hexagon.GetComponent<Image>().color = ImageLoader.instance.BackColor2;
         //HeadinLine.color = ImageLoader.instance.HeadingColor2;
@@ -482,31 +465,44 @@ public class Guided_Tour : MonoBehaviour
             TextBox[i].SetActive(true);
 
         }
-        for (int i = 1; i <= saveDataFile.IntroEndIndx; i++)
+        if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
-            audioSource.clip = audioClips[i];
-            audiolength = audioClips[i].length;
-            audioSource.Play();
+            for (int i = 1; i <= saveDataFile.IntroEndIndx; i++)
+            {
+                audioSource.clip = audioClips[i];
+                audiolength = audioClips[i].length;
+                audioSource.Play();
 
-            yield return new WaitForSeconds(audiolength + StandardDelay);
+                yield return new WaitForSeconds(audiolength + StandardDelay);
 
-            //card.SetActive(false);
+                //card.SetActive(false);
 
 
+            }
         }
         NextPreviousBtn.SetActive(true);
         while (!(buttonClicked||PreviousButtonClicked))
         {
             yield return null;
         }
-        videoplayer.SetActive(false);
+        
         if (PreviousButtonClicked)
         {
             PreviousButtonClicked = false;
             goto Intro_Start;
         }
         buttonClicked = false;
-        EC_Start:
+    EC_Start:
+        if (SaveDataFromXML.ins.IntroVideo != SaveDataFromXML.ins.ECVideo)
+        {
+            videoplayer.SetActive(false);
+            if (SaveDataFromXML.ins.ECVideo != "")
+            {
+                string url = SaveDataFromXML.ins.ECVideo;
+                StartCoroutine(VideoLoader.instance.TourVideo(url));
+            }
+        }
+      
         //Hexagon.SetActive(false); 
         //card.SetActive(false);
         ResetTourTextBox();
@@ -571,27 +567,28 @@ public class Guided_Tour : MonoBehaviour
         
 
         }
-
-        for (int i = 1; i <= saveDataFile.ECEndIndx; i++)
+        if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
-        
-          
-            //EC Audio with 3 & 4
-            audioSource.clip = audioClips[i + 8];
-            audiolength = audioClips[i + 8].length;
-            audioSource.Play();
-
-            if (i == 1)
+            for (int i = 1; i <= saveDataFile.ECEndIndx; i++)
             {
-                yield return new WaitForSeconds(audiolength);
-            }
-            else
-            {
-                yield return new WaitForSeconds(audiolength + StandardDelay);
-            }
 
+
+                //EC Audio with 3 & 4
+                audioSource.clip = audioClips[i + 8];
+                audiolength = audioClips[i + 8].length;
+                audioSource.Play();
+
+                if (i == 1)
+                {
+                    yield return new WaitForSeconds(audiolength);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(audiolength + StandardDelay);
+                }
+
+            }
         }
-
         NextPreviousBtn.SetActive(true);
         while (!(buttonClicked || PreviousButtonClicked))
         {
@@ -664,21 +661,23 @@ public class Guided_Tour : MonoBehaviour
             
 
         }
-        for (int i = 1; i <= saveDataFile.TTEndIndx; i++)
+        if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
-            audioSource.clip = audioClips[i + 18];
-            audiolength = audioClips[i + 18].length;
-            audioSource.Play();
-            if (i == 1)
+            for (int i = 1; i <= saveDataFile.TTEndIndx; i++)
             {
-                yield return new WaitForSeconds(audiolength);
-            }
-            else
-            {
-                yield return new WaitForSeconds(audiolength + StandardDelay);
+                audioSource.clip = audioClips[i + 18];
+                audiolength = audioClips[i + 18].length;
+                audioSource.Play();
+                if (i == 1)
+                {
+                    yield return new WaitForSeconds(audiolength);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(audiolength + StandardDelay);
+                }
             }
         }
-
         NextPreviousBtn.SetActive(true);
         while (!(buttonClicked || PreviousButtonClicked))
         {
@@ -929,29 +928,30 @@ public class Guided_Tour : MonoBehaviour
 
         }
 
-
-        for (int i = 1; i <= saveDataFile.FOEndIndx; i++)
+        if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
-            audioSource.clip = audioClips[i + 23];
-            audiolength = audioClips[i + 23].length;
-            //if (audiolength < 1f)
-            //{
-            //    audiolength = 1f;
-            //}
-            audioSource.Play();
-            if (i == 1)
+            for (int i = 1; i <= saveDataFile.FOEndIndx; i++)
             {
-                yield return new WaitForSeconds(audiolength);
-            }
-            else
-            {
-                yield return new WaitForSeconds(audiolength + StandardDelay);
-            }
-           
-           // card.SetActive(false);
+                audioSource.clip = audioClips[i + 23];
+                audiolength = audioClips[i + 23].length;
+                //if (audiolength < 1f)
+                //{
+                //    audiolength = 1f;
+                //}
+                audioSource.Play();
+                if (i == 1)
+                {
+                    yield return new WaitForSeconds(audiolength);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(audiolength + StandardDelay);
+                }
 
+                // card.SetActive(false);
+
+            }
         }
-
         NextPreviousBtn.SetActive(true);
         while (!(buttonClicked || PreviousButtonClicked))
         {
@@ -1006,24 +1006,27 @@ public class Guided_Tour : MonoBehaviour
             TextBox[i - 1].SetActive(true);
 
         }
-
-        for (int i = 1; i <= saveDataFile.BIEndIndx; i++)
+        if (PlayerPrefs.GetInt("MusicOn")!=0)
         {
-
-            audioSource.clip = audioClips[i + 28];
-            audiolength = audioClips[i + 28].length;
-            audioSource.Play();
-
-            if (i == 1)
+            for (int i = 1; i <= saveDataFile.BIEndIndx; i++)
             {
-                yield return new WaitForSeconds(audiolength);
-            }
-            else
-            {
-                yield return new WaitForSeconds(audiolength + StandardDelay);
-            }
 
+                audioSource.clip = audioClips[i + 28];
+                audiolength = audioClips[i + 28].length;
+                audioSource.Play();
+
+                if (i == 1)
+                {
+                    yield return new WaitForSeconds(audiolength);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(audiolength + StandardDelay);
+                }
+
+            }
         }
+        
 
         EndVO.Play();
         card.SetActive(false);
@@ -1108,6 +1111,7 @@ public class Guided_Tour : MonoBehaviour
         CTAHexa.SetActive(false);
         BackCardData.instance.OutcomeTextPanel.SetActive(false);
         videoplayer.SetActive(false);
+        dellvideopanel.SetActive(false);
         audioSource.clip = null;
      
 

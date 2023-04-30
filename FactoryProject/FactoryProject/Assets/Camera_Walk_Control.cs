@@ -41,12 +41,12 @@ public class Camera_Walk_Control : MonoBehaviour
         HotSpotAtMovePoint[5] = 2;
         HotSpotAtMovePoint[6] = 8;
         HotSpotAtMovePoint[7] = 0;
-        HotSpotAtMovePoint[8] = 5;
-        HotSpotAtMovePoint[9] = 7;
-        HotSpotAtMovePoint[10] = 12;
-        HotSpotAtMovePoint[11] = 0;
-        HotSpotAtMovePoint[12] = 4;
-        HotSpotAtMovePoint[13] = 14;
+        HotSpotAtMovePoint[8] = 0;
+        HotSpotAtMovePoint[9] = 5;
+        HotSpotAtMovePoint[10] = 7;
+        HotSpotAtMovePoint[11] = 12;
+        HotSpotAtMovePoint[12] = 0;
+        HotSpotAtMovePoint[13] = 4;
         HotSpotAtMovePoint[14] = 14;
         HotSpotAtMovePoint[15] = 14;
         HotSpotAtMovePoint[16] = 14;
@@ -75,25 +75,25 @@ public class Camera_Walk_Control : MonoBehaviour
         yield return new WaitForSeconds(5f);
         #endregion
         BackCardData.instance.HotSpotSizeDecrease();
-        for (int i = 1; i <= 13; i++)
+        for (int i = 5; i <= 14; i++)
         {
           
             if (i < CameraMovePoints.Length && !isCameraMoving)
             {
                 //for (int j= i; j < CameraMovePoints.Length; j++)
                 //{
-                    //USECASE = usecase[i];
-                    //if (j == i)
-                    //{
-                        // Set the camera's orthographic property to false to switch to perspective projection
-                        myCamera.orthographic = false;
-
+                //USECASE = usecase[i];
+                //if (j == i)
+                //{
+                // Set the camera's orthographic property to false to switch to perspective projection
+                float distance = Vector3.Distance(Camera.main.transform.position, CameraMovePoints[i].transform.position);
+                myCamera.orthographic = false;
 
                         //Move Camera Toward Point
                         LeanTween.move(myCamera.gameObject, new Vector3(
                             CameraMovePoints[i].transform.localPosition.x,
                             CameraMovePoints[i].transform.localPosition.y,
-                            CameraMovePoints[i].transform.localPosition.z), 3f).setEaseOutQuint().setOnComplete
+                            CameraMovePoints[i].transform.localPosition.z), distance/5f).setEaseOutQuint().setOnComplete
 
                             (onComplete =>
                             {
@@ -115,15 +115,19 @@ public class Camera_Walk_Control : MonoBehaviour
             yield return new WaitForSeconds(1f);
             if (HotSpotAtMovePoint[i] != 0)
             {
+                BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].transform.GetChild(0).GetChild(2).GetChild(1).gameObject.SetActive(true);
                 BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].SetActive(true);
                 yield return new WaitForSeconds(1f);
                 Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[HotSpotAtMovePoint[i] - 1];
                 Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[HotSpotAtMovePoint[i] - 1].length;
                 Guided_Tour.instance.audioSource.Play();
                 yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
-              
-                    BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].SetActive(false);
-               
+                BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].SetActive(false);
+                BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].transform.GetChild(0).GetChild(2).GetChild(1).gameObject.SetActive(false);
+            }
+            else
+            {
+                yield return new WaitForSeconds(2f);
             }
 
             //BackCardData.instance.HotSpot[i - 1].transform.GetChild(i - 1).GetChild(2).GetChild(1).gameObject.SetActive(true);

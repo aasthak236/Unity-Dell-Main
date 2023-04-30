@@ -16,13 +16,14 @@ public class lookatCamera1 : MonoBehaviour
         if (CameraZoomTowardPoint.CameraZoom)
         {
             // Vector3 screenpos = Camera.main.WorldToScreenPoint(target.position);
-            Vector3 screenpos = Camera.main.WorldToScreenPoint(new Vector3(target.position.x, target.position.y + 1.8f, target.position.z));
+            // Vector3 screenpos = Camera.main.WorldToScreenPoint(new Vector3(target.position.x, target.position.y + 1.8f, target.position.z));
+            Vector3 screenpos = Camera.main.WorldToScreenPoint(new Vector3(target.position.x, target.position.y+1.5f, target.position.z));
             transform.position = screenpos;
         }
         else
         {
             // Vector3 screenpos = Camera.main.WorldToScreenPoint(target.position);
-            Vector3 screenpos = Camera.main.WorldToScreenPoint(new Vector3(target.position.x, target.position.y + 10f, target.position.z));
+            Vector3 screenpos = Camera.main.WorldToScreenPoint(new Vector3(target.position.x-15, target.position.y, target.position.z));
             transform.position = screenpos;
         }
        

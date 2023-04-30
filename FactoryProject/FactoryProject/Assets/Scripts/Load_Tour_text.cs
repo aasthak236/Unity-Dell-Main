@@ -243,8 +243,14 @@ public class Load_Tour_text : MonoBehaviour
                             case "img_EC5":
                                 saveDataFile.Img_EC[4] = reader.ReadString();
                                 break;
+                            case "introvideo":
+                                saveDataFile.IntroVideo = reader.ReadString();
+                                break;
+                            case "ecvideo":
+                                saveDataFile.ECVideo = reader.ReadString();
+                                break;
 
-                                //sub
+                            //sub
 
                             case "sub_EC1":
                                 saveDataFile.Sub_EC[0] = reader.ReadString();

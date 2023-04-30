@@ -217,25 +217,25 @@ public class BackCardData : MonoBehaviour
             PartnerDescription.text = Load_Tour_text.ins.PartnerDescription[int.Parse(buttonName)];
             // link, More Details
             // video 
-            //if (Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)] == "null")
-            //{
-            //    VideoButton.SetActive(false);
-            //}
-            //else
-            //{
-            //    VideoButton.SetActive(true);
-            //    //Debug.Log("Link Exisit"+ Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)]);
-            //    videolink = Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)];
+            if (Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)] == "null")
+            {
+                VideoButton.SetActive(false);
+            }
+            else
+            {
+                VideoButton.SetActive(true);
+                //Debug.Log("Link Exisit"+ Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)]);
+                videolink = Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)];
 
 
-            //}
+            }
         }
 
     }
     public void Playvideo()
     {
 
-        StartCoroutine(VideoLoader.instance.VideoPlay(videolink));
+        StartCoroutine(VideoLoader.instance.VideoPlay());
     }
     public void parntnerclose()
     {
@@ -359,7 +359,7 @@ public class BackCardData : MonoBehaviour
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
-               // BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
+               BOText.text = Guided_Tour.instance.HotSpotTextIntro[k];
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
                 {
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);
@@ -402,7 +402,7 @@ public class BackCardData : MonoBehaviour
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
-               // BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
+                BOText.text = Guided_Tour.instance.HotSpotTextIntro[k];
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
                 {
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);
@@ -441,7 +441,7 @@ public class BackCardData : MonoBehaviour
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
-               // BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
+                BOText.text = Guided_Tour.instance.HotSpotTextIntro[k];
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
                 {
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);
@@ -480,7 +480,7 @@ public class BackCardData : MonoBehaviour
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
-               // BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
+                BOText.text = Guided_Tour.instance.HotSpotTextIntro[k];
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
                 {
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);
@@ -517,7 +517,7 @@ public class BackCardData : MonoBehaviour
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
-                //BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
+                BOText.text = Guided_Tour.instance.HotSpotTextIntro[k];
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
                 {
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);
@@ -553,7 +553,7 @@ public class BackCardData : MonoBehaviour
             for (int j = 0; j < numberofhotspots; j++)
             {
                 int k = hotspotlist[j];
-                //BOText.text = Guided_Tour.instance.HotSpotTextIntro[k].ToString();
+                BOText.text = Guided_Tour.instance.HotSpotTextIntro[k];
                 for (int i = 0; i < HotSpot[k].transform.childCount; i++)
                 {
                     HotSpot[k].transform.GetChild(i).GetChild(2).GetChild(1).gameObject.SetActive(true);

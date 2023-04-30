@@ -13,6 +13,7 @@ public class SaveDataFromXML : MonoBehaviour
     public List<string> Img_INTRO;
     public List<string> Sub_INTRO;
     public int IntroEndIndx;
+    public string IntroVideo;
 
    // public string IntroCaption;
 
@@ -21,8 +22,9 @@ public class SaveDataFromXML : MonoBehaviour
     public List<string> Sub_EC;
     public int ECStartIndx;
     public int ECEndIndx;
+    public string ECVideo;
 
-   
+
     public List<string> HARDWARE;
     public List<string> Img_HARDWARE;
     public List<string> Sub_HARDWARE;
@@ -75,12 +77,14 @@ public class SaveDataFromXML : MonoBehaviour
     public void ResetSaveData()
     {
         INTRO.Clear();
+        IntroVideo = "";
         Img_INTRO.Clear();
         Sub_INTRO.Clear();
         PS.Clear();
         Img_PS.Clear();
         Sub_PS.Clear();
         EC.Clear();
+        ECVideo = "";
         Img_EC.Clear();
         Sub_EC.Clear();
         TT.Clear();

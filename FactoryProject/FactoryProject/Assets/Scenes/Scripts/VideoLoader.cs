@@ -12,6 +12,7 @@ public class VideoLoader : MonoBehaviour
     public Material videoMaterial;
     public static VideoLoader instance;
     public bool VideoIsRunning;
+    public GameObject videoimage;
     public void Awake()
     {
       
@@ -19,15 +20,17 @@ public class VideoLoader : MonoBehaviour
     public void Start()
     {
         instance = this;
-       
+        videoimage.SetActive(false);
 
     }
-    public void VideoPlay()
+    //public void VideoPlay()
+    //{
+    //    VideoIsRunning = true;
+    //}
+  public  IEnumerator VideoPlay()
     {
-        VideoIsRunning = true;
-    }
-  public  IEnumerator VideoPlay(string url)
-    {
+        videoimage.SetActive(true);
+        url = BackCardData.instance.videolink;
         videoPlayer.url = url;
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
@@ -50,7 +53,7 @@ public class VideoLoader : MonoBehaviour
             videoPlayer.targetMaterialRenderer = videoRenderer = gameObject.AddComponent<Renderer>();
             videoPlayer.targetMaterialProperty = "_MainTex";
             videoRenderer.material = videoMaterial;
-            //videoPlayer.Play();
+           videoPlayer.Play();
         }
     }
 
@@ -58,8 +61,36 @@ public class VideoLoader : MonoBehaviour
     {
        // source.Play();
     }
-    public void StopVideo()
+   public  void videoplay(string url)
     {
-       
+        StartCoroutine(TourVideo(url));
+    }
+    public IEnumerator TourVideo(string url)
+    {
+        videoimage.SetActive(true);
+        videoPlayer.url = url;
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            //videoPlayer.source = VideoSource.Url;
+            //videoPlayer.url = videoUrl;
+            //videoPlayer.Prepare();
+            //videoPlayer.prepareCompleted += OnVideoPrepared;
+
+            videoPlayer = gameObject.AddComponent<VideoPlayer>();
+            videoPlayer.source = VideoSource.Url;
+            videoPlayer.url = url;
+            videoPlayer.renderMode = VideoRenderMode.MaterialOverride;
+            videoPlayer.targetMaterialRenderer = videoRenderer = gameObject.AddComponent<Renderer>();
+            videoPlayer.targetMaterialProperty = "_MainTex";
+            videoRenderer.material = videoMaterial;
+            videoPlayer.Play();
+        }
     }
 }
