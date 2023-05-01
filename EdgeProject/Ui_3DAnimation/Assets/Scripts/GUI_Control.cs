@@ -15,6 +15,7 @@ public class GUI_Control : MonoBehaviour
     public GameObject Tour_Card;
     public GameObject video;
     public VideoPlayer videoplayer;
+    public GameObject DellBackPanel;
     void Start()
     {
        

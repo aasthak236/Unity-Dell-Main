@@ -77,7 +77,7 @@ public class Guided_Tour : MonoBehaviour
     
 
      void Start()
-    {
+     {
         NextBtn.onClick.AddListener(OnButtonClick);
         //StartCoroutine(OutcomeAudioLoader());
         //StartCoroutine(LoadaudioHotspotIntros());
@@ -91,7 +91,7 @@ public class Guided_Tour : MonoBehaviour
         //    Factory.transform.rotation = Quaternion.Euler(0f, -110f, 0f);
         //}
 
-    }
+     }
     IEnumerator LoadXML()
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, "AssetsLocation.xml");

@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Xml;
 using TMPro;
 using UnityEngine.Networking;
+using System;
+using System.IO;
 
 public class Load_Tour_text : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class Load_Tour_text : MonoBehaviour
     public void Awake()
     {
         ins = this;
-        url = "https://dell-unity-dev.s3.amazonaws.com/Assets/cards/" + Module_Name.instance.ModuleName + ".xml";
+        url = Guided_Tour.instance.Assets_Folder+"cards/" + Module_Name.instance.ModuleName + ".xml";
     }
     void Start()
     {
@@ -56,7 +58,6 @@ public class Load_Tour_text : MonoBehaviour
     public string Ending;
     public IEnumerator LoadAllComponentFaces()
     {
-
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
 
@@ -122,6 +123,9 @@ public class Load_Tour_text : MonoBehaviour
 
         }
     }
+
+
+
     public IEnumerator LoadAllComponentFacesBack()
     {
 

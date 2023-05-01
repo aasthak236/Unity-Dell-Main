@@ -39,7 +39,7 @@ public class ClickController : MonoBehaviour
             MoveForward();
         }
     }
-    [ContextMenu("Move Forward")]
+    
     public void MoveForward()
     {
        
@@ -54,7 +54,7 @@ public class ClickController : MonoBehaviour
     }
 
 
-    [ContextMenu("Move BackWard")]
+    
     public void MoveBackward()
     {
         foreach (var item in PlanePoints)

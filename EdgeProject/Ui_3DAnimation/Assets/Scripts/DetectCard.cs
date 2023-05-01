@@ -38,12 +38,10 @@ public class DetectCard : MonoBehaviour
         if (isRotated == false)
         {
             isRotated = true;
-            // CancelInvoke("animationcard");
+           
             LeanTween.rotateLocal(gameObject, new Vector3(0, 0, -180), 0.5f);
             LeanTween.scale(gameObject, new Vector3(1.4f, 1.4f, 1.4f), 0.5f);
-            // LeanTween.scale(ClickController.instance.gloweffect, new Vector3(1.6f, 1.6f, 1.6f), 0.5f);
-            // StopCoroutine(RotateObject.instance.DelayToRotate());
-            // hello.GetComponent<Animator>().enabled = false;
+           
             ClickController.instance.Negative.GetComponent<Image>().enabled = true;
             ClickController.instance.Plus.GetComponent<Image>().enabled = false;
             LeanTween.moveLocalY(ClickController.instance.flipbtn, -251f, 0.3f);
@@ -58,13 +56,13 @@ public class DetectCard : MonoBehaviour
             LeanTween.scale(gameObject, new Vector3(0.8238152f, 0.8238152f, 0.8238152f), 0.5f);
             ClickController.instance.Negative.GetComponent<Image>().enabled = false;
             ClickController.instance.Plus.GetComponent<Image>().enabled = true;
-            // LeanTween.scale(ClickController.instance.gloweffect, new Vector3(1.19873f, 1.19873f, 1.19873f), 0.5f);
+           
             LeanTween.moveLocalY(ClickController.instance.flipbtn, -134f, 0.3f);
             LeanTween.moveLocalY(ClickController.instance.flipbtn1, -134f, 0.3f);
            
             LeanTween.moveLocalY(ClickController.instance.crossbtn, 142f, 0.3f);
             LeanTween.moveLocalX(ClickController.instance.crossbtn, 96f, 0.3f);
-            //  hello.GetComponent<Animator>().enabled = true;
+            
             if (OnClick.Hotspot==false)
             {
                 Invoke("movefarword", 1f);

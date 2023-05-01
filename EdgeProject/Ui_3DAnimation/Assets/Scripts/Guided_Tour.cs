@@ -7,6 +7,8 @@ using UnityEngine.Playables;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using TMPro;
+using System.IO;
+using System.Xml;
 public class Guided_Tour : MonoBehaviour
 {
     public TextMeshProUGUI[] TourText;
@@ -22,10 +24,38 @@ public class Guided_Tour : MonoBehaviour
     public GameObject Videoplayer;
     public VideoPlayer Video;
     public PlayableDirector timeline;
+    public string Assets_Folder;
+    public static Guided_Tour instance;
+    public void Awake()
+    {
+        instance = this;
+        Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/FactoryAssetsDev/";
+        StartCoroutine(LoadXML());
+    }
     void Start()
     {
         StartCoroutine(Loadaudio());
         audioSource = GetComponent<AudioSource>();
+    }
+    IEnumerator LoadXML()
+    {
+        string filePath = Path.Combine(Application.streamingAssetsPath, "AssetsLocation.xml");
+
+        UnityWebRequest www = UnityWebRequest.Get(filePath);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.ConnectionError)
+        {
+            Debug.LogError("Error loading XML: " + www.error);
+        }
+        else
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(www.downloadHandler.text);
+            XmlNode node = xmlDoc.SelectSingleNode("fp");
+            Assets_Folder = node.InnerText.ToString();
+        }
+  
     }
     public bool checkpressed;
     public GameObject playbtn, pausebtn, stopbtn;
@@ -111,7 +141,7 @@ public class Guided_Tour : MonoBehaviour
         for (int i = 1; i <= 15; i++)
         {
 
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("https://dell-unity-dev.s3-accelerate.amazonaws.com/Assets/audio/edge/" + Module_Name.instance.ModuleName+"_Tour"+i+".mp3", AudioType.MPEG))
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder+"audio/edge/" + Module_Name.instance.ModuleName+"_Tour"+i+".mp3", AudioType.MPEG))
             {
                 yield return www.SendWebRequest();
 
