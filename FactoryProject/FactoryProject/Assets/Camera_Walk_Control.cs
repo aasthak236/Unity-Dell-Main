@@ -75,7 +75,7 @@ public class Camera_Walk_Control : MonoBehaviour
         yield return new WaitForSeconds(5f);
         #endregion
         BackCardData.instance.HotSpotSizeDecrease();
-        for (int i = 5; i <= 14; i++)
+        for (int i = 1; i <= 14; i++)
         {
           
             if (i < CameraMovePoints.Length && !isCameraMoving)

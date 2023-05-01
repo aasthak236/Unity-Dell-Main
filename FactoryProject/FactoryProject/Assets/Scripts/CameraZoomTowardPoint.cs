@@ -16,7 +16,7 @@ public class CameraZoomTowardPoint : MonoBehaviour
     public static bool CameraZoom;
     public GameObject FactoryMdel;
     public static CameraZoomTowardPoint instance;
-    public GameObject TopBar;
+    
     private void Awake()
     {
         myCamera = Camera.main;
@@ -44,7 +44,7 @@ public class CameraZoomTowardPoint : MonoBehaviour
         { 
         
         }
-        TopBar.SetActive(true);
+     
         BackCardData.instance.HotSpotSizeDecrease();
         FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
         Vector3 newrotation = new Vector3(0, 0, 0);
@@ -113,7 +113,7 @@ public class CameraZoomTowardPoint : MonoBehaviour
         Guided_Tour.instance.StopCoroutine();//stop for usecase
         BackCardData.instance.StopCoroutineTour();//stop for outcome
         Guided_Tour.instance.ClosedAllWindow();
-        TopBar.SetActive(false);
+        
         BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
         //BackCardData.instance.HotSpotsRuninng = false;
         CameraZoom = false;

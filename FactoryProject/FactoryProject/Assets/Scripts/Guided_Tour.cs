@@ -12,6 +12,8 @@ public class Guided_Tour : MonoBehaviour
     public GameObject dellvideopanel;
     string url;
     public AudioSource EndVO;
+    public AudioSource BgMusic;
+    public AudioSource TourMusic;
     public static Guided_Tour instance;
     public TMP_Text HexagonCardtext;
     public SaveDataFromXML saveDataFile;
@@ -61,16 +63,33 @@ public class Guided_Tour : MonoBehaviour
     public GameObject BG_Music, Tour_Music;
     public GameObject Mute, Unmute;
     public GameObject NextPreviousBtn;
-    public XmlDocument Configxml;
-    
+    public TextAsset xmlFile;
+
     private void Awake()
     {
-        
+
         Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/FactoryAssetsDev/";
+        string fileContent = xmlFile.text;
+        TextReader textReader = new StringReader(fileContent);
+        XmlReader reader = XmlReader.Create(textReader);
+        while (reader.Read())
+        {
+            if (reader.IsStartElement())
+            {
+                switch (reader.Name.ToString())
+                {
+                    case "AssetsLocation":
+                    Assets_Folder = reader.ReadString();
+                        Debug.Log("Assets folder link"+ Assets_Folder);
+                    break;
+                }
+            }
+        }
+        
         instance = this;
        screenWidth = Screen.width;
         screenHeight = Screen.height;
-
+        StartCoroutine(LoadMusicBg());
 
     }
     void Start()
@@ -97,6 +116,7 @@ public class Guided_Tour : MonoBehaviour
         StartCoroutine(OutcomeAudioLoader());
         StartCoroutine(LoadaudioHotspotIntros());
         StartCoroutine(LoadUseCaseIntros());
+        
         audioSource = GetComponent<AudioSource>();
         Debug.Log("Screen width"+screenWidth+"X"+screenHeight);
         //if (screenWidth <= 480)
@@ -354,6 +374,47 @@ public class Guided_Tour : MonoBehaviour
         }
 
     }
+    public IEnumerator LoadMusicBg()
+    {
+        //AudioClipsLoaded = 0;
+        
+            //am get from hotspot 
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/BGM.mp3", AudioType.MPEG))
+            {
+                yield return www.SendWebRequest();
+
+                if (www.result == UnityWebRequest.Result.Success)
+                {
+                AudioClip musicClip = DownloadHandlerAudioClip.GetContent(www);
+                BgMusic.clip = musicClip;
+                BgMusic.Play();
+            }
+                else
+                {
+                    // Debug.LogError("Failed to download audio: " + www.error);
+                }
+           
+        }
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/TourMusic.mp3", AudioType.MPEG))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                AudioClip musicClip = DownloadHandlerAudioClip.GetContent(www);
+                TourMusic.clip = musicClip;
+                TourMusic.Play();
+                //AudioClipsLoaded++;
+                // audioSources.Play();
+            }
+            else
+            {
+                // Debug.LogError("Failed to download audio: " + www.error);
+            }
+
+        }
+
+    }
     public float audiolength;
     public bool TourStart;
     public void PlayGuidedTour(string UseCase)
@@ -413,7 +474,7 @@ public class Guided_Tour : MonoBehaviour
         {
             CTAText[i].text = null;
         }
-
+        videoplayer.SetActive(true);
         FadeIn.SetActive(true);
         bInterrupted = false;
         ResetTourTextBox();
@@ -445,6 +506,7 @@ public class Guided_Tour : MonoBehaviour
         
        
         card.SetActive(true);
+        
         if (SaveDataFromXML.ins.IntroVideo != "")
         {
             string url = SaveDataFromXML.ins.IntroVideo;
@@ -499,7 +561,7 @@ public class Guided_Tour : MonoBehaviour
             if (SaveDataFromXML.ins.ECVideo != "")
             {
                 string url = SaveDataFromXML.ins.ECVideo;
-                StartCoroutine(VideoLoader.instance.TourVideo(url));
+                VideoLoader.instance.videoplay(url);
             }
         }
       

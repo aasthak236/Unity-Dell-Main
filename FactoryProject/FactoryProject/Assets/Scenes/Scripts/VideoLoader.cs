@@ -19,6 +19,7 @@ public class VideoLoader : MonoBehaviour
     }
     public void Start()
     {
+        
         instance = this;
         videoimage.SetActive(false);
 
@@ -50,10 +51,17 @@ public class VideoLoader : MonoBehaviour
             videoPlayer.source = VideoSource.Url;
             videoPlayer.url = url;
             videoPlayer.renderMode = VideoRenderMode.MaterialOverride;
-            videoPlayer.targetMaterialRenderer = videoRenderer = gameObject.AddComponent<Renderer>();
+            videoPlayer.targetMaterialRenderer =  gameObject.AddComponent<Renderer>();
+            videoRenderer = gameObject.AddComponent<Renderer>();
             videoPlayer.targetMaterialProperty = "_MainTex";
-            videoRenderer.material = videoMaterial;
-           videoPlayer.Play();
+            try
+            {
+                videoRenderer.material = videoMaterial;
+            }
+            catch
+            {
+            }
+            videoPlayer.Play();
         }
     }
 
@@ -80,16 +88,26 @@ public class VideoLoader : MonoBehaviour
         {
             //videoPlayer.source = VideoSource.Url;
             //videoPlayer.url = videoUrl;
-            //videoPlayer.Prepare();
-            //videoPlayer.prepareCompleted += OnVideoPrepared;
+            
+           // videoPlayer.Prepare();
+           //videoPlayer.prepareCompleted += OnVideoPrepared;
 
             videoPlayer = gameObject.AddComponent<VideoPlayer>();
+            videoPlayer.SetDirectAudioVolume(0, 0f);
             videoPlayer.source = VideoSource.Url;
             videoPlayer.url = url;
             videoPlayer.renderMode = VideoRenderMode.MaterialOverride;
-            videoPlayer.targetMaterialRenderer = videoRenderer = gameObject.AddComponent<Renderer>();
+            videoPlayer.targetMaterialRenderer = gameObject.AddComponent<Renderer>();
+            videoRenderer= gameObject.AddComponent<Renderer>();
             videoPlayer.targetMaterialProperty = "_MainTex";
-            videoRenderer.material = videoMaterial;
+            try
+            {
+                videoRenderer.material = videoMaterial;
+            }
+            catch
+            { 
+            }
+           
             videoPlayer.Play();
         }
     }
