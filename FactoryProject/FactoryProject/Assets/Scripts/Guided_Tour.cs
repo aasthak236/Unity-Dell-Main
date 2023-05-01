@@ -63,60 +63,27 @@ public class Guided_Tour : MonoBehaviour
     public GameObject BG_Music, Tour_Music;
     public GameObject Mute, Unmute;
     public GameObject NextPreviousBtn;
-    public TextAsset xmlFile;
 
     private void Awake()
     {
-
         Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/FactoryAssetsDev/";
-        string fileContent = xmlFile.text;
-        TextReader textReader = new StringReader(fileContent);
-        XmlReader reader = XmlReader.Create(textReader);
-        while (reader.Read())
-        {
-            if (reader.IsStartElement())
-            {
-                switch (reader.Name.ToString())
-                {
-                    case "AssetsLocation":
-                    Assets_Folder = reader.ReadString();
-                        Debug.Log("Assets folder link"+ Assets_Folder);
-                    break;
-                }
-            }
-        }
-        
+        StartCoroutine(LoadXML());
         instance = this;
-       screenWidth = Screen.width;
+        screenWidth = Screen.width;
         screenHeight = Screen.height;
-        StartCoroutine(LoadMusicBg());
+        
 
     }
-    void Start()
+    
+
+     void Start()
     {
         NextBtn.onClick.AddListener(OnButtonClick);
-      
+        //StartCoroutine(OutcomeAudioLoader());
+        //StartCoroutine(LoadaudioHotspotIntros());
+        //StartCoroutine(LoadUseCaseIntros());
+        //StartCoroutine(LoadMusicBg());
 
-        //if (PlayerPrefs.GetInt("MusicOn") == 1)
-        //{
-        //    Mute.SetActive(true);
-        //    Unmute.SetActive(false);
-        //    AudioListener.volume = 1f;
-        //    VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, false);
-
-        //}
-        //else
-        //{
-        //    Mute.SetActive(false);
-        //    Unmute.SetActive(true);
-        //    AudioListener.volume = 0f;
-        //   VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, true);
-        //}
-        //StartCoroutine(LoadaudioHotspots());
-        StartCoroutine(OutcomeAudioLoader());
-        StartCoroutine(LoadaudioHotspotIntros());
-        StartCoroutine(LoadUseCaseIntros());
-        
         audioSource = GetComponent<AudioSource>();
         Debug.Log("Screen width"+screenWidth+"X"+screenHeight);
         //if (screenWidth <= 480)
@@ -124,6 +91,30 @@ public class Guided_Tour : MonoBehaviour
         //    Factory.transform.rotation = Quaternion.Euler(0f, -110f, 0f);
         //}
 
+    }
+    IEnumerator LoadXML()
+    {
+        string filePath = Path.Combine(Application.streamingAssetsPath, "AssetsLocation.xml");
+
+        UnityWebRequest www = UnityWebRequest.Get(filePath);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.ConnectionError)
+        {
+            Debug.LogError("Error loading XML: " + www.error);
+        }
+        else
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(www.downloadHandler.text);
+            XmlNode node = xmlDoc.SelectSingleNode("fp");
+            Assets_Folder = node.InnerText.ToString();
+        }
+       // yield return new WaitForSeconds();
+            StartCoroutine(OutcomeAudioLoader());
+        StartCoroutine(LoadaudioHotspotIntros());
+        StartCoroutine(LoadUseCaseIntros());
+        StartCoroutine(LoadMusicBg());
     }
     public void OnButtonClick()
     {
