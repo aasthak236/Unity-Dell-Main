@@ -95,8 +95,9 @@ public class Guided_Tour : MonoBehaviour
     IEnumerator LoadXML()
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, "AssetsLocation.xml");
-
+        
         UnityWebRequest www = UnityWebRequest.Get(filePath);
+      
         yield return www.SendWebRequest();
 
         if (www.result == UnityWebRequest.Result.ConnectionError)
@@ -105,13 +106,22 @@ public class Guided_Tour : MonoBehaviour
         }
         else
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(www.downloadHandler.text);
-            XmlNode node = xmlDoc.SelectSingleNode("fp");
-            Assets_Folder = node.InnerText.ToString();
+            
+            try
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(www.downloadHandler.text);
+                XmlNode node = xmlDoc.SelectSingleNode("fp");
+                Assets_Folder = node.InnerText.ToString();
+            }
+            catch
+            { 
+            
+            }
+            
         }
        // yield return new WaitForSeconds();
-            StartCoroutine(OutcomeAudioLoader());
+        StartCoroutine(OutcomeAudioLoader());
         StartCoroutine(LoadaudioHotspotIntros());
         StartCoroutine(LoadUseCaseIntros());
         StartCoroutine(LoadMusicBg());
@@ -456,7 +466,7 @@ public class Guided_Tour : MonoBehaviour
     IEnumerator myCoroutine;
     public IEnumerator PlayAudioClips()
     {
-
+        yield return new WaitForSeconds(0.5f);
     Intro_Start:
      
        // BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
@@ -465,7 +475,7 @@ public class Guided_Tour : MonoBehaviour
         {
             CTAText[i].text = null;
         }
-        videoplayer.SetActive(true);
+        
         FadeIn.SetActive(true);
         bInterrupted = false;
         ResetTourTextBox();
@@ -474,7 +484,6 @@ public class Guided_Tour : MonoBehaviour
         //StartCoroutine(LoadImgWithUrl(Assets_Folder + "image/xmpro-logo.png"));
         // Turn on Introduction audio
         //Intro audio Play
-        yield return new WaitForSeconds(0.5f);
         audioSource.clip = audioClips[0];
         audiolength = audioClips[0].length;
         audioSource.Play();
@@ -498,10 +507,13 @@ public class Guided_Tour : MonoBehaviour
        
         card.SetActive(true);
         
+
         if (SaveDataFromXML.ins.IntroVideo != "")
         {
+           
             string url = SaveDataFromXML.ins.IntroVideo;
             VideoLoader.instance.videoplay(url);
+            videoplayer.SetActive(true);
         }
         hexaTxt[0].text = saveDataFile.INTRO[0];
         Hexagon.SetActive(true);
@@ -545,14 +557,16 @@ public class Guided_Tour : MonoBehaviour
             goto Intro_Start;
         }
         buttonClicked = false;
-    EC_Start:
+        EC_Start:
         if (SaveDataFromXML.ins.IntroVideo != SaveDataFromXML.ins.ECVideo)
         {
             videoplayer.SetActive(false);
             if (SaveDataFromXML.ins.ECVideo != "")
             {
+               
                 string url = SaveDataFromXML.ins.ECVideo;
                 VideoLoader.instance.videoplay(url);
+                videoplayer.SetActive(true);
             }
         }
       
@@ -608,7 +622,7 @@ public class Guided_Tour : MonoBehaviour
         //hexaTxt[0].color = ImageLoader.instance.HeadingColor1;
         //Hexagon.GetComponent<Image>().color = ImageLoader.instance.BackColor1;
         //HeadinLine.color = ImageLoader.instance.HeadingColor1;
-        videoplayer.SetActive(true);
+        
         for (int i = 1; i <= saveDataFile.ECEndIndx; i++)
         {
           //  ResetTourImages();
@@ -1165,6 +1179,7 @@ public class Guided_Tour : MonoBehaviour
         BackCardData.instance.OutcomeTextPanel.SetActive(false);
         videoplayer.SetActive(false);
         dellvideopanel.SetActive(false);
+        Camera_Walk_Control.instance.ImmersiveTourCaption.SetActive(false);
         audioSource.clip = null;
      
 

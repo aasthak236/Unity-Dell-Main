@@ -46,8 +46,9 @@ public class DetectCard : MonoBehaviour
             ClickController.instance.Plus.GetComponent<Image>().enabled = false;
             LeanTween.moveLocalY(ClickController.instance.flipbtn, -251f, 0.3f);
             LeanTween.moveLocalY(ClickController.instance.flipbtn1, -251f, 0.3f);
-            LeanTween.moveLocalY(ClickController.instance.crossbtn, 223f, 0.3f);
-            LeanTween.moveLocalX(ClickController.instance.crossbtn, 156f, 0.3f);
+            ClickController.instance.crossbtn.SetActive(false);
+            //LeanTween.moveLocalY(ClickController.instance.crossbtn, 223f, 0.3f);
+            // LeanTween.moveLocalX(ClickController.instance.crossbtn, 156f, 0.3f);
         }
         else
         {
@@ -59,7 +60,7 @@ public class DetectCard : MonoBehaviour
            
             LeanTween.moveLocalY(ClickController.instance.flipbtn, -134f, 0.3f);
             LeanTween.moveLocalY(ClickController.instance.flipbtn1, -134f, 0.3f);
-           
+            ClickController.instance.crossbtn.SetActive(true);
             LeanTween.moveLocalY(ClickController.instance.crossbtn, 142f, 0.3f);
             LeanTween.moveLocalX(ClickController.instance.crossbtn, 96f, 0.3f);
             
@@ -77,10 +78,16 @@ public class DetectCard : MonoBehaviour
         {
             LeanTween.rotateLocal(ClickController.instance.flipcard[i], new Vector3(0, 0, 0), 0.5f);
             LeanTween.scale(ClickController.instance.flipcard[i], new Vector3(0.8238152f, 0.8238152f, 0.8238152f), 0.5f);
+
+            ImageLoader.instance.Back[i].gameObject.SetActive(false);
+            ImageLoader.instance.Front[i].gameObject.SetActive(true);
+            ClickController.instance.backtext = false;
         }
         isRotated = false;
         LeanTween.moveLocalY(ClickController.instance.flipbtn, -105.05f, 0.3f);
         LeanTween.moveLocalY(ClickController.instance.flipbtn1, -105.05f, 0.3f);
+       
+
     }
     public void RotateMyObjectBackBtnClick()
     {

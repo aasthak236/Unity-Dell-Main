@@ -47,21 +47,14 @@ public class VideoLoader : MonoBehaviour
             //videoPlayer.Prepare();
             //videoPlayer.prepareCompleted += OnVideoPrepared;
 
-            videoPlayer = gameObject.AddComponent<VideoPlayer>();
-            videoPlayer.source = VideoSource.Url;
+            //videoPlayer.SetDirectAudioVolume(0, 0f);
             videoPlayer.url = url;
-            videoPlayer.renderMode = VideoRenderMode.MaterialOverride;
-            videoPlayer.targetMaterialRenderer =  gameObject.AddComponent<Renderer>();
-            videoRenderer = gameObject.AddComponent<Renderer>();
-            videoPlayer.targetMaterialProperty = "_MainTex";
-            try
+            videoPlayer.Prepare();
+
+            videoPlayer.prepareCompleted += (source) =>
             {
-                videoRenderer.material = videoMaterial;
-            }
-            catch
-            {
-            }
-            videoPlayer.Play();
+                videoPlayer.Play();
+            };
         }
     }
 
@@ -87,28 +80,36 @@ public class VideoLoader : MonoBehaviour
         else
         {
             //videoPlayer.source = VideoSource.Url;
-            //videoPlayer.url = videoUrl;
-            
-           // videoPlayer.Prepare();
-           //videoPlayer.prepareCompleted += OnVideoPrepared;
+            //videoPlayer.url = url;
+            //videoPlayer.Play();
+            // videoPlayer.Prepare();
+            //videoPlayer.prepareCompleted += OnVideoPrepared;
 
-            videoPlayer = gameObject.AddComponent<VideoPlayer>();
+            //videoPlayer = gameObject.AddComponent<VideoPlayer>();
+
+            //videoPlayer.source = VideoSource.Url;
+            //videoPlayer.url = url;
+            //videoPlayer.renderMode = VideoRenderMode.MaterialOverride;
+            //videoPlayer.targetMaterialRenderer = gameObject.AddComponent<Renderer>();
+            //videoRenderer= gameObject.AddComponent<Renderer>();
+            //videoPlayer.targetMaterialProperty = "_MainTex";
+            //try
+            //{
+            //    videoRenderer.material = videoMaterial;
+            //}
+            //catch
+            //{ 
+
             videoPlayer.SetDirectAudioVolume(0, 0f);
-            videoPlayer.source = VideoSource.Url;
             videoPlayer.url = url;
-            videoPlayer.renderMode = VideoRenderMode.MaterialOverride;
-            videoPlayer.targetMaterialRenderer = gameObject.AddComponent<Renderer>();
-            videoRenderer= gameObject.AddComponent<Renderer>();
-            videoPlayer.targetMaterialProperty = "_MainTex";
-            try
+            videoPlayer.Prepare();
+
+            videoPlayer.prepareCompleted += (source) =>
             {
-                videoRenderer.material = videoMaterial;
-            }
-            catch
-            { 
-            }
-           
-            videoPlayer.Play();
+                videoPlayer.Play();
+            };
+            
+
         }
     }
 }

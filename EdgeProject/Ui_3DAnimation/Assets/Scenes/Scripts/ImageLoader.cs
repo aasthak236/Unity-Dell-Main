@@ -21,7 +21,7 @@ public class ImageLoader : MonoBehaviour
     public void Awake()
     {
         instance = this;
-        url = "https://dell-unity-dev.s3.amazonaws.com/Assets/cards/" + Module_Name.instance.ModuleName + ".xml";
+        url = "https://dell-unity-dev.s3.amazonaws.com/Assets/cards/" + Module_Name.ModuleName + ".xml";
 
     }
 //    public IEnumerator frontBB(string ComponentName)
@@ -56,6 +56,7 @@ public class ImageLoader : MonoBehaviour
             for (int i = 1; i <= 5; i++)
             {
                 Front[i - 1].text = Load_Tour_text.ins.BBCardFace[i-1];
+                Back[i - 1].text = Load_Tour_text.ins.BBCardFaceBack[i-1];
                 NewCard[i - 1].SetActive(false);
             }
         }
@@ -64,6 +65,7 @@ public class ImageLoader : MonoBehaviour
             for (int i = 1; i <= 5; i++)
             {
                 Front[i - 1].text = Load_Tour_text.ins.OutcomeCardFace[i -1].ToString();
+                Front[i - 1].text = Load_Tour_text.ins.OutcomeCardFaceBack[i -1].ToString();
             }
         }
         if (ComponentName == "DVS")
@@ -92,7 +94,7 @@ public class ImageLoader : MonoBehaviour
                 string xmlText = www.downloadHandler.text;
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.LoadXml(xmlText);
-                XmlNode node = xmlDoc.SelectSingleNode(Module_Name.instance.ModuleName+"/" + (ComponentName) + i+"r");
+                XmlNode node = xmlDoc.SelectSingleNode(Module_Name.ModuleName+"/" + (ComponentName) + i+"r");
                 XmlElement root = xmlDoc.DocumentElement;
                 string nodeText = node.InnerText;
                 Back[i - 1].text = nodeText;
@@ -108,6 +110,8 @@ public class ImageLoader : MonoBehaviour
         if (ispressed==false)
         {
             OpenCard.SetActive(true);
+            GUI_Control.instance.DellDetailWindow.SetActive(false);
+            GUI_Control.instance.DellSolutionPanel.SetActive(false);
             ispressed = true;
             if (ComponentName == "Outcome")
             {
@@ -138,5 +142,6 @@ public class ImageLoader : MonoBehaviour
         }
         BackFlipCard.SetActive(false);
     }
+  
 
     }

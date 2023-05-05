@@ -70,6 +70,7 @@ public class ImageToggleOnHover : MonoBehaviour
         {
             if (Guided_Tour.instance.TourStart == false)
             {
+                //lookatCamera1.instance.HoverPositionSet();
                 image1.gameObject.SetActive(true);
             }
             

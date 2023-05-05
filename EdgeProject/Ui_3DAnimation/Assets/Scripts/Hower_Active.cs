@@ -16,7 +16,7 @@ public class Hower_Active : MonoBehaviour
     void Start()
     {
         ins = this;
-        url = "https://dell-unity-dev.s3.amazonaws.com/Assets/cards/" + Module_Name.instance.ModuleName + ".xml";
+        url = "https://dell-unity-dev.s3-accelerate.amazonaws.com/Assets/cards/" + Module_Name.ModuleName + ".xml";
         StartCoroutine(Tour_Text("Outcome"));
         
     }
@@ -37,10 +37,10 @@ public class Hower_Active : MonoBehaviour
                 string xmlText = www.downloadHandler.text;
                  XmlDocument xmlDoc = new XmlDocument();
                  xmlDoc.LoadXml(xmlText);
-                XmlNode node = xmlDoc.SelectSingleNode(Module_Name.instance.ModuleName + "/" + ComponentName+i);
-                XmlElement root = xmlDoc.DocumentElement;
-                string nodeText = node.InnerText;
-                HotSpot_Text[i-1].text = nodeText;
+                 XmlNode node = xmlDoc.SelectSingleNode(Module_Name.ModuleName + "/" + ComponentName+i);
+                 XmlElement root = xmlDoc.DocumentElement;
+                 string nodeText = node.InnerText;
+                 HotSpot_Text[i-1].text = nodeText;
             }
            
 

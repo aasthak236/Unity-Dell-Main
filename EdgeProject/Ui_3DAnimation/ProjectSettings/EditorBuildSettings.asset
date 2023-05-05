@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/WelcomeAnimation.unity
+    guid: d25e76838831b424ea3487efd5317d14
+  - enabled: 1
     path: Assets/Scenes/Welcome Screen.unity
     guid: 06b4f3e3fb6718f4fb4ac67eb6a82737
   - enabled: 1

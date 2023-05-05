@@ -16,7 +16,7 @@ public class Module_Name : MonoBehaviour
     {
         
     }
-    public  string ModuleName;
+    public static  string ModuleName;
     //refrence go to open main BB 
     public void GetModule(string ModuleNames)
     {

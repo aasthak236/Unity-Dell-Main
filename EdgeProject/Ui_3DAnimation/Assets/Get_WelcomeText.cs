@@ -8,10 +8,11 @@ public class Get_WelcomeText : MonoBehaviour
 {
     public AudioClip[] audioclip;
     public AudioSource[] audioSources;
+    public static Get_WelcomeText instance;
     // Start is called before the first frame update
     void Start()
     {
-       
+        instance = this;
         StartCoroutine(Loadaudio());
     }
 
@@ -26,7 +27,7 @@ public class Get_WelcomeText : MonoBehaviour
         for (int i = 1; i <= 3; i++)
         {
 
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("https://dell-unity-dev.s3-accelerate.amazonaws.com/Assets/audio/edge/" + Module_Name.instance.ModuleName+"_Welcome" + i+".mp3", AudioType.MPEG))
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("https://dell-unity-dev.s3-accelerate.amazonaws.com/Assets/audio/edge/" + Module_Name.ModuleName+"_Welcome" + i+".mp3", AudioType.MPEG))
             {
                 yield return www.SendWebRequest();
 

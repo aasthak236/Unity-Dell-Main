@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Networking;
 using UnityEngine.Video;
+using System.Linq;
 
 public class BackCardData : MonoBehaviour
 {
@@ -75,7 +76,9 @@ public class BackCardData : MonoBehaviour
         }
     }
     // Update is called once per frame
-  
+    public int currentgraphic;
+    public int EndingGraphic;
+    public int StartingGraphic;
     public void ShowBackFlipper()
     {
         
@@ -205,32 +208,109 @@ public class BackCardData : MonoBehaviour
         }
         else if (ImageLoader.ComponentName == "PS")
         {
+            currentgraphic = 0;
+            EndingGraphic = Load_Tour_text.ins.PartnerGraphicsIndex[int.Parse(buttonName)]-1;
+             StartingGraphic = 0;
+            if (int.Parse(buttonName) > 0)
+            {
+                StartingGraphic =Load_Tour_text.ins.PartnerGraphicsIndex[int.Parse(buttonName)-1];
+            }
+            currentgraphic = StartingGraphic;
             HotSpotsRuninng = true;
             for (int i = 0; i <= 5; i++)
             {
                 OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
             }
             PartnerFrontWindow.SetActive(false);
+            PartnerImage.gameObject.SetActive(true);
             PartnerWindow.SetActive(true);
             PartnerName.text = ImageLoader.instance.PS[int.Parse(buttonName)];
-            StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.partners[int.Parse(buttonName)]));
+            StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
             PartnerDescription.text = Load_Tour_text.ins.PartnerDescription[int.Parse(buttonName)];
             // link, More Details
             // video 
-            if (Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)] == "null")
-            {
-                VideoButton.SetActive(false);
-            }
-            else
-            {
-                VideoButton.SetActive(true);
-                //Debug.Log("Link Exisit"+ Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)]);
-                videolink = Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)];
+            //if (Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)] == "null")
+            //{
+            //    VideoButton.SetActive(false);
+            //}
+            //else
+            //{
+            //   // VideoButton.SetActive(true);
+            //    //Debug.Log("Link Exisit"+ Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)]);
+            //    //videolink = Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)];
 
 
-            }
+            //}
         }
 
+    }
+    public GameObject nextbutton;
+    public GameObject previousbutton;
+    public void NextButton()
+    {
+        currentgraphic++;
+        string graphicslink = Load_Tour_text.ins.PartnerGraphics[currentgraphic];
+        string lastThreeChars = graphicslink.Substring(graphicslink.Length - 3);
+        if (lastThreeChars == "mp4")
+        {
+            VideoButton.SetActive(true);
+            videolink = Load_Tour_text.ins.PartnerGraphics[currentgraphic];
+            StartCoroutine(VideoLoader.instance.VideoPlay());
+            PartnerImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            VideoLoader.instance.videoPlayer.Stop();
+            VideoLoader.instance.videoimage.SetActive(false);
+            PartnerImage.gameObject.SetActive(true);
+            StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
+        }
+
+
+        if (currentgraphic > EndingGraphic)
+        {
+            nextbutton.SetActive(false);
+            previousbutton.SetActive(true);
+        }
+        else
+        {
+            nextbutton.SetActive(true);
+            previousbutton.SetActive(true);
+        }
+
+    }
+    public void PreviousButton()
+    {
+        currentgraphic--;
+        string graphicslink = Load_Tour_text.ins.PartnerGraphics[currentgraphic];
+        string lastThreeChars = graphicslink.Substring(graphicslink.Length - 3);
+        if (lastThreeChars == "mp4")
+        {
+            PartnerImage.gameObject.SetActive(false);
+            VideoButton.SetActive(true);
+            videolink = Load_Tour_text.ins.PartnerGraphics[currentgraphic];
+            StartCoroutine(VideoLoader.instance.VideoPlay());
+        }
+        else
+        {
+            VideoLoader.instance.videoPlayer.Stop();
+            PartnerImage.gameObject.SetActive(true);
+            VideoLoader.instance.videoimage.SetActive(false);
+
+            StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
+        }
+
+
+        if (currentgraphic < StartingGraphic)
+        {
+            nextbutton.SetActive(true);
+            previousbutton.SetActive(false);
+        }
+        else
+        {
+            nextbutton.SetActive(true);
+            previousbutton.SetActive(true);
+        }
     }
     public void Playvideo()
     {
@@ -239,6 +319,7 @@ public class BackCardData : MonoBehaviour
     }
     public void parntnerclose()
     {
+        VideoLoader.instance.videoPlayer.Stop();
         PartnerFrontWindow.SetActive(true);
     }
     public void Dellclose()
@@ -321,7 +402,7 @@ public class BackCardData : MonoBehaviour
     IEnumerator myCoroutine;
     public IEnumerator OutcomeBtnF(int ButtonNaame)
     {
-       
+        Debug.Log(ButtonNaame);
         Guided_Tour.instance.ClosedAllWindow();
         //BusinessOutcomeWindow.SetActive(true);
         OutcomeBtn[ButtonNaame].GetComponent<Image>().color = PressedColor;
@@ -595,6 +676,10 @@ public class BackCardData : MonoBehaviour
     public void PartnerLink()
     {
         Application.OpenURL(Load_Tour_text.ins.PartnersLink[int.Parse(buttonName)]);
+    }
+    public void DellSolutionLink()
+    {
+        Application.OpenURL(Load_Tour_text.ins.DellLink[int.Parse(buttonName)]);
     }
     public IEnumerator LoadImageWithUrlPartners(string ImageLink)
     {

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.Networking;
 
 public class GUI_Control : MonoBehaviour
 {
@@ -16,6 +19,9 @@ public class GUI_Control : MonoBehaviour
     public GameObject video;
     public VideoPlayer videoplayer;
     public GameObject DellBackPanel;
+    public GameObject DellSolutionPanel;
+    public GameObject DellDetailWindow;
+    public TextMeshProUGUI[] DellText;
     void Start()
     {
        
@@ -121,24 +127,40 @@ public class GUI_Control : MonoBehaviour
         Tour_Card.SetActive(false);
         if (isopen == false)
         {
-               if (DetectCard.isRotated == true)
+            
+            if (ComponentName == "DVS")
             {
-                DetectCard.instance.ResetFlip();
+                CardType = ComponentName;
+                isopen = true;
+                DellSolutionPanel.SetActive(true);
+                for (int i = 1; i <= 5; i++)
+                {
+                    DellText[i - 1].text = Load_Tour_text.ins.DVSCardFace[i - 1].ToString();
+                    ImageLoader.instance.NewCard[i - 1].SetActive(false);
+                }
             }
-            CardType = ComponentName;
-          // StartCoroutine(ImageLoader.instance.frontBB(ComponentName));
-           ImageLoader.instance.LoadFliperText(ComponentName);
-           //StartCoroutine(ImageLoader.instance.backBB(ComponentName));
-           // LoadingScreen.SetActive(true);
-            //Invoke("loadingfalse", 4f);
-            RotatingComponent.SetActive(true);
-            isopen = true;
-            FlipBtn.SetActive(true);
-            ClickController.instance.SetPos();
-            ClickController.instance.BAutorotate();
-            video.SetActive(false);
-            any_window_open = true;
-         
+            else
+            {
+                if (DetectCard.isRotated == true)
+                {
+                    DetectCard.instance.ResetFlip();
+                }
+                CardType = ComponentName;
+                // StartCoroutine(ImageLoader.instance.frontBB(ComponentName));
+                ImageLoader.instance.LoadFliperText(ComponentName);
+                //StartCoroutine(ImageLoader.instance.backBB(ComponentName));
+                // LoadingScreen.SetActive(true);
+                //Invoke("loadingfalse", 4f);
+                RotatingComponent.SetActive(true);
+                isopen = true;
+                FlipBtn.SetActive(true);
+                ClickController.instance.SetPos();
+                ClickController.instance.BAutorotate();
+                video.SetActive(false);
+                DellSolutionPanel.SetActive(false);
+                DellDetailWindow.SetActive(false);
+                any_window_open = true;
+            }
             //ClickController.instance.CancelAllTimer();
         }
         else
@@ -148,6 +170,7 @@ public class GUI_Control : MonoBehaviour
             isopen = false;
             any_window_open = false;
             FlipBtn.SetActive(false);
+            DellSolutionPanel.SetActive(false);
         }
     }
     public void loadingfalse()
@@ -160,6 +183,7 @@ public class GUI_Control : MonoBehaviour
     public bool isOpenvideo;
     public void Openvideo()
     {
+        Guided_Tour.instance.CloseAllWindow();
         if (isopen2 == false)
         {
             Hower_Active.Howeractive = true;
@@ -183,5 +207,61 @@ public class GUI_Control : MonoBehaviour
     public void loadvideo()
     {
         video.SetActive(true);
+    }
+    public TextMeshProUGUI DellName;
+    public Image DellImage;
+    public TextMeshProUGUI DellDescription;
+    public string buttonName;
+    public void DellBackData()
+    {
+        Button clickedButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+         buttonName = clickedButton.name;
+        DellDetailWindow.SetActive(true);
+        //for (int i = 0; i <5; i++)
+        //{
+        //   // ImageLoader.instance.Cards[i].SetActive(false);
+        //}
+       
+        // name, 
+        DellName.text = Load_Tour_text.ins.DVSCardFace[int.Parse(buttonName)];
+        // image,
+        StartCoroutine(LoadDellImageWithUrlPartners(Load_Tour_text.ins.DS_Image[int.Parse(buttonName)])); ;
+        // Guided_Tour.instance.PartnerImg[int.Parse(buttonName)].gameObject.SetActive(true);
+        // desc,
+        DellDescription.text = Load_Tour_text.ins.DS_Detail[int.Parse(buttonName)];
+        //for (int i = 0; i <= 5; i++)
+        //{
+        //    OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
+        //}
+    }
+
+    public IEnumerator LoadDellImageWithUrlPartners(string ImageLink)
+    {
+        DellImage.sprite = null;
+        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(ImageLink))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Texture2D texture = DownloadHandlerTexture.GetContent(request);
+
+                // Create a sprite from the texture and assign it to the Image component
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+                DellImage.sprite = sprite;
+            }
+            else
+            {
+                Debug.LogError("Image download failed: " + request.error);
+            }
+        }
+
+
+
+
+    }
+    public void DellSolutionLink()
+    {
+        Application.OpenURL(Load_Tour_text.ins.DS_Link[int.Parse(buttonName)]);
     }
 }

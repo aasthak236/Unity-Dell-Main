@@ -33,6 +33,8 @@ public class BackCardData : MonoBehaviour
        // BackCardLowerText.text = Load_Tour_text.ins.DVSCardFace[int.Parse(buttonName)].ToString();
 
     }
+
+    
    
 
 

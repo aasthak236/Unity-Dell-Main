@@ -1068,12 +1068,14 @@ public class Load_Tour_text : MonoBehaviour
     public string[] Dell;
     public string[] DellDescription;
     public string[] DellLink;
+    public string[] PartnerGraphics;
+    public int[] PartnerGraphicsIndex;
     //public string[] Dell;
     public int PartnerTCount;
     public IEnumerator LoadPartnerImages()
     {
        
-            UnityWebRequest www = UnityWebRequest.Get("https://dell-unity-dev.s3-accelerate.amazonaws.com/Factory+Assets/cards/partners.xml");
+            UnityWebRequest www = UnityWebRequest.Get(Guided_Tour.instance.Assets_Folder+"cards/partners.xml");
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
@@ -1089,13 +1091,17 @@ public class Load_Tour_text : MonoBehaviour
             XmlElement root1 = xmlDoc.DocumentElement;
             string nodeText1 = node1.InnerText;
             PartnerTCount = int.Parse(nodeText1);
+            int ListIndex = 0;
+            int j = 0;
             for (int i = 0; i <PartnerTCount; i++)
             {
-
+                
                 XmlNode node = xmlDoc.SelectSingleNode("partners/PS" + (i + 1));
                 XmlElement root = xmlDoc.DocumentElement;
                 string nodeText = node.InnerText;
                 partners[i] = nodeText;
+
+                
 
                 XmlNode node5 = xmlDoc.SelectSingleNode("partners/PSvideo" + (i + 1));
                 XmlElement root5 = xmlDoc.DocumentElement;
@@ -1111,6 +1117,28 @@ public class Load_Tour_text : MonoBehaviour
                 XmlElement roo4 = xmlDoc.DocumentElement;
                 string nodeText4 = node4.InnerText;
                 PartnerDescription[i] = nodeText4;
+                j = 1;
+                bool bContinue=true;
+
+                while (bContinue&&ListIndex<50)
+                {
+                    XmlNode nodegraphics = xmlDoc.SelectSingleNode("partners/Graphics" + (i + 1)+j.ToString("00"));
+                   // Debug.Log("partners/Graphics" + (i + 1) + j.ToString("00"));
+                    if (nodegraphics != null)
+                    {
+                        XmlElement rootgraphics = xmlDoc.DocumentElement;
+                        string nodeTextgraphics = nodegraphics.InnerText;
+                        PartnerGraphics[ListIndex] = nodeTextgraphics;
+                        ListIndex++;
+                        j++;
+                    }
+                    else
+                    {
+                        bContinue = false;
+                        PartnerGraphicsIndex[i] = ListIndex;
+                    }
+                  
+                }
             }
 
         }

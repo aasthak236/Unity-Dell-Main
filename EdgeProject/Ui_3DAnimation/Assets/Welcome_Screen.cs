@@ -21,7 +21,7 @@ public class Welcome_Screen : MonoBehaviour
     }
     public void Welcome_Btn()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
     public void soundon()
     {

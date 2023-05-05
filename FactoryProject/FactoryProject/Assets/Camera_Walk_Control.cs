@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Camera_Walk_Control : MonoBehaviour
 {
@@ -10,9 +11,10 @@ public class Camera_Walk_Control : MonoBehaviour
     [Header("Section Point Transforms")]
     public Transform[] CameraMovePoints;
     public int[] HotSpotAtMovePoint;
-
+    public TextMeshProUGUI ImmersiveTourText;
     public float rotateTime = 1f;
     public LeanTweenType easeType = LeanTweenType.easeInOutQuad;
+    public GameObject ImmersiveTourCaption;
 
     public static Camera_Walk_Control instance;
 
@@ -32,24 +34,24 @@ public class Camera_Walk_Control : MonoBehaviour
     }
     IEnumerator  CameraWalk()
     {
-       
-        //HotSpotAtMovePoint[0] = 1;
+        
+         //HotSpotAtMovePoint[0] = 1;
         HotSpotAtMovePoint[1] = 1;
         HotSpotAtMovePoint[2] = 11;
         HotSpotAtMovePoint[3] = 13;
-        HotSpotAtMovePoint[4] = 6;
-        HotSpotAtMovePoint[5] = 2;
-        HotSpotAtMovePoint[6] = 8;
+        HotSpotAtMovePoint[4] = 2;
+        HotSpotAtMovePoint[5] = 8;
+        HotSpotAtMovePoint[6] = 0;
         HotSpotAtMovePoint[7] = 0;
-        HotSpotAtMovePoint[8] = 0;
-        HotSpotAtMovePoint[9] = 5;
-        HotSpotAtMovePoint[10] = 7;
-        HotSpotAtMovePoint[11] = 12;
-        HotSpotAtMovePoint[12] = 0;
+        HotSpotAtMovePoint[8] = 5;
+        HotSpotAtMovePoint[9] = 7;
+        HotSpotAtMovePoint[10] = 12;
+        HotSpotAtMovePoint[11] = 0;
+        HotSpotAtMovePoint[12] = 6;
         HotSpotAtMovePoint[13] = 4;
         HotSpotAtMovePoint[14] = 14;
-        HotSpotAtMovePoint[15] = 14;
-        HotSpotAtMovePoint[16] = 14;
+        HotSpotAtMovePoint[15] = 0;
+        HotSpotAtMovePoint[16] = 0;
         for (int i = 0; i <= 13; i++)
         {
             BackCardData.instance.HotSpot[i].SetActive(false);
@@ -75,7 +77,7 @@ public class Camera_Walk_Control : MonoBehaviour
         yield return new WaitForSeconds(5f);
         #endregion
         BackCardData.instance.HotSpotSizeDecrease();
-        for (int i = 1; i <= 14; i++)
+        for (int i = 1; i <= 15; i++)
         {
           
             if (i < CameraMovePoints.Length && !isCameraMoving)
@@ -115,6 +117,8 @@ public class Camera_Walk_Control : MonoBehaviour
             yield return new WaitForSeconds(1f);
             if (HotSpotAtMovePoint[i] != 0)
             {
+                ImmersiveTourCaption.SetActive(true);
+                ImmersiveTourText.text = Guided_Tour.instance.HotSpotTextIntro[HotSpotAtMovePoint[i] - 1];
                 BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].transform.GetChild(0).GetChild(2).GetChild(1).gameObject.SetActive(true);
                 BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].SetActive(true);
                 yield return new WaitForSeconds(1f);
@@ -124,6 +128,7 @@ public class Camera_Walk_Control : MonoBehaviour
                 yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
                 BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].SetActive(false);
                 BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].transform.GetChild(0).GetChild(2).GetChild(1).gameObject.SetActive(false);
+                
             }
             else
             {

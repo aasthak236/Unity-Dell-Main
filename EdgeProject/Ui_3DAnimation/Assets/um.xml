@@ -1,0 +1,64 @@
+<um>
+<BB1>Monitoring and Control Center</BB1>
+<BB2>Dispatch Center</BB2>
+<BB3>Geographical Information System</BB3>
+<BB4>Video Storage and Analytics </BB4>
+<BB5>Video Management Center </BB5>
+<Outcome1>Optimize traffic flow</Outcome1>
+<Outcome2>Enforcement and road safety</Outcome2>
+<Outcome3>Efficiency and workload</Outcome3>
+<Outcome4>Emergency response</Outcome4>
+<Outcome5>Enhance Situational awareness</Outcome5>
+<DVS1>Compute</DVS1>
+<DVS2>Networking</DVS2>
+<DVS3>Storage</DVS3>
+<DVS4>Workstation</DVS4>
+<DVS5>Software</DVS5>
+
+<sub_DVS1>VxRail E series (3-node cluster)\n\u2022Dell PowerEdge R750</sub_DVS1>
+<sub_DVS2>Dell PowerSwitch S4148F-ON)</sub_DVS2>
+<sub_DVS3>Dell PowerScale H400/A200/A2000)\n\u2022Dell ECS EX300/EX3000/U4000)</sub_DVS3>
+<sub_DVS4>VMware software+ )\n\u2022ISS SecurOS v11</sub_DVS4>
+<sub_DVS5>Dell Precision 3450)\n\u2022small form factor workstation</sub_DVS5>
+
+
+<BB1r>Real-time intrusion and object detection and counting \n\u2022Face detection and recognition \n\u2022Video synopsis, and behavioral analytics</BB1r>
+<BB2r>Dispatch center is a specialized tool for incident management</BB2r>
+<BB3r>To monitor and manage georeferenced data</BB3r>
+<BB4r>Advanced video analytics to detectand respond to traffic incidents</BB4r>
+<BB5r>Receive “live” video streams or archive video from any remote security systems</BB5r>
+
+<sub_BB1>Real-time intrusion and detection\n\u2022Video synopsis, and behavioral analytics</sub_BB1>
+<sub_BB2>Dispatch center is a specialized tool for incident management</sub_BB2>
+<sub_BB3>Monitor and manage georeferenced data</sub_BB3>
+<sub_BB4>Advanced video analytics to detectand respond to traffic incidents</sub_BB4>
+<sub_BB5>Receive “live” video streams or archive video from any remote security systems</sub_BB5>
+
+
+<Outcome1r>Automatic alerts \nAdaptive Traffic Light Systems (ATLS) Data to aid demand forecasting and policy making process</Outcome1r>
+<Outcome2r>Automated detection 24/7 \nAutomated Number Plate Recognition (ANPR) \nAutomatically generate tickets and collect e-fines </Outcome2r>
+<Outcome3r>Streamline Operator Efficiencies, eliminate manual monitoring \nAutomatic Cargo Container Number recognition \nOptimized Public Transport System</Outcome3r>
+<Outcome4r>Video analytics for rapid incident management \nAutomated monitoring of all control areas​ \nAutomated dispatch to coordinate between multiple agencies​</Outcome4r>
+<Outcome5r>Get a Holistic View by Aggregating data from multiple remote sites to a centralized location \nDevelop a 360° view and real-time situational awareness for safety and security​ \nMake informed decisions for road incidents, natural disasters, and crowd management</Outcome5r>
+
+<Sub_Outcome1>Automatic alerts and Adaptive Traffic Light Systems (ATLS) data</Sub_Outcome1>
+<Sub_Outcome2>Automated detection 24/7\nAutomatically generate tickets and collect e-fines </Sub_Outcome2>
+<Sub_Outcome3>Eliminate manual monitoring \nOptimized Public transport system</Sub_Outcome3>
+<Sub_Outcome4>Video analytics for rapid incident management \nAutomated monitoring and dispatch</Sub_Outcome4>
+<Sub_Outcome5>360° view and real-time situational awareness \nMake informed decisions for road incidents, natural disasters, and crowd management</Sub_Outcome5>
+
+<Intro>Traffic leads to higher pollution, accidents, and poorer quality of life for your citizens</Intro>
+<OutcomeIntro>Edge Mobility Solutions</OutcomeIntro>
+<BBIntro>Solution Building Blocks</BBIntro>
+<DVSIntro>Pre-Validated Solutions</DVSIntro>
+<Ending>Together, these solutions can help you manage traffic flows, enforce policies, and plan better for a better future for your citizens</Ending>
+
+<Welcome1>Cities today are paralyzed by traffic jams. \nExplore this experience center to see how can you manage traffic better with technology</Welcome1>
+
+	<Intro0>Urban Mobility Problems</Intro0>
+	<Intro1>Pollution</Intro1>
+	<Intro2>Accidents</Intro2>
+	<Intro3>Quality of life</Intro3>
+	<sub_Intro3>Cities today are paralyzed by traffic jams</sub_Intro3>
+
+</um>

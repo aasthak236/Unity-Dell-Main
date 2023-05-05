@@ -12,7 +12,7 @@ public class VideoLoader : MonoBehaviour
     public Material videoMaterial;
     public void Awake()
     {
-        url = "https://dell-unity-dev.s3.amazonaws.com/Assets/videos/" + Module_Name.instance.ModuleName + "1.mp4";
+        url = "https://dell-unity-dev.s3.amazonaws.com/Assets/videos/" + Module_Name.ModuleName + "1.mp4";
         videoPlayer.url = url;
     }
     IEnumerator Start()
