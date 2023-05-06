@@ -21,6 +21,7 @@ public class Guided_Tour : MonoBehaviour
    // public AudioClip[] HotSpotAudio;
     public AudioClip[] HotSpotAudioIntro;
     public string[] HotSpotTextIntro;
+    public string[] HotSpotTextLabel;
     public AudioClip[] OutcomeAudioIntro;
     public float TotalPlayTime = 4f;
 
@@ -39,6 +40,7 @@ public class Guided_Tour : MonoBehaviour
     private bool buttonClicked = false;
     private bool PreviousButtonClicked = false;
     private bool bShowSolutionImages;
+    private bool bShowPartnerImages;
     public Image HeadinLine;
     public Button NextBtn;
     public Button PreviousBtn;
@@ -322,6 +324,51 @@ public class Guided_Tour : MonoBehaviour
                             case "uc13":
                                 HotSpotTextIntro[12] = reader.ReadString();
                                 break;
+
+
+                                //uc label reader
+
+                            case "uclabel1":
+                                HotSpotTextLabel[0] = reader.ReadString();
+                                break;
+
+                            case "uclabel2":
+                                HotSpotTextLabel[1] = reader.ReadString();
+                                break;
+
+                            case "uclabel3":
+                                HotSpotTextLabel[2] = reader.ReadString();
+                                break;
+                            case "uclabel4":
+                                HotSpotTextLabel[3] = reader.ReadString();
+                                break;
+                            case "uclabel5":
+                                HotSpotTextLabel[4] = reader.ReadString();
+                                break;
+                            case "uclabel6":
+                                HotSpotTextLabel[5] = reader.ReadString();
+                                break;
+                            case "uclabel7":
+                                HotSpotTextLabel[6] = reader.ReadString();
+                                break;
+                            case "uclabel8":
+                                HotSpotTextLabel[7] = reader.ReadString();
+                                break;
+                            case "uclabel9":
+                                HotSpotTextLabel[8] = reader.ReadString();
+                                break;
+                            case "uclabel10":
+                                HotSpotTextLabel[9] = reader.ReadString();
+                                break;
+                            case "uclabel11":
+                                HotSpotTextLabel[10] = reader.ReadString();
+                                break;
+                            case "uclabel12":
+                                HotSpotTextLabel[11] = reader.ReadString();
+                                break;
+                            case "uclabel13":
+                                HotSpotTextLabel[12] = reader.ReadString();
+                                break;
                         }
 
                     }
@@ -508,10 +555,10 @@ public class Guided_Tour : MonoBehaviour
         {
            
             string url = SaveDataFromXML.ins.IntroVideo;
-            VideoLoader.instance.videoplay(url);
+            VideoLoader.instance.videoplayTour(url);
             videoplayer.SetActive(true);
         }
-        hexaTxt[0].text = saveDataFile.INTRO[0];
+        hexaTxt[0].text =HotSpotTextLabel[int.Parse(EndNumber) - 1];
         Hexagon.SetActive(true);
         
         //hexaTxt[0].color = ImageLoader.instance.HeadingColor2;
@@ -570,18 +617,9 @@ public class Guided_Tour : MonoBehaviour
             goto Intro_Start;
         }
         buttonClicked = false;
+
+
         EC_Start:
-        if (SaveDataFromXML.ins.IntroVideo != SaveDataFromXML.ins.ECVideo)
-        {
-            videoplayer.SetActive(false);
-            if (SaveDataFromXML.ins.ECVideo != "")
-            {
-               
-                string url = SaveDataFromXML.ins.ECVideo;
-                VideoLoader.instance.videoplay(url);
-                videoplayer.SetActive(true);
-            }
-        }
       
         //Hexagon.SetActive(false); 
         //card.SetActive(false);
@@ -637,7 +675,6 @@ public class Guided_Tour : MonoBehaviour
         {
             yield return null;
         }
-        videoplayer.SetActive(false);
         if (PreviousButtonClicked)
         {
             PreviousButtonClicked = false;
@@ -788,7 +825,7 @@ public class Guided_Tour : MonoBehaviour
 
 
             }
-            bShowSolutionImages = true;
+            bShowPartnerImages = true;
             StartCoroutine(ShowPartnerImages());
             NextPreviousBtn.SetActive(true);
             for (int i = 1; i <= saveDataFile.PSEndIndx+1; i++)
@@ -854,7 +891,7 @@ public class Guided_Tour : MonoBehaviour
             {
                 yield return null;
             }
-            bShowSolutionImages = false;
+            bShowPartnerImages = false;
             if (PreviousButtonClicked)
             {
                 PreviousButtonClicked = false;
@@ -1030,7 +1067,7 @@ public class Guided_Tour : MonoBehaviour
         card.SetActive(false);
         FadeIn.SetActive(false);
         FadeOut.SetActive(true);
-        
+       //video active false
         yield return new WaitForSeconds(1f); 
         FadeIn.SetActive(false);
      
@@ -1049,18 +1086,19 @@ public class Guided_Tour : MonoBehaviour
     }
     IEnumerator ShowDellImages()
     {
-        for (int i = 1; i <= saveDataFile.HARDWAREEndIndx; i++)
+        for (int i = 0; i < saveDataFile.HARDWAREEndIndx * 20; i++)
         {
-            DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(true);
-            yield return new WaitForSeconds(2f);
-            DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(false);
-            if (i == saveDataFile.HARDWAREEndIndx)
+            int j = i / 20 + 1;
+            DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[j - 1]) - 1].gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[j - 1]) - 1].gameObject.SetActive(false);
+            if (i == saveDataFile.HARDWAREEndIndx * 20 - 1)
             {
                 i = 0;
             }
             if (!bShowSolutionImages)
             {
-                i = saveDataFile.HARDWAREEndIndx + 1;
+                i = saveDataFile.HARDWAREEndIndx * 20 + 1;
                 bShowSolutionImages = true;
             }
         }
@@ -1069,23 +1107,22 @@ public class Guided_Tour : MonoBehaviour
     }
     IEnumerator ShowPartnerImages()
     {
-        for (int i = 1; i <= saveDataFile.PSEndIndx; i++)
+        for (int i = 0; i < saveDataFile.PSEndIndx * 20; i++)
         {
-            PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 1]) - 1].gameObject.SetActive(true);
-            yield return new WaitForSeconds(2f);
-            PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 1]) - 1].gameObject.SetActive(false);
-            if (i == saveDataFile.PSEndIndx)
+            int j = i / 20 + 1;
+            PartnerImg[int.Parse(SaveDataFromXML.ins.PS[j - 1]) - 1].gameObject.SetActive(true);
+            yield return new WaitForSeconds(.1f);
+            PartnerImg[int.Parse(SaveDataFromXML.ins.PS[j - 1]) - 1].gameObject.SetActive(false);
+            if (i == saveDataFile.PSEndIndx * 20 - 1)
             {
                 i = 0;
             }
-            if (!bShowSolutionImages)
+            if (!bShowPartnerImages)
             {
-                i = saveDataFile.PSEndIndx + 1;
-                bShowSolutionImages = true;
+                i = saveDataFile.PSEndIndx * 20 + 1;
+                bShowPartnerImages = true;
             }
         }
-
-
     }
         public void ResetTourTextBox()
     {
@@ -1247,4 +1284,7 @@ public class Guided_Tour : MonoBehaviour
 
 
     }
+
+    
+  
 }

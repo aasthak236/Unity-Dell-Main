@@ -353,6 +353,7 @@ public class BackCardData : MonoBehaviour
     public AudioSource Silence;
     public void FlashHotspot(int i)
     {
+        
         Guided_Tour.instance.StopCoroutine();//stop for usecase
         StopCoroutineTour();//stop for outcome
         myCoroutine = OutcomeBtnF(i);
@@ -659,6 +660,37 @@ public class BackCardData : MonoBehaviour
         Guided_Tour.instance.audioSource.Play();
         yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
         OutcomeTextPanel.SetActive(false);
+    }
+    public string UseCase;
+    public void PressedHotspotButton(int HotSpotName)
+    {
+        if (ImageToggleOnHover.Tour_Running == false)
+        {
+            Button clickedButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+            UseCase = clickedButton.name;
+            Guided_Tour.instance.StopCoroutine();//stop for usecase
+            BackCardData.instance.StopCoroutineTour();//stop for outcome
+            SaveDataFromXML.ins.ResetSaveData();
+            Guided_Tour.instance.ClosedAllWindow();
+            ImageToggleOnHover.UseCase=UseCase;
+  
+            StartCoroutine(Guided_Tour.instance.Loadaudio());
+            StartCoroutine(Load_Tour_text.ins.GetAllTexts());
+            // Load_Tour_text.ins.GetAllTexts();
+            Guided_Tour.instance.UnClickMenu.SetActive(true);
+
+            CameraZoomTowardPoint.instance.ZoomInToSection(HotSpotName);
+            ImageToggleOnHover.Tour_Running = true;
+            Invoke("playguid", 1.5f);
+            Guided_Tour.instance.TourStart = true;
+          
+
+
+        }
+    }
+    public void playguid()
+    {
+        Guided_Tour.instance.PlayGuidedTour(UseCase);
     }
     public void OutcomeCrossBtn()
     {

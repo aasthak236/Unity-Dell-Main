@@ -49,18 +49,18 @@ public class factory_move : MonoBehaviour
 
                 }
 
-                else
-                {
-                    float moveX = deltaX * moveSpeed * Time.deltaTime;
-                    transform.Translate(new Vector3(-moveX, 0, 0));
-                    Vector3 clampedPosition = transform.position;
-                    if (Camera_Walk_Control.instance.ImmersiveTourStart == false)
-                    {
-                        clampedPosition.x = Mathf.Clamp(clampedPosition.x, -20, 90);
+                //else
+                //{
+                //    float moveX = deltaX * moveSpeed * Time.deltaTime;
+                //    transform.Translate(new Vector3(-moveX, 0, 0));
+                //    Vector3 clampedPosition = transform.position;
+                //    if (Camera_Walk_Control.instance.ImmersiveTourStart == false)
+                //    {
+                //        clampedPosition.x = Mathf.Clamp(clampedPosition.x, -20, 90);
 
-                        transform.position = clampedPosition;
-                    }
-                }
+                //        transform.position = clampedPosition;
+                //    }
+                //}
 
 
                 dragStartPosition = dragCurrentPosition;

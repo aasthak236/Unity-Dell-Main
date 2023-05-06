@@ -62,13 +62,13 @@ public class VideoLoader : MonoBehaviour
     {
        // source.Play();
     }
-   public  void videoplay(string url)
+   public  void videoplayTour(string url)
     {
         StartCoroutine(TourVideo(url));
     }
     public IEnumerator TourVideo(string url)
     {
-        videoimage.SetActive(true);
+       // videoimage.SetActive(true);
         videoPlayer.url = url;
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();

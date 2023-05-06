@@ -148,7 +148,11 @@ public class Camera_Walk_Control : MonoBehaviour
             {
                 yield return new WaitForSeconds(2f);
             }
-
+            if (i == 15)
+            {
+                yield return new WaitForSeconds(2f);
+                CameraZoomTowardPoint.instance.ZoomBack();
+            }
             //BackCardData.instance.HotSpot[i - 1].transform.GetChild(i - 1).GetChild(2).GetChild(1).gameObject.SetActive(true);
           
 

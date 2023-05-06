@@ -113,7 +113,6 @@ public class CameraZoomTowardPoint : MonoBehaviour
         Guided_Tour.instance.StopCoroutine();//stop for usecase
         BackCardData.instance.StopCoroutineTour();//stop for outcome
         Guided_Tour.instance.ClosedAllWindow();
-        
         BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
         //BackCardData.instance.HotSpotsRuninng = false;
         CameraZoom = false;
