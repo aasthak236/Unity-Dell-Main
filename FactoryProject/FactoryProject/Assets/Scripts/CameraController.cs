@@ -6,10 +6,17 @@ public class CameraController : MonoBehaviour
     public float movementSpeed = 2f;
     public float zoomSpeed = 0.8f;
     public float verticalInput;
-   
+    private bool guibuttonpressed = false;
     public void Start()
     {
         cameraTransform = GetComponent<Transform>();
+    }
+    private void OnGUI()
+    {
+        if (GUI.Button(new Rect(10, 10, 100, 50), "click me"))
+        {
+            guibuttonpressed = true;
+        }
     }
     void Update()
     {
@@ -25,9 +32,12 @@ public class CameraController : MonoBehaviour
 
             float zoomAmount = verticalInput * zoomSpeed;
             Vector3 newZoomPosition = cameraTransform.position - new Vector3(0f, zoomAmount, zoomAmount);
-           //newZoomPosition.z = Mathf.Clamp(newZoomPosition.z, 28f, 62f);
-          // newZoomPosition.y = Mathf.Clamp(newZoomPosition.y, 28f, 50.6f);
-            cameraTransform.position = newZoomPosition;
+            if (Camera_Walk_Control.instance.ImmersiveTourStart==false)
+            {
+                newZoomPosition.z = Mathf.Clamp(newZoomPosition.z, 28f, 62f);
+                newZoomPosition.y = Mathf.Clamp(newZoomPosition.y, 28f, 50.6f);
+            }
+                cameraTransform.position = newZoomPosition;
         }
         if (CameraZoomTowardPoint.CameraZoom == false)
         {
@@ -38,11 +48,16 @@ public class CameraController : MonoBehaviour
             float newZoomDistanceY = transform.position.y- (scrollInput * zoomSpeed);
 
             // Clamp zoom distance within min/max range
-            //newZoomDistanceY = Mathf.Clamp(newZoomDistanceY, 23f, 50f);
-           //newZoomDistance = Mathf.Clamp(newZoomDistance, 43.5f, 70.5f);
+            if (Camera_Walk_Control.instance.ImmersiveTourStart==false)
+            {
+                newZoomDistanceY = Mathf.Clamp(newZoomDistanceY, 23f, 50f);
+                newZoomDistance = Mathf.Clamp(newZoomDistance, 43.5f, 70.5f);
+                transform.position = new Vector3(transform.position.x, newZoomDistanceY, newZoomDistance);
+            }
+           
 
             // Set new camera position
-            transform.position = new Vector3(transform.position.x, newZoomDistanceY, newZoomDistance);
+            
         }
     }
 }

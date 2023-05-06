@@ -38,6 +38,7 @@ public class Guided_Tour : MonoBehaviour
     public  AudioSource audioSource, audioSource1;
     private bool buttonClicked = false;
     private bool PreviousButtonClicked = false;
+    private bool bShowSolutionImages;
     public Image HeadinLine;
     public Button NextBtn;
     public Button PreviousBtn;
@@ -78,6 +79,7 @@ public class Guided_Tour : MonoBehaviour
 
      void Start()
      {
+        PlayerPrefs.SetInt("MusicOn", 1);
         NextBtn.onClick.AddListener(OnButtonClick);
         //StartCoroutine(OutcomeAudioLoader());
         //StartCoroutine(LoadaudioHotspotIntros());
@@ -129,11 +131,13 @@ public class Guided_Tour : MonoBehaviour
     public void OnButtonClick()
     {
         buttonClicked = true;
+        audioSource.Stop();
     }
 
     public void PreviousButton()
     {
         PreviousButtonClicked = true;
+        audioSource.Stop();
     }
     public void soundon()
     {
@@ -467,10 +471,9 @@ public class Guided_Tour : MonoBehaviour
     public IEnumerator PlayAudioClips()
     {
         yield return new WaitForSeconds(0.5f);
-    Intro_Start:
+    
+
      
-       // BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
-        HexagonBlank();
         for (int i = 0; i <= 2; i++)
         {
             CTAText[i].text = null;
@@ -478,12 +481,10 @@ public class Guided_Tour : MonoBehaviour
         
         FadeIn.SetActive(true);
         bInterrupted = false;
-        ResetTourTextBox();
-        //ResetTourImages();
+     
+   
         float StandardDelay = 0f;
-        //StartCoroutine(LoadImgWithUrl(Assets_Folder + "image/xmpro-logo.png"));
-        // Turn on Introduction audio
-        //Intro audio Play
+
         audioSource.clip = audioClips[0];
         audiolength = audioClips[0].length;
         audioSource.Play();
@@ -492,14 +493,9 @@ public class Guided_Tour : MonoBehaviour
         audiolength = audioClips[0].length;
         audioSource.Play();
         yield return new WaitForSeconds(audiolength);
-        //ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.VPInnerColor;
-        //ImageLoader.instance.HexagonMiddleColor.color = ImageLoader.instance.VPMiddleColor;
-        //ImageLoader.instance.HexagonOuterColor.color = ImageLoader.instance.VPOuterColor;
-
-        //  hexaTxt.SetActive(true);
-
-
-
+       Intro_Start:
+        HexagonBlank();
+        ResetTourTextBox();
         string usecasenum = ImageToggleOnHover.UseCase;
         string EndNumber = usecasenum.Substring(2, usecasenum.Length - 2);
         audioClips[1] = HotSpotAudioIntro[int.Parse(EndNumber) - 1];
@@ -530,22 +526,39 @@ public class Guided_Tour : MonoBehaviour
             TextBox[i].SetActive(true);
 
         }
+        NextPreviousBtn.SetActive(true);
         if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
             for (int i = 1; i <= saveDataFile.IntroEndIndx; i++)
             {
-                audioSource.clip = audioClips[i];
-                audiolength = audioClips[i].length;
-                audioSource.Play();
+                if (!(buttonClicked || PreviousButtonClicked))
+                {
+                    audioSource.clip = audioClips[i];
+                    audiolength = audioClips[i].length;
+                    audioSource.Play();
+                    bool baudioplaying = true;
+                    while (baudioplaying)
+                    {
+                        yield return new WaitForSeconds(0.25f);
+                        if ((buttonClicked || PreviousButtonClicked))
+                        {
+                            baudioplaying = false;
+                            audioSource.Stop();
+                        }
+                        if (!audioSource.isPlaying)
+                        {
+                            baudioplaying = false;
+                        }
 
-                yield return new WaitForSeconds(audiolength + StandardDelay);
 
-                //card.SetActive(false);
+                    }
 
+                    //card.SetActive(false);
+                }
 
             }
         }
-        NextPreviousBtn.SetActive(true);
+        //NextPreviousBtn.SetActive(true);
         while (!(buttonClicked||PreviousButtonClicked))
         {
             yield return null;
@@ -575,54 +588,9 @@ public class Guided_Tour : MonoBehaviour
         ResetTourTextBox();
         //ResetTourImages();
         yield return new WaitForSeconds(StandardDelay);
-        // for(int i=0;i<)
-        //// Turn on Partner Solution audio & image
 
-
-        //yield return new WaitForSeconds(4f);
-        //Image.gameObject.SetActive(false);
-
-        //EC Audio with nothing on screen
-
-        //audioSource.clip = audioClips[9];
-        //audiolength = audioClips[9].length;
-        //audioSource.Play();
-        //yield return new WaitForSeconds(audiolength + StandardDelay);
-        // StartCoroutine(LoadImgWithUrl(Assets_Folder + "image/xmpro-dashboard.png"));
-        //Show Edge Chanllenges Text with audio
-        //for (int i = 1; i <= saveDataFile.ECEndIndx; i++)
-        //{
-
-        //    ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.ECInnerColor;
-        //    ImageLoader.instance.HexagonMiddleColor.color = ImageLoader.instance.ECMiddleColor;
-        //    ImageLoader.instance.HexagonOuterColor.color = ImageLoader.instance.ECOuterColor; 
-        //    card.SetActive(true);
-        //    hexaTxt.SetActive(true);
-        //    Hexagon.SetActive(true);
-        //    HexagonCardtext.text = saveDataFile.EC[i - 1];
-        //    //Audio will be played
-        //    // audioSource.Play();
-
-        //    //EC Audio with 3 & 4
-        //    audioSource.clip = audioClips[i + 8];
-        //    audiolength = audioClips[i + 8].length;
-        //    audioSource.Play();
-
-        //    yield return new WaitForSeconds(audiolength + StandardDelay);
-        //    card.SetActive(false);
-
-        //}
         HexagonBlank();
-        //ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.ECInnerColor;
-        //ImageLoader.instance.HexagonMiddleColor.color = ImageLoader.instance.ECMiddleColor;
-        //ImageLoader.instance.HexagonOuterColor.color = ImageLoader.instance.ECOuterColor;
-
-       // hexaTxt.SetActive(true);
         Hexagon.SetActive(true);
-        //hexaTxt[0].color = ImageLoader.instance.HeadingColor1;
-        //Hexagon.GetComponent<Image>().color = ImageLoader.instance.BackColor1;
-        //HeadinLine.color = ImageLoader.instance.HeadingColor1;
-        
         for (int i = 1; i <= saveDataFile.ECEndIndx; i++)
         {
           //  ResetTourImages();
@@ -634,29 +602,37 @@ public class Guided_Tour : MonoBehaviour
         
 
         }
+        NextPreviousBtn.SetActive(true);
         if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
             for (int i = 1; i <= saveDataFile.ECEndIndx; i++)
             {
 
-
-                //EC Audio with 3 & 4
-                audioSource.clip = audioClips[i + 8];
-                audiolength = audioClips[i + 8].length;
-                audioSource.Play();
-
-                if (i == 1)
+                if (!(buttonClicked || PreviousButtonClicked))
                 {
-                    yield return new WaitForSeconds(audiolength);
-                }
-                else
-                {
-                    yield return new WaitForSeconds(audiolength + StandardDelay);
-                }
+                    //EC Audio with 3 & 4
+                    audioSource.clip = audioClips[i + 8];
+                    audiolength = audioClips[i + 8].length;
+                    audioSource.Play();
+                    bool baudioplaying = true;
+                    while (baudioplaying)
+                    {
+                        yield return new WaitForSeconds(0.25f);
+                        if ((buttonClicked || PreviousButtonClicked))
+                        {
+                            baudioplaying = false;
+                            audioSource.Stop();
+                        }
+                        if (!audioSource.isPlaying)
+                        {
+                            baudioplaying = false;
+                        }
 
+                    }
+                }
             }
         }
-        NextPreviousBtn.SetActive(true);
+        
         while (!(buttonClicked || PreviousButtonClicked))
         {
             yield return null;
@@ -697,62 +673,76 @@ public class Guided_Tour : MonoBehaviour
             ValuePillarsText[i-1].text = saveDataFile.TT[i - 1];
 
         }
+        NextPreviousBtn.SetActive(true);
+        bShowSolutionImages = true;
+        StartCoroutine(ShowDellImages());
 
-     
-        for (int i =1; i <= saveDataFile.HARDWAREEndIndx; i++)
+        if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
-            DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(true);
-            //HexagonCardtext.text = saveDataFile.DES[i - 1];
-            //hexaTxt.SetActive(false);
-            //Hexagon.SetActive(false);
-            //  Image.gameObject.SetActive(true);
-            
-            //Audio will be played
-            //  audioSource.Play();
-
-            audioSource.clip = audioClips[i + 13];
-            audiolength = audioClips[i + 13].length;
-            audioSource.Play();
-            yield return new WaitForSeconds(audiolength + StandardDelay);
-            //card.SetActive(false);
-            //  Image.gameObject.SetActive(false);
-            if (i == saveDataFile.HARDWAREEndIndx)
+            for (int i = 1; i <= saveDataFile.HARDWAREEndIndx; i++)
             {
+                //DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(true);
+                if (!(buttonClicked || PreviousButtonClicked))
+                {
+                    audioSource.clip = audioClips[i + 13];
+                    audiolength = audioClips[i + 13].length;
+                    audioSource.Play();
 
+                    bool baudioplaying = true;
+                    while (baudioplaying)
+                    {
+                        yield return new WaitForSeconds(0.25f);
+                        if ((buttonClicked || PreviousButtonClicked))
+                        {
+                            baudioplaying = false;
+                            audioSource.Stop();
+                        }
+                        if (!audioSource.isPlaying)
+                        {
+                            baudioplaying = false;
+                        }
+
+                    }
+                }
 
             }
-            else
-            {
-                DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(false);
-            }
-            
 
         }
         if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
             for (int i = 1; i <= saveDataFile.TTEndIndx; i++)
             {
-                audioSource.clip = audioClips[i + 18];
-                audiolength = audioClips[i + 18].length;
-                audioSource.Play();
-                if (i == 1)
+                if (!(buttonClicked || PreviousButtonClicked))
                 {
-                    yield return new WaitForSeconds(audiolength);
-                }
-                else
-                {
-                    yield return new WaitForSeconds(audiolength + StandardDelay);
+                    audioSource.clip = audioClips[i + 18];
+                    audiolength = audioClips[i + 18].length;
+                    audioSource.Play();
+                    bool baudioplaying = true;
+                    while (baudioplaying)
+                    {
+                        yield return new WaitForSeconds(0.25f);
+                        if ((buttonClicked || PreviousButtonClicked))
+                        {
+                            baudioplaying = false;
+                            audioSource.Stop();
+                        }
+                        if (!audioSource.isPlaying)
+                        {
+                            baudioplaying = false;
+                        }
+
+                    }
                 }
             }
         }
-        NextPreviousBtn.SetActive(true);
+        
         while (!(buttonClicked || PreviousButtonClicked))
         {
             yield return null;
         }
 
-        DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[(saveDataFile.HARDWAREEndIndx) - 1]) - 1].gameObject.SetActive(false);
         ValuePillarsWindow.SetActive(false);
+        bShowSolutionImages = false;
         if (PreviousButtonClicked)
         {
             PreviousButtonClicked = false;
@@ -760,103 +750,21 @@ public class Guided_Tour : MonoBehaviour
         }
         buttonClicked = false;
         
-    //// card.SetActive(false);
-    // card.SetActive(true);
-    // //HexagonCardtext.text = saveDataFile.DES[i - 1];
-    // hexaTxt.SetActive(false);
-    // Hexagon.SetActive(false);
-    // Image.gameObject.SetActive(true);
-    // //TT Audio with nothing on screen
-    // audioSource.clip = audioClips[6];
-    // audioSource.Play();
-    // yield return new WaitForSeconds(4f);
-    // card.SetActive(false);
-    // yield return new WaitForSeconds(1f);
-    //Show Trasformation Themes Audio And Text
-
-    //TT_Start:
-    //yield return new WaitForSeconds(StandardDelay);
-    //HexagonBlank();
-    ////ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.VPInnerColor;
-    ////ImageLoader.instance.HexagonMiddleColor.color = ImageLoader.instance.VPMiddleColor;
-    ////ImageLoader.instance.HexagonOuterColor.color = ImageLoader.instance.VPOuterColor;
-    //card.SetActive(true);
-    //ResetTourTextBox();
-    //ResetTourImages();
-    //hexaTxt[0].text = "Value to Manufacturers";
-    //hexaTxt[0].color = ImageLoader.instance.HeadingColor2;
-    //Hexagon.GetComponent<Image>().color = ImageLoader.instance.BackColor2;
-    //HeadinLine.color = ImageLoader.instance.HeadingColor2;
-    // hexaTxt.SetActive(true);
-    //ValuePillarsWindow.SetActive(true);
-
-    //for (int i = 1; i <= saveDataFile.TTEndIndx; i++)
-    //{
-    //    //hexaTxt[i].color = ImageLoader.instance.TextColor2;
-    //    ValuePillarsText[i].text = saveDataFile.TT[i - 1];
-
-    //}
-
-    //for (int i = 1; i <= saveDataFile.TTEndIndx; i++)
-    //{
-    //    audioSource.clip = audioClips[i + 18];
-    //    audiolength = audioClips[i + 18].length;
-    //    audioSource.Play();
-    //    if (i == 1)
-    //    {
-    //        yield return new WaitForSeconds(audiolength);
-    //    }
-    //    else
-    //    {
-    //        yield return new WaitForSeconds(audiolength + StandardDelay);
-    //    }
-    //}
-
-    //NextPreviousBtn.SetActive(true);
-    //while (!(buttonClicked || PreviousButtonClicked))
-    //{
-    //    yield return null;
-    //}
-    //if (PreviousButtonClicked)
-    //{
-    //    PreviousButtonClicked = false;
-    //    goto DS_Start;
-    //}
-    //buttonClicked = false;
+   
 
     PS_Start:
        
         ResetTourTextBox();
-        //ResetTourImages();
-        // card.SetActive(false);
-
-        ////Show Hardware Audio And IMage
-        //for (int i = saveDataFile.HARDWAREStartIndx; i < saveDataFile.HARDWAREEndIndx; i++)
-        //{
-        //    //StartCoroutine(LoadImgWithUrl(saveDataFile.HARDWARE[i]));
-        //    Image.gameObject.SetActive(true);
-        //    hexaTxt.SetActive(false);
-        //    Hexagon.SetActive(false);
-        //    //  audioSource.Play();
-        //    audioSource.clip = audioClips[i + 7];
-        //    audioSource.Play();
-        //    //audioSource.clip = audioClips[1];
-        //    //audioSource.Play();
-
-        //    yield return new WaitForSeconds(4f);
-        //    Image.gameObject.SetActive(false);
-        //    yield return new WaitForSeconds(1f);
-        //}
-        //hexaTxt.SetActive(true);
-        //Hexagon.SetActive(true);
-        yield return new WaitForSeconds(StandardDelay);
+       
+       
+        
         ResetTourTextBox();
-       // ResetTourImages();
+      
         hexaTxt[0].text = "Validated Partners";
         if (saveDataFile.PSEndIndx > 0)
         {
 
-            for (int i = 1; i <= saveDataFile.PSEndIndx + 1; i++)
+            for (int i = 1; i <= saveDataFile.PSEndIndx; i++)
             {
                 card.SetActive(true);
                 Hexagon.SetActive(true);
@@ -865,63 +773,63 @@ public class Guided_Tour : MonoBehaviour
                 TextBox[i].SetActive(true);
 
 
-                if (i == 1)
-                {
-                 
-                    hexaTxt[i].text = ImageLoader.instance.DS[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1];
-                    Sub_Text[i].text = saveDataFile.Sub_PS[i - 1];
-                }
-                else
-                {
-                    
-                    hexaTxt[i].text = ImageLoader.instance.PS[int.Parse(SaveDataFromXML.ins.PS[i - 2]) - 1];
-                    Sub_Text[i].text = saveDataFile.Sub_PS[i - 1];
-                }
+                //if (i == 1)
+                //{
 
-                //hexaTxt.SetActive(false);
-                //Hexagon.SetActive(false);
-                // Image.gameObject.SetActive(true);
-                // audioSource.Play();
-                //audioSource.clip = audioClips[1];
-                //audioSource.Play();
+                //    hexaTxt[i].text = ImageLoader.instance.DS[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1];
+                //    Sub_Text[i].text = saveDataFile.Sub_PS[i - 1];
+                //}
+                //else
+                //{
+               
+                   hexaTxt[i].text = ImageLoader.instance.PS[int.Parse(SaveDataFromXML.ins.PS[i - 1]) - 1];
+                    Sub_Text[i].text = Load_Tour_text.ins.PartnerDescription[int.Parse(SaveDataFromXML.ins.PS[i - 1]) - 1];
+                //}
 
-            
-
-                //card.SetActive(false);
 
             }
-
-
-            for (int i = 1; i <= saveDataFile.PSEndIndx + 1; i++)
+            bShowSolutionImages = true;
+            StartCoroutine(ShowPartnerImages());
+            NextPreviousBtn.SetActive(true);
+            for (int i = 1; i <= saveDataFile.PSEndIndx+1; i++)
             {
            
 
 
-                if (i == 1)
-                {
-                    DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(true);
+                //if (i == 1)
+                //{
+                //    DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(true);
                 
-                }
-                else
-                {
-                    PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 2]) - 1].gameObject.SetActive(true);
+                //}
+                //else
+                //{
+                  //  PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 1]) - 1].gameObject.SetActive(true);
                    
-                }
+                //}
 
                 card.SetActive(true);
                 //Partner Solution audio Play
-                audioSource.clip = audioClips[i + 3];
-                audiolength = audioClips[i + 3].length;
-                audioSource.Play();
+                if (!(buttonClicked || PreviousButtonClicked))
+                {
+                    audioSource.clip = audioClips[i + 3];
+                    audiolength = audioClips[i + 3].length;
+                    audioSource.Play();
+                    bool baudioplaying = true;
+                    while (baudioplaying)
+                    {
+                        yield return new WaitForSeconds(0.25f);
+                        if ((buttonClicked || PreviousButtonClicked))
+                        {
+                            baudioplaying = false;
+                            audioSource.Stop();
+                        }
+                        if (!audioSource.isPlaying)
+                        {
+                            baudioplaying = false;
+                        }
+                    }
 
-                //hexaTxt.SetActive(false);
-                //Hexagon.SetActive(false);
-                // Image.gameObject.SetActive(true);
-                // audioSource.Play();
-                //audioSource.clip = audioClips[1];
-                //audioSource.Play();
-
-                yield return new WaitForSeconds(audiolength + StandardDelay);
+                }
                 // Image.gameObject.SetActive(false);
 
                 if (i == 1)
@@ -941,12 +849,12 @@ public class Guided_Tour : MonoBehaviour
                 //card.SetActive(false);
 
             }
-            NextPreviousBtn.SetActive(true);
+           
             while (!(buttonClicked || PreviousButtonClicked))
             {
                 yield return null;
             }
-            PartnerImg[int.Parse(SaveDataFromXML.ins.PS[saveDataFile.PSEndIndx + 1 - 2]) - 1].gameObject.SetActive(false);
+            bShowSolutionImages = false;
             if (PreviousButtonClicked)
             {
                 PreviousButtonClicked = false;
@@ -956,35 +864,19 @@ public class Guided_Tour : MonoBehaviour
         }
 
 
-       
-        //FO Audio with 9 with nothing
-        //if (bInterrupted)
-        //{
-        //    bInterrupted = true;
-        //    ImageToggleOnHover.Tour_Running = false;
-
-        //    yield return null;
-        //}
-        //audioSource.clip = audioClips[24];
-        //audiolength = audioClips[24].length;
-        //audioSource.Play();
-
-        //yield return new WaitForSeconds(audiolength + StandardDelay);
-        //Show Factory Outcomes Audio And Text
+    
         yield return new WaitForSeconds(StandardDelay);
+
+
+
+
         FO_Start:
         HexagonBlank();
         ResetTourTextBox();
-       // ResetTourImages();
-        //ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.BOInnerColor;
-        //ImageLoader.instance.HexagonMiddleColor.color = ImageLoader.instance.BOMiddleColor;
-        //ImageLoader.instance.HexagonOuterColor.color = ImageLoader.instance.BOOuterColor;
         card.SetActive(true);
-        // hexaTxt.SetActive(true);
+   
         Hexagon.SetActive(true);
-        //hexaTxt[0].color = ImageLoader.instance.HeadingColor1;
-        //Hexagon.GetComponent<Image>().color = ImageLoader.instance.BackColor1;
-        //HeadinLine.color = ImageLoader.instance.HeadingColor1;
+    
 
         for (int i = 1; i <= saveDataFile.FOEndIndx; i++)
         {
@@ -994,32 +886,37 @@ public class Guided_Tour : MonoBehaviour
             TextBox[i - 1].SetActive(true);
 
         }
-
+        NextPreviousBtn.SetActive(true);
         if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
             for (int i = 1; i <= saveDataFile.FOEndIndx; i++)
             {
-                audioSource.clip = audioClips[i + 23];
-                audiolength = audioClips[i + 23].length;
-                //if (audiolength < 1f)
-                //{
-                //    audiolength = 1f;
-                //}
-                audioSource.Play();
-                if (i == 1)
+                if (!(buttonClicked || PreviousButtonClicked))
                 {
-                    yield return new WaitForSeconds(audiolength);
-                }
-                else
-                {
-                    yield return new WaitForSeconds(audiolength + StandardDelay);
-                }
+                    audioSource.clip = audioClips[i + 23];
+                    audiolength = audioClips[i + 23].length;
+                    audioSource.Play();
+                    bool baudioplaying = true;
+                    while (baudioplaying)
+                    {
+                        yield return new WaitForSeconds(0.25f);
+                        if ((buttonClicked || PreviousButtonClicked))
+                        {
+                            baudioplaying = false;
+                            audioSource.Stop();
+                        }
+                        if (!audioSource.isPlaying)
+                        {
+                            baudioplaying = false;
+                        }
+                    }
 
+                }
                 // card.SetActive(false);
 
             }
         }
-        NextPreviousBtn.SetActive(true);
+        
         while (!(buttonClicked || PreviousButtonClicked))
         {
             yield return null;
@@ -1027,41 +924,28 @@ public class Guided_Tour : MonoBehaviour
         if (PreviousButtonClicked)
         {
             PreviousButtonClicked = false;
-            goto PS_Start;
+            if (saveDataFile.PSEndIndx > 0)
+            {
+                goto PS_Start;
+            }
+            else
+            {
+                goto DS_Start;
+            }
         }
         buttonClicked = false;
 
         BI_Start:
-        //card.SetActive(false);
-        ResetTourTextBox();
-       // ResetTourImages();
-        // hexaTxt.SetActive(true);
-        //Hexagon.SetActive(false);
-        //if (bInterrupted)
-        //{
-        //    bInterrupted = true;
-        //    ImageToggleOnHover.Tour_Running = false;
 
-        //    yield return null;
-        //}
-        //yield return new WaitForSeconds(0.5f);
-        //////FO Audio with 10 with nothing
-        //audioSource.clip = audioClips[29];
-        //audiolength = audioClips[29].length;
-        //audioSource.Play();
-        //yield return new WaitForSeconds(audiolength + StandardDelay);
+        ResetTourTextBox();
+     
 
         //Show Business Impact Audio And Text
         yield return new WaitForSeconds(StandardDelay);
         HexagonBlank();
-        //ImageLoader.instance.HexagonInnerColor.color = ImageLoader.instance.BOInnerColor;
-        //ImageLoader.instance.HexagonMiddleColor.color = ImageLoader.instance.BOMiddleColor;
-        //ImageLoader.instance.HexagonOuterColor.color = ImageLoader.instance.BOOuterColor;
+        
         card.SetActive(true);
-        //hexaTxt[0].color = ImageLoader.instance.HeadingColor2;
-        //Hexagon.GetComponent<Image>().color = ImageLoader.instance.BackColor2;
-        //HeadinLine.color = ImageLoader.instance.HeadingColor2;
-        //hexaTxt.SetActive(true);
+     
         Hexagon.SetActive(true);
 
         for (int i = 1; i <= saveDataFile.BIEndIndx; i++)
@@ -1073,27 +957,46 @@ public class Guided_Tour : MonoBehaviour
             TextBox[i - 1].SetActive(true);
 
         }
+        NextPreviousBtn.SetActive(true);
         if (PlayerPrefs.GetInt("MusicOn")!=0)
         {
             for (int i = 1; i <= saveDataFile.BIEndIndx; i++)
             {
-
-                audioSource.clip = audioClips[i + 28];
-                audiolength = audioClips[i + 28].length;
-                audioSource.Play();
-
-                if (i == 1)
+                if (!(buttonClicked || PreviousButtonClicked))
                 {
-                    yield return new WaitForSeconds(audiolength);
+                    audioSource.clip = audioClips[i + 28];
+                    audiolength = audioClips[i + 28].length;
+                    audioSource.Play();
+                    bool baudioplaying = true;
+                    while (baudioplaying)
+                    {
+                        yield return new WaitForSeconds(0.25f);
+                        if ((buttonClicked || PreviousButtonClicked))
+                        {
+                            baudioplaying = false;
+                            audioSource.Stop();
+                        }
+                        if (!audioSource.isPlaying)
+                        {
+                            baudioplaying = false;
+                        }
+                    }
                 }
-                else
-                {
-                    yield return new WaitForSeconds(audiolength + StandardDelay);
-                }
+
+               
 
             }
         }
-        
+        while (!(buttonClicked || PreviousButtonClicked))
+        {
+            yield return null;
+        }
+        if (PreviousButtonClicked)
+        {
+            PreviousButtonClicked = false;
+            goto FO_Start;
+        }
+        buttonClicked = false;
 
         EndVO.Play();
         card.SetActive(false);
@@ -1144,7 +1047,47 @@ public class Guided_Tour : MonoBehaviour
      
 
     }
-    public void ResetTourTextBox()
+    IEnumerator ShowDellImages()
+    {
+        for (int i = 1; i <= saveDataFile.HARDWAREEndIndx; i++)
+        {
+            DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(true);
+            yield return new WaitForSeconds(2f);
+            DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(false);
+            if (i == saveDataFile.HARDWAREEndIndx)
+            {
+                i = 0;
+            }
+            if (!bShowSolutionImages)
+            {
+                i = saveDataFile.HARDWAREEndIndx + 1;
+                bShowSolutionImages = true;
+            }
+        }
+
+
+    }
+    IEnumerator ShowPartnerImages()
+    {
+        for (int i = 1; i <= saveDataFile.PSEndIndx; i++)
+        {
+            PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 1]) - 1].gameObject.SetActive(true);
+            yield return new WaitForSeconds(2f);
+            PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 1]) - 1].gameObject.SetActive(false);
+            if (i == saveDataFile.PSEndIndx)
+            {
+                i = 0;
+            }
+            if (!bShowSolutionImages)
+            {
+                i = saveDataFile.PSEndIndx + 1;
+                bShowSolutionImages = true;
+            }
+        }
+
+
+    }
+        public void ResetTourTextBox()
     {
         NextPreviousBtn.SetActive(false);
         for (int i = 0; i <=4; i++)

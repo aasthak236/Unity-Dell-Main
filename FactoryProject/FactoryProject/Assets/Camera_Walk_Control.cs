@@ -5,6 +5,7 @@ using TMPro;
 
 public class Camera_Walk_Control : MonoBehaviour
 {
+    public bool ImmersiveTourStart;
     bool isCameraMoving;
     public Camera myCamera;
     // Start is called before the first frame update
@@ -25,16 +26,28 @@ public class Camera_Walk_Control : MonoBehaviour
     }
     public void TestCameraWalk()
     {
-        StartCoroutine(CameraWalk());
+        //StartCoroutine(CameraWalk());
+        myCoroutine = CameraWalk();
+        StartCoroutine(myCoroutine);
+    }
+    public void StopCoroutineImmersiveTour()
+    {
+            StopCoroutine(myCoroutine);
+        CameraZoomTowardPoint.instance.ZoomBack();
+        for (int i = 0; i <= 13; i++)
+        {
+            BackCardData.instance.HotSpot[i].transform.GetChild(0).GetChild(2).GetChild(1).gameObject.SetActive(false);
+        }
     }
     // Update is called once per frame
     void Update()
     {
         
     }
+    IEnumerator myCoroutine;
     IEnumerator  CameraWalk()
     {
-        
+       
          //HotSpotAtMovePoint[0] = 1;
         HotSpotAtMovePoint[1] = 1;
         HotSpotAtMovePoint[2] = 11;
@@ -52,6 +65,7 @@ public class Camera_Walk_Control : MonoBehaviour
         HotSpotAtMovePoint[14] = 14;
         HotSpotAtMovePoint[15] = 0;
         HotSpotAtMovePoint[16] = 0;
+        ImmersiveTourStart = true;
         for (int i = 0; i <= 13; i++)
         {
             BackCardData.instance.HotSpot[i].SetActive(false);

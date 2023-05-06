@@ -10,7 +10,8 @@ public class factory_move : MonoBehaviour
     private bool isDragging = false;
     private Vector3 dragStartPosition;
     private Vector3 dragCurrentPosition;
-
+   
+  
     void Update()
     {
         if (CameraZoomTowardPoint.CameraZoom==false)
@@ -38,9 +39,13 @@ public class factory_move : MonoBehaviour
                 if (Mathf.Abs(deltaY) > Mathf.Abs(deltaX))
                 {
                     transform.Rotate(-(Vector3.right * deltaY * rotationSpeed * Time.deltaTime));
-                    //float currentRotation = transform.rotation.eulerAngles.x;
-                    //float clampedRotation = Mathf.Clamp(currentRotation, -35, 55);
-                    //transform.rotation = Quaternion.Euler(clampedRotation, transform.rotation.y, transform.rotation.z);
+                    float currentRotation = transform.rotation.eulerAngles.x;
+                    if (Camera_Walk_Control.instance.ImmersiveTourStart == false)
+                    {
+                        float clampedRotation = Mathf.Clamp(currentRotation, -35, 55);
+                        transform.rotation = Quaternion.Euler(clampedRotation, transform.rotation.y, transform.rotation.z);
+                    }
+                    
 
                 }
 
@@ -49,14 +54,24 @@ public class factory_move : MonoBehaviour
                     float moveX = deltaX * moveSpeed * Time.deltaTime;
                     transform.Translate(new Vector3(-moveX, 0, 0));
                     Vector3 clampedPosition = transform.position;
-                   // clampedPosition.x = Mathf.Clamp(clampedPosition.x, -20, 90);
-                    
-                    transform.position = clampedPosition;
+                    if (Camera_Walk_Control.instance.ImmersiveTourStart == false)
+                    {
+                        clampedPosition.x = Mathf.Clamp(clampedPosition.x, -20, 90);
+
+                        transform.position = clampedPosition;
+                    }
                 }
 
 
                 dragStartPosition = dragCurrentPosition;
             }
+        }
+    }
+    public void LateUpdate()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false;
         }
     }
 }

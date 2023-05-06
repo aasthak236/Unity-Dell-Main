@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CameraZoomTowardPoint : MonoBehaviour
 {
-    public GameObject Trail1, Trail2;
+  
     // Private Variables
     bool isCameraMoving;
     Camera myCamera;
