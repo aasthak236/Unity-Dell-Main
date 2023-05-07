@@ -7,19 +7,26 @@ public class MyCameraController : MonoBehaviour
     public float minFOV = 10f;
     public float maxFOV = 60f;
     public float zoomSpeed = 2f;
-
+    public static MyCameraController instance;
     // Camera pan parameters
     public float panSpeed = 5f;
 
     // Mouse button for panning
     public int panMouseButton = 0;
 
-
+    public void Start()
+    {
+        instance = this;
+    }
     //// Camera rotation parameters
     //public float rotationSpeed = 5f;
     //public float minRotation = -90f;
     //public float maxRotation = 90f;
-
+    public void Resetcamera()
+    {
+        Camera cam = GetComponent<Camera>();
+        cam.fieldOfView = 60f;
+    }
     // Update is called once per frame
     void Update()
     {

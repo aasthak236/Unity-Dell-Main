@@ -1099,7 +1099,13 @@ public class Guided_Tour : MonoBehaviour
             int j = i / 20 + 1;
             PartnerImg[int.Parse(SaveDataFromXML.ins.PS[j - 1]) - 1].gameObject.SetActive(true);
             yield return new WaitForSeconds(.1f);
-            PartnerImg[int.Parse(SaveDataFromXML.ins.PS[j - 1]) - 1].gameObject.SetActive(false);
+            try
+            {
+                PartnerImg[int.Parse(SaveDataFromXML.ins.PS[j - 1]) - 1].gameObject.SetActive(false);
+            }
+            catch
+            { 
+            }
             if (i == saveDataFile.PSEndIndx * 20 - 1)
             {
                 i = 0;

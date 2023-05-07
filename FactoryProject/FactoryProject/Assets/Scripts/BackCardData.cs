@@ -255,17 +255,19 @@ public class BackCardData : MonoBehaviour
         string lastThreeChars = graphicslink.Substring(graphicslink.Length - 3);
         if (lastThreeChars == "mp4")
         {
-            VideoButton.SetActive(true);
+        
             videolink = Load_Tour_text.ins.PartnerGraphics[currentgraphic];
-            StartCoroutine(VideoLoader.instance.VideoPlay());
+           StartCoroutine(dellpartervideo.instance.videoplaydellpartner());
+           
             PartnerImage.gameObject.SetActive(false);
         }
         else
         {
-            VideoLoader.instance.videoPlayer.Stop();
-            VideoLoader.instance.videoimage.SetActive(false);
+            dellpartervideo.instance.videoPlayer.Stop();
+            dellpartervideo.instance.videoimage.SetActive(false);
             PartnerImage.gameObject.SetActive(true);
-            StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
+             StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
+            Playvideo();
         }
 
 
@@ -289,15 +291,15 @@ public class BackCardData : MonoBehaviour
         if (lastThreeChars == "mp4")
         {
             PartnerImage.gameObject.SetActive(false);
-            VideoButton.SetActive(true);
             videolink = Load_Tour_text.ins.PartnerGraphics[currentgraphic];
-            StartCoroutine(VideoLoader.instance.VideoPlay());
+          StartCoroutine(dellpartervideo.instance.videoplaydellpartner());
+           
         }
         else
         {
-            VideoLoader.instance.videoPlayer.Stop();
+            dellpartervideo.instance.videoPlayer.Stop();
             PartnerImage.gameObject.SetActive(true);
-            VideoLoader.instance.videoimage.SetActive(false);
+            dellpartervideo.instance.videoimage.SetActive(false);
 
             StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
         }
@@ -317,7 +319,7 @@ public class BackCardData : MonoBehaviour
     public void Playvideo()
     {
 
-        StartCoroutine(VideoLoader.instance.VideoPlay());
+        StartCoroutine(dellpartervideo.instance.videoplaydellpartner());
     }
     public void parntnerclose()
     {
@@ -407,7 +409,7 @@ public class BackCardData : MonoBehaviour
     {
         Debug.Log(ButtonNaame);
         Guided_Tour.instance.ClosedAllWindow();
-        //BusinessOutcomeWindow.SetActive(true);
+        BusinessOutcomeWindow.SetActive(false);
         OutcomeBtn[ButtonNaame].GetComponent<Image>().color = PressedColor;
         ImageLoader.instance.MenuButton[0].GetComponent<Image>().color = ImageLoader.instance.PressedColor;
 

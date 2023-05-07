@@ -28,35 +28,7 @@ public class VideoLoader : MonoBehaviour
     //{
     //    VideoIsRunning = true;
     //}
-  public  IEnumerator VideoPlay()
-    {
-        videoimage.SetActive(true);
-        url = BackCardData.instance.videolink;
-        videoPlayer.url = url;
-        UnityWebRequest www = UnityWebRequest.Get(url);
-        yield return www.SendWebRequest();
-       
-        if (www.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            //videoPlayer.source = VideoSource.Url;
-            //videoPlayer.url = videoUrl;
-            //videoPlayer.Prepare();
-            //videoPlayer.prepareCompleted += OnVideoPrepared;
-
-            //videoPlayer.SetDirectAudioVolume(0, 0f);
-            videoPlayer.url = url;
-            videoPlayer.Prepare();
-
-            videoPlayer.prepareCompleted += (source) =>
-            {
-                videoPlayer.Play();
-            };
-        }
-    }
+ 
 
     void OnVideoPrepared(VideoPlayer source)
     {
@@ -98,7 +70,7 @@ public class VideoLoader : MonoBehaviour
             //}
             //catch
             //{ 
-            Guided_Tour.instance.videoRawimage.gameObject.SetActive(false);
+            
             videoPlayer.SetDirectAudioVolume(0, 0f);
             videoPlayer.url = url;
             videoPlayer.Prepare();
