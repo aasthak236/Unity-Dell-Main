@@ -21,7 +21,7 @@ public class ImageLoader : MonoBehaviour
     public void Awake()
     {
         instance = this;
-        url = "https://dell-unity-dev.s3.amazonaws.com/Assets/cards/" + Module_Name.ModuleName + ".xml";
+        url = Guided_Tour.instance.Assets_Folder + "/cards/" + Module_Name.ModuleName + ".xml";
 
     }
 //    public IEnumerator frontBB(string ComponentName)
@@ -105,9 +105,22 @@ public class ImageLoader : MonoBehaviour
     public GameObject[] NewCard;
     public GameObject OpenCard;
     public bool ispressed;
+    public bool pressed;
+    public static string ComponentNameGet;
     public void OpenOutcome(string ComponentName)
     {
-        if (ispressed==false)
+        pressed = false;
+        if (ComponentNameGet == ComponentName)
+        {
+            pressed = true;
+            ComponentName = null;
+        }
+        else
+        {
+            ComponentNameGet = ComponentName;
+        }
+        ComponentNameGet =ComponentName;
+        if (pressed == false)
         {
             OpenCard.SetActive(true);
             GUI_Control.instance.DellDetailWindow.SetActive(false);
@@ -123,11 +136,22 @@ public class ImageLoader : MonoBehaviour
                     Front1[i - 1].text = Load_Tour_text.ins.OutcomeCardFace[i - 1].ToString();
                 }
             }
+
+            if (ComponentName == "BB")
+            {
+                GUI_Control.instance.RotatingComponent.SetActive(false);
+                GUI_Control.instance.FlipBtn.SetActive(false);
+                for (int i = 1; i <= 5; i++)
+                {
+                    NewCard[i - 1].SetActive(true);
+                    Front1[i - 1].text = Load_Tour_text.ins.BBCardFace[i - 1].ToString();
+                }
+            }
         }
         else
         {
             OpenCard.SetActive(false);
-            ispressed = false;
+            pressed = false;
             
         }
         

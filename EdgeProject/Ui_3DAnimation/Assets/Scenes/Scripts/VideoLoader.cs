@@ -12,11 +12,16 @@ public class VideoLoader : MonoBehaviour
     public Material videoMaterial;
     public void Awake()
     {
-        url = "https://dell-unity-dev.s3.amazonaws.com/Assets/videos/" + Module_Name.ModuleName + "1.mp4";
+        url = Load_Tour_text.ins.VideoLink[0];
         videoPlayer.url = url;
     }
-    IEnumerator Start()
+    public void Start()
     {
+        StartCoroutine(PlayVideo(url));
+    }
+    IEnumerator PlayVideo(string urlVideo)
+    {
+        url = urlVideo;
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
        
@@ -26,24 +31,38 @@ public class VideoLoader : MonoBehaviour
         }
         else
         {
-            //videoPlayer.source = VideoSource.Url;
-            //videoPlayer.url = videoUrl;
-            //videoPlayer.Prepare();
-            //videoPlayer.prepareCompleted += OnVideoPrepared;
-
-            videoPlayer = gameObject.AddComponent<VideoPlayer>();
-            videoPlayer.source = VideoSource.Url;
             videoPlayer.url = url;
-            videoPlayer.renderMode = VideoRenderMode.MaterialOverride;
-            videoPlayer.targetMaterialRenderer = videoRenderer = gameObject.AddComponent<Renderer>();
-            videoPlayer.targetMaterialProperty = "_MainTex";
-            videoRenderer.material = videoMaterial;
-           // videoPlayer.Play();
+            videoPlayer.Prepare();
+
+            videoPlayer.prepareCompleted += (source) =>
+            {
+                videoPlayer.Play();
+            };
+        }
+    }
+    public GameObject Nextbtn, Previousbtn;
+    int CurrentVideoIndex=0;
+    public void NextButton()
+    {
+        CurrentVideoIndex++;
+        url = Load_Tour_text.ins.VideoLink[CurrentVideoIndex];
+        StartCoroutine(PlayVideo(url));
+        if (CurrentVideoIndex>=5)
+        {
+            Nextbtn.SetActive(false);
+            Previousbtn.SetActive(true);
         }
     }
 
-    void OnVideoPrepared(VideoPlayer source)
+    public void PreviousButton()
     {
-        source.Play();
+        CurrentVideoIndex--;
+        url = Load_Tour_text.ins.VideoLink[CurrentVideoIndex];
+        StartCoroutine(PlayVideo(url));
+        if (CurrentVideoIndex <= 0)
+        {
+            Nextbtn.SetActive(true);
+            Previousbtn.SetActive(false);
+        }
     }
 }

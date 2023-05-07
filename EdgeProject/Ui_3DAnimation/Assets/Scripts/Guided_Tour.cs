@@ -37,7 +37,7 @@ public class Guided_Tour : MonoBehaviour
     public void Awake()
     {
         instance = this;
-       // Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/Assets/";
+         Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/Assets";
        // StartCoroutine(LoadXML());
     }
     void Start()
@@ -45,26 +45,26 @@ public class Guided_Tour : MonoBehaviour
         StartCoroutine(Loadaudio());
         audioSource = GetComponent<AudioSource>();
     }
-    //IEnumerator LoadXML()
-    //{
-    //    string filePath = Path.Combine(Application.streamingAssetsPath, "AssetsLocation.xml");
+    IEnumerator LoadXML()
+    {
+        string filePath = Path.Combine(Application.streamingAssetsPath, "AssetsLocation.xml");
 
-    //    UnityWebRequest www = UnityWebRequest.Get(filePath);
-    //    yield return www.SendWebRequest();
+        UnityWebRequest www = UnityWebRequest.Get(filePath);
+        yield return www.SendWebRequest();
 
-    //    if (www.result == UnityWebRequest.Result.ConnectionError)
-    //    {
-    //        Debug.LogError("Error loading XML: " + www.error);
-    //    }
-    //    else
-    //    {
-    //        XmlDocument xmlDoc = new XmlDocument();
-    //        xmlDoc.LoadXml(www.downloadHandler.text);
-    //        XmlNode node = xmlDoc.SelectSingleNode("fp");
-    //        Assets_Folder = node.InnerText.ToString();
-    //    }
-  
-    //}
+        if (www.result == UnityWebRequest.Result.ConnectionError)
+        {
+            Debug.LogError("Error loading XML: " + www.error);
+        }
+        else
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(www.downloadHandler.text);
+            XmlNode node = xmlDoc.SelectSingleNode("fp");
+            Assets_Folder = node.InnerText.ToString();
+        }
+
+    }
     public void ResetTourTextBox()
     {
         NextPreviousBtn.SetActive(false);
@@ -166,7 +166,7 @@ public class Guided_Tour : MonoBehaviour
         for (int i = 1; i <= 15; i++)
         {
 
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("https://dell-unity-dev.s3-accelerate.amazonaws.com/Assets/audio/edge/" + Module_Name.ModuleName+"_Tour"+i+".mp3", AudioType.MPEG))
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "/audio/edge/" + Module_Name.ModuleName+"_Tour"+i+".mp3", AudioType.MPEG))
             {
                 yield return www.SendWebRequest();
 
@@ -264,20 +264,35 @@ public class Guided_Tour : MonoBehaviour
             
 
         }
-        
-       
-    
+        NextPreviousBtn.SetActive(true);
         if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
-            audioSource.clip = audioClips[1];
-            audiolength = audioClips[1].length;
-            audioSource.Play();
-            yield return new WaitForSeconds(audiolength);
+            if (!(buttonClicked || PreviousButtonClicked))
+            {
+                audioSource.clip = audioClips[1];
+                audiolength = audioClips[1].length;
+                audioSource.Play();
+                bool baudioplaying = true;
+                while (baudioplaying)
+                {
+                    yield return new WaitForSeconds(0.25f);
+                    if ((buttonClicked || PreviousButtonClicked))
+                    {
+                        baudioplaying = false;
+                        audioSource.Stop();
+                    }
+                    if (!audioSource.isPlaying)
+                    {
+                        baudioplaying = false;
+                    }
+                }
+            }
+            //yield return new WaitForSeconds(audiolength);
         }
          
         card.SetActive(true);
 
-        NextPreviousBtn.SetActive(true);
+        
         while (!(buttonClicked || PreviousButtonClicked))
         {
             yield return null;
@@ -313,32 +328,45 @@ public class Guided_Tour : MonoBehaviour
             // StartCoroutine(Load_Tour_text.ins.Tour_Text("BlankText"));
 
         }
-
+        NextPreviousBtn.SetActive(true);
         if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
             for (int i = 2; i <= 6; i++)
             {
-                if (bInterrupted)
-                {
-                    yield return null;
-                }
+              
                 card.SetActive(true);
                 //StartCoroutine(LoadTourtext.ins.Tour_Text("Outcome"+(i-1)));
                 //  TourText[i-1].text = Load_Tour_text.ins.OutcomeCardFace[i - 2].ToString();
                 //LoadTourtext.ins.Front.text = LoadTourtext.ins.CardFace[1][i-2].ToString();
-                audioSource.clip = audioClips[i];
-                audiolength = audioClips[i].length;
-                audioSource.Play();
-                //GetOutcome_Text("Outcome1");
-
-                yield return new WaitForSeconds(audiolength+ standarddelay);
+                if (!(buttonClicked || PreviousButtonClicked))
+                {
+                    audioSource.clip = audioClips[i];
+                    audiolength = audioClips[i].length;
+                    audioSource.Play();
+                    //GetOutcome_Text("Outcome1");
+                    bool baudioplaying = true;
+                    while (baudioplaying)
+                    {
+                        yield return new WaitForSeconds(0.25f);
+                        if ((buttonClicked || PreviousButtonClicked))
+                        {
+                            baudioplaying = false;
+                            audioSource.Stop();
+                        }
+                        if (!audioSource.isPlaying)
+                        {
+                            baudioplaying = false;
+                        }
+                    }
+                }
+               // yield return new WaitForSeconds(audiolength+ standarddelay);
                 OutBtmAnim.SetActive(false);
             }
         }
        // card.SetActive(false);
         // StartCoroutine(Load_Tour_text.ins.Tour_Text("BlankText"));
 
-        NextPreviousBtn.SetActive(true);
+        
         while (!(buttonClicked || PreviousButtonClicked))
         {
             yield return null;
@@ -380,32 +408,64 @@ public class Guided_Tour : MonoBehaviour
             }
             BBBtnAnim.SetActive(false);
         }
-
+        NextPreviousBtn.SetActive(true);
         if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
-            audioSource.clip = audioClips[7];
-            audiolength = audioClips[7].length;
-            audioSource.Play();
-            yield return new WaitForSeconds(audiolength + 0.5f);
+            if (!(buttonClicked || PreviousButtonClicked))
+            {
+                audioSource.clip = audioClips[7];
+                audiolength = audioClips[7].length;
+                audioSource.Play();
+                bool baudioplaying = true;
+                while (baudioplaying)
+                {
+                    yield return new WaitForSeconds(0.25f);
+                    if ((buttonClicked || PreviousButtonClicked))
+                    {
+                        baudioplaying = false;
+                        audioSource.Stop();
+                    }
+                    if (!audioSource.isPlaying)
+                    {
+                        baudioplaying = false;
+                    }
+                }
+            }
+            //yield return new WaitForSeconds(audiolength + 0.5f);
             for (int i = 8; i <= 12; i++)
             {
                 if (bInterrupted)
                 {
                     yield return null;
                 }
-                audioSource.clip = audioClips[i];
-                audiolength = audioClips[i].length;
-                audioSource.Play();
-                // StartCoroutine(LoadTourtext.ins.Tour_Text("BB" + (i - 7)));
-                // TourText[i-7].text = Load_Tour_text.ins.BBCardFace[i - 8].ToString();
-                //  card.SetActive(true);
-                yield return new WaitForSeconds(audiolength+ standarddelay);
+
+                if (!(buttonClicked || PreviousButtonClicked))
+                {
+                    audioSource.clip = audioClips[i];
+                    audiolength = audioClips[i].length;
+                    audioSource.Play();
+                    bool baudioplaying = true;
+                    while (baudioplaying)
+                    {
+                        yield return new WaitForSeconds(0.25f);
+                        if ((buttonClicked || PreviousButtonClicked))
+                        {
+                            baudioplaying = false;
+                            audioSource.Stop();
+                        }
+                        if (!audioSource.isPlaying)
+                        {
+                            baudioplaying = false;
+                        }
+                    }
+                }
+                //yield return new WaitForSeconds(audiolength+ standarddelay);
                 // StartCoroutine(Load_Tour_text.ins.Tour_Text("BlankText"));
 
                 BBBtnAnim.SetActive(false);
             }
         }
-        NextPreviousBtn.SetActive(true);
+        
         while (!(buttonClicked || PreviousButtonClicked))
         {
             yield return null;
@@ -454,16 +514,33 @@ public class Guided_Tour : MonoBehaviour
             // yield return new WaitForSeconds(1.5f);
             DellBtnAnim.SetActive(false);
         }
-
+        NextPreviousBtn.SetActive(true);
         if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
-            audioSource.clip = audioClips[13];
-            audiolength = audioClips[13].length;
-            audioSource.Play();
-            yield return new WaitForSeconds(audiolength);
+            if (!(buttonClicked || PreviousButtonClicked))
+            {
+                audioSource.clip = audioClips[13];
+                audiolength = audioClips[13].length;
+                audioSource.Play();
+                bool baudioplaying = true;
+                while (baudioplaying)
+                {
+                    yield return new WaitForSeconds(0.25f);
+                    if ((buttonClicked || PreviousButtonClicked))
+                    {
+                        baudioplaying = false;
+                        audioSource.Stop();
+                    }
+                    if (!audioSource.isPlaying)
+                    {
+                        baudioplaying = false;
+                    }
+                }
+            }
+            //yield return new WaitForSeconds(audiolength);
         }
 
-        NextPreviousBtn.SetActive(true);
+       
         while (!(buttonClicked || PreviousButtonClicked))
         {
             yield return null;
@@ -479,13 +556,7 @@ public class Guided_Tour : MonoBehaviour
         ResetTourText();
         ResetTourTextBox();
         //card.SetActive(false);
-        if (PlayerPrefs.GetInt("MusicOn") != 0)
-        {
-            audioSource.clip = audioClips[14];
-            audiolength = audioClips[14].length;
-            audioSource.Play();
-            yield return new WaitForSeconds(audiolength);
-        }
+    
         card.SetActive(true);
         TourText[0].text = Load_Tour_text.ins.Ending[0].ToString();
         for (int i = 2; i <= 6; i++)
@@ -500,9 +571,33 @@ public class Guided_Tour : MonoBehaviour
 
 
         }
-        
-        
+
         NextPreviousBtn.SetActive(true);
+        if (PlayerPrefs.GetInt("MusicOn") != 0)
+        {
+            if (!(buttonClicked || PreviousButtonClicked))
+            {
+                audioSource.clip = audioClips[14];
+                audiolength = audioClips[14].length;
+                audioSource.Play();
+                bool baudioplaying = true;
+                while (baudioplaying)
+                {
+                    yield return new WaitForSeconds(0.25f);
+                    if ((buttonClicked || PreviousButtonClicked))
+                    {
+                        baudioplaying = false;
+                        audioSource.Stop();
+                    }
+                    if (!audioSource.isPlaying)
+                    {
+                        baudioplaying = false;
+                    }
+                }
+            }
+            //yield return new WaitForSeconds(audiolength);
+        }
+
         while (!(buttonClicked || PreviousButtonClicked))
         {
             yield return null;

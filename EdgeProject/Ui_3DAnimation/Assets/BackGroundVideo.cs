@@ -28,32 +28,14 @@ public class BackGroundVideo : MonoBehaviour
         }
         else
         {
-            //videoPlayer.source = VideoSource.Url;
-            //videoPlayer.url = videoUrl;
-            //videoPlayer.Prepare();
-            //videoPlayer.prepareCompleted += OnVideoPrepared;
+            videoPlayer.url = url;
+            videoPlayer.Prepare();
 
-            //videoPlayer = gameObject.AddComponent<VideoPlayer>();
-            //videoPlayer.source = VideoSource.Url;
-            //videoPlayer.url = url;
-            //videoPlayer.renderMode = VideoRenderMode.MaterialOverride;
-            //videoPlayer.targetMaterialRenderer = videoRenderer = gameObject.AddComponent<Renderer>();
-            //videoPlayer.targetMaterialProperty = "_MainTex";
-            //videoRenderer.material = videoMaterial;
-            // videoPlayer.Play();
-            try
+            videoPlayer.prepareCompleted += (source) =>
             {
-                videoPlayer = gameObject.AddComponent<VideoPlayer>();
-                videoPlayer.source = VideoSource.Url;
-                videoPlayer.url = videoUrl;
-                //videoPlayer.playOnAwake = false;
-                videoPlayer.Prepare();
-            }
-            catch
-            { 
-            
-            }
-           
+                videoPlayer.Play();
+            };
+
         }
     }
 

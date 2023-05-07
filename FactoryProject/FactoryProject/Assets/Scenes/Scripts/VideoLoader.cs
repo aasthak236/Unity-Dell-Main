@@ -66,10 +66,9 @@ public class VideoLoader : MonoBehaviour
     {
         StartCoroutine(TourVideo(url));
     }
-    public IEnumerator TourVideo(string url)
+    public IEnumerator TourVideo(string urlvideo)
     {
-       // videoimage.SetActive(true);
-        videoPlayer.url = url;
+        url = urlvideo;
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
 
@@ -99,7 +98,7 @@ public class VideoLoader : MonoBehaviour
             //}
             //catch
             //{ 
-
+            Guided_Tour.instance.videoRawimage.gameObject.SetActive(false);
             videoPlayer.SetDirectAudioVolume(0, 0f);
             videoPlayer.url = url;
             videoPlayer.Prepare();
@@ -107,6 +106,7 @@ public class VideoLoader : MonoBehaviour
             videoPlayer.prepareCompleted += (source) =>
             {
                 videoPlayer.Play();
+                Guided_Tour.instance.videoRawimage.gameObject.SetActive(true);
             };
             
 

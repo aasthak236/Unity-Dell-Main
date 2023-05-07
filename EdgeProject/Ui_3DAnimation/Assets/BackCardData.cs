@@ -22,14 +22,30 @@ public class BackCardData : MonoBehaviour
     }
     public void ShowBackFlipper()
     {
-        for (int i = 1; i <= 5; i++)
+
+        if (ImageLoader.ComponentNameGet == "Outcome")
         {
-            ImageLoader.instance.NewCard[i - 1].SetActive(false);
+            for (int i = 1; i <= 5; i++)
+            {
+                ImageLoader.instance.NewCard[i - 1].SetActive(false);
+            }
+            ImageLoader.instance.BackFlipCard.SetActive(true);
+            clickedButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+            string buttonName = clickedButton.name;
+            BackCardText.text = Load_Tour_text.ins.OutcomeCardFaceBack[int.Parse(buttonName)].ToString();
         }
-        ImageLoader.instance.BackFlipCard.SetActive(true);
-         clickedButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-        string buttonName = clickedButton.name;
-        BackCardText.text = Load_Tour_text.ins.OutcomeCardFaceBack[int.Parse(buttonName)].ToString();
+        else
+        {
+            for (int i = 1; i <= 5; i++)
+            {
+                ImageLoader.instance.NewCard[i - 1].SetActive(false);
+            }
+            ImageLoader.instance.BackFlipCard.SetActive(true);
+            clickedButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+            string buttonName = clickedButton.name;
+            BackCardText.text = Load_Tour_text.ins.BBCardFaceBack[int.Parse(buttonName)].ToString();
+        }
+ 
        // BackCardLowerText.text = Load_Tour_text.ins.DVSCardFace[int.Parse(buttonName)].ToString();
 
     }

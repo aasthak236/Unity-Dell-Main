@@ -17,7 +17,7 @@ public class Load_Tour_text : MonoBehaviour
     public void Awake()
     {
         ins = this;
-        url = "https://dell-unity-dev.s3-accelerate.amazonaws.com/Assets/cards/" + Module_Name.ModuleName + ".xml";
+        url = Guided_Tour.instance.Assets_Folder + "/cards/" + Module_Name.ModuleName + ".xml";
     }
     void Start()
     {
@@ -61,10 +61,12 @@ public class Load_Tour_text : MonoBehaviour
     public string[] sub_Intro;
     public string[] Ending;
     public string[] sub_Ending;
+    public string[] VideoLink;
     public string OutcomeIntro;
     public string BBIntro;
     public string DVSIntro;
- 
+    public string[] PartnerGraphics;
+    public int[] PartnerGraphicsIndex;
     public IEnumerator LoadAllComponentFaces()
     {
         UnityWebRequest www = UnityWebRequest.Get(url);
@@ -258,15 +260,15 @@ public class Load_Tour_text : MonoBehaviour
 
             }
 
-            //for (int i = 1; i <= 5; i++)
-            //{
+            for (int i = 1; i <= 5; i++)
+            {
 
-            //    XmlNode node = xmlDoc.SelectSingleNode(Module_Name.ModuleName + "/DVS" + i + "r");
-            //    XmlElement root = xmlDoc.DocumentElement;
-            //    string nodeText = node.InnerText;
-            //    DVSCardFaceBack[i - 1] = nodeText;
+                XmlNode node = xmlDoc.SelectSingleNode(Module_Name.ModuleName + "/Graphics" + i);
+                XmlElement root = xmlDoc.DocumentElement;
+                string nodeText = node.InnerText;
+                VideoLink[i - 1] = nodeText;
 
-            //}
+            }
         }
     }
 
@@ -278,7 +280,7 @@ public class Load_Tour_text : MonoBehaviour
     public IEnumerator LoadAllDellBackCardData()
     {
 
-        UnityWebRequest www = UnityWebRequest.Get("https://dell-unity-dev.s3-accelerate.amazonaws.com/Assets/cards/validated_solns.xml");
+        UnityWebRequest www = UnityWebRequest.Get(Guided_Tour.instance.Assets_Folder + "/cards/validated_solns.xml");
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
@@ -290,6 +292,9 @@ public class Load_Tour_text : MonoBehaviour
             string xmlText = www.downloadHandler.text;
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(xmlText);
+
+            int ListIndex = 0;
+            int j = 0;
             for (int i = 1; i <= 5; i++)
             {
 
@@ -308,9 +313,33 @@ public class Load_Tour_text : MonoBehaviour
                 XmlElement rootdetail = xmlDoc.DocumentElement;
                 string nodeTextdetail = nodedetail.InnerText;
                 DS_Detail[i - 1] = nodeTextdetail;
+              
+                j = 1;
+                bool bContinue = true;
+
+                while (bContinue && ListIndex < 50)
+                {
+                    XmlNode nodegraphics = xmlDoc.SelectSingleNode("ds/Graphics" + (i + 1) + j.ToString("00"));
+                    // Debug.Log("partners/Graphics" + (i + 1) + j.ToString("00"));
+                    if (nodegraphics != null)
+                    {
+                        XmlElement rootgraphics = xmlDoc.DocumentElement;
+                        string nodeTextgraphics = nodegraphics.InnerText;
+                        PartnerGraphics[ListIndex] = nodeTextgraphics;
+                        ListIndex++;
+                        j++;
+                    }
+                    else
+                    {
+                        bContinue = false;
+                        PartnerGraphicsIndex[i] = ListIndex;
+                    }
+
+
+
+                }
 
             }
-
-            }
+        }
     }
 }

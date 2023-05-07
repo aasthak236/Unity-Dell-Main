@@ -1103,10 +1103,10 @@ public class Load_Tour_text : MonoBehaviour
 
                 
 
-                XmlNode node5 = xmlDoc.SelectSingleNode("partners/PSvideo" + (i + 1));
-                XmlElement root5 = xmlDoc.DocumentElement;
-                string nodeText5= node5.InnerText;
-                PSVideoLink[i] = nodeText5;
+                //XmlNode node5 = xmlDoc.SelectSingleNode("partners/PSvideo" + (i + 1));
+                //XmlElement root5 = xmlDoc.DocumentElement;
+                //string nodeText5= node5.InnerText;
+                //PSVideoLink[i] = nodeText5;
 
                 XmlNode node3 = xmlDoc.SelectSingleNode("partners/PSlink" + (i + 1));
                 XmlElement roo3 = xmlDoc.DocumentElement;

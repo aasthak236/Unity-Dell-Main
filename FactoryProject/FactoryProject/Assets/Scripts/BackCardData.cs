@@ -208,6 +208,8 @@ public class BackCardData : MonoBehaviour
         }
         else if (ImageLoader.ComponentName == "PS")
         {
+            nextbutton.SetActive(true);
+            previousbutton.SetActive(true);
             currentgraphic = 0;
             EndingGraphic = Load_Tour_text.ins.PartnerGraphicsIndex[int.Parse(buttonName)]-1;
              StartingGraphic = 0;
@@ -267,7 +269,7 @@ public class BackCardData : MonoBehaviour
         }
 
 
-        if (currentgraphic > EndingGraphic)
+        if (currentgraphic >= EndingGraphic)
         {
             nextbutton.SetActive(false);
             previousbutton.SetActive(true);
@@ -301,7 +303,7 @@ public class BackCardData : MonoBehaviour
         }
 
 
-        if (currentgraphic < StartingGraphic)
+        if (currentgraphic <= StartingGraphic)
         {
             nextbutton.SetActive(true);
             previousbutton.SetActive(false);

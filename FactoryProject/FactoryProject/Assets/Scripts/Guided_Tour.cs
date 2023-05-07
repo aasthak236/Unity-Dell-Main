@@ -66,6 +66,7 @@ public class Guided_Tour : MonoBehaviour
     public GameObject BG_Music, Tour_Music;
     public GameObject Mute, Unmute;
     public GameObject NextPreviousBtn;
+    public RawImage videoRawimage;
 
     private void Awake()
     {
@@ -553,7 +554,7 @@ public class Guided_Tour : MonoBehaviour
 
         if (SaveDataFromXML.ins.IntroVideo != "")
         {
-           
+            videoRawimage.gameObject.SetActive(false);
             string url = SaveDataFromXML.ins.IntroVideo;
             VideoLoader.instance.videoplayTour(url);
             videoplayer.SetActive(true);
@@ -830,20 +831,6 @@ public class Guided_Tour : MonoBehaviour
             NextPreviousBtn.SetActive(true);
             for (int i = 1; i <= saveDataFile.PSEndIndx+1; i++)
             {
-           
-
-
-                //if (i == 1)
-                //{
-                //    DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(true);
-                
-                //}
-                //else
-                //{
-                  //  PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 1]) - 1].gameObject.SetActive(true);
-                   
-                //}
-
                 card.SetActive(true);
                 //Partner Solution audio Play
                 if (!(buttonClicked || PreviousButtonClicked))

@@ -22,9 +22,10 @@ public class GUI_Control : MonoBehaviour
     public GameObject DellSolutionPanel;
     public GameObject DellDetailWindow;
     public TextMeshProUGUI[] DellText;
+    public string videolink;
     void Start()
     {
-       
+        PlayerPrefs.SetInt("MusicOn", 1);
         if (PlayerPrefs.GetInt("MusicOn") == 1)
         {
             Mute.SetActive(true);
@@ -75,7 +76,9 @@ public class GUI_Control : MonoBehaviour
     bool BB = true;
     bool DVS = true;
     public bool any_window_open;
-   
+    public int currentgraphic;
+    public int EndingGraphic;
+    public int StartingGraphic;
     public void OpenComponent(string ComponentName)
     {
      
@@ -217,11 +220,19 @@ public class GUI_Control : MonoBehaviour
         Button clickedButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
          buttonName = clickedButton.name;
         DellDetailWindow.SetActive(true);
+        currentgraphic = 0;
+        EndingGraphic = Load_Tour_text.ins.PartnerGraphicsIndex[int.Parse(buttonName)] - 1;
+        StartingGraphic = 0;
+        if (int.Parse(buttonName) > 0)
+        {
+            StartingGraphic = Load_Tour_text.ins.PartnerGraphicsIndex[int.Parse(buttonName) - 1];
+        }
+        currentgraphic = StartingGraphic;
         //for (int i = 0; i <5; i++)
         //{
         //   // ImageLoader.instance.Cards[i].SetActive(false);
         //}
-       
+
         // name, 
         DellName.text = Load_Tour_text.ins.DVSCardFace[int.Parse(buttonName)];
         // image,
@@ -235,6 +246,74 @@ public class GUI_Control : MonoBehaviour
         //}
     }
 
+
+    public GameObject nextbutton;
+    public GameObject previousbutton;
+    public void NextButton()
+    {
+        currentgraphic++;
+        string graphicslink = Load_Tour_text.ins.PartnerGraphics[currentgraphic];
+        string lastThreeChars = graphicslink.Substring(graphicslink.Length - 3);
+        if (lastThreeChars == "mp4")
+        {
+           // VideoButton.SetActive(true);
+            videolink = Load_Tour_text.ins.PartnerGraphics[currentgraphic];
+            StartCoroutine(DellVideo.instance.VideoPlay());
+            DellImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            DellVideo.instance.videoPlayer.Stop();
+            DellVideo.instance.videoimage.SetActive(false);
+            DellImage.gameObject.SetActive(true);
+            StartCoroutine(LoadDellImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
+        }
+
+
+        if (currentgraphic > EndingGraphic)
+        {
+            nextbutton.SetActive(false);
+            previousbutton.SetActive(true);
+        }
+        else
+        {
+            nextbutton.SetActive(true);
+            previousbutton.SetActive(true);
+        }
+
+    }
+    public void PreviousButton()
+    {
+        currentgraphic--;
+        string graphicslink = Load_Tour_text.ins.PartnerGraphics[currentgraphic];
+        string lastThreeChars = graphicslink.Substring(graphicslink.Length - 3);
+        if (lastThreeChars == "mp4")
+        {
+            DellImage.gameObject.SetActive(false);
+            videolink = Load_Tour_text.ins.PartnerGraphics[currentgraphic];
+            StartCoroutine(DellVideo.instance.VideoPlay());
+        }
+        else
+        {
+            DellVideo.instance.videoPlayer.Stop();
+            DellImage.gameObject.SetActive(true);
+            DellVideo.instance.videoimage.SetActive(false);
+
+            StartCoroutine(LoadDellImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
+        }
+
+
+        if (currentgraphic < StartingGraphic)
+        {
+            nextbutton.SetActive(true);
+            previousbutton.SetActive(false);
+        }
+        else
+        {
+            nextbutton.SetActive(true);
+            previousbutton.SetActive(true);
+        }
+    }
     public IEnumerator LoadDellImageWithUrlPartners(string ImageLink)
     {
         DellImage.sprite = null;
