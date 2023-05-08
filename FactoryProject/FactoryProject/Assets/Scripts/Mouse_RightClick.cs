@@ -20,7 +20,7 @@ public class Mouse_RightClick : MonoBehaviour
     }
     void Update()
     {
-        if (CameraZoomTowardPoint.CameraZoom == true)
+        if (CameraZoomTowardPoint.CameraZoom == true && Camera_Walk_Control.instance.ImmersiveTourStart==false)
         {
             if (Input.GetMouseButton(0))
             {

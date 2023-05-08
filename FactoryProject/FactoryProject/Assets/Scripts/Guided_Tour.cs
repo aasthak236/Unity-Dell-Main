@@ -325,9 +325,12 @@ public class Guided_Tour : MonoBehaviour
                             case "uc13":
                                 HotSpotTextIntro[12] = reader.ReadString();
                                 break;
+                            case "uc14":
+                                HotSpotTextIntro[13] = reader.ReadString();
+                                break;
 
 
-                                //uc label reader
+                            //uc label reader
 
                             case "uclabel1":
                                 HotSpotTextLabel[0] = reader.ReadString();
@@ -370,6 +373,9 @@ public class Guided_Tour : MonoBehaviour
                             case "uclabel13":
                                 HotSpotTextLabel[12] = reader.ReadString();
                                 break;
+                            case "uclabel14":
+                                HotSpotTextLabel[13] = reader.ReadString();
+                                break;
                         }
 
                     }
@@ -406,7 +412,7 @@ public class Guided_Tour : MonoBehaviour
     public IEnumerator Loadaudio()
     {
         //AudioClipsLoaded = 0;
-        for (int i = 0; i <= 36; i++)
+        for (int i = 1; i <=35; i++)
         {
             //am get from hotspot 
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/" + ImageToggleOnHover.UseCase + "/" + i + ".mp3", AudioType.MPEG))
@@ -421,7 +427,7 @@ public class Guided_Tour : MonoBehaviour
                 }
                 else
                 {
-                    // Debug.LogError("Failed to download audio: " + www.error);
+                    audioClips[i - 1] =audioClips[0];
                 }
             }
         }
@@ -506,7 +512,8 @@ public class Guided_Tour : MonoBehaviour
             Time.timeScale = 1f;
             checkpressed = false;
             audioSource.Stop();
-     
+        dellpartervideo.instance.videoPlayer.Stop();
+
 
 
 
@@ -557,7 +564,7 @@ public class Guided_Tour : MonoBehaviour
             videoRawimage.gameObject.SetActive(false);
             string url = SaveDataFromXML.ins.IntroVideo;
             VideoLoader.instance.videoplayTour(url);
-            videoplayer.SetActive(true);
+           // videoplayer.SetActive(true);
         }
         hexaTxt[0].text =HotSpotTextLabel[int.Parse(EndNumber) - 1];
         Hexagon.SetActive(true);
@@ -684,7 +691,7 @@ public class Guided_Tour : MonoBehaviour
         buttonClicked = false;
 
         DS_Start:
-        
+        videoplayer.SetActive(false);
         ResetTourTextBox();
        // ResetTourImages();
         yield return new WaitForSeconds(StandardDelay);
@@ -712,14 +719,14 @@ public class Guided_Tour : MonoBehaviour
 
         }
         NextPreviousBtn.SetActive(true);
-        bShowSolutionImages = true;
-        StartCoroutine(ShowDellImages());
+       
+        
 
         if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
             for (int i = 1; i <= saveDataFile.HARDWAREEndIndx; i++)
             {
-                //DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(true);
+                DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(true);
                 if (!(buttonClicked || PreviousButtonClicked))
                 {
                     audioSource.clip = audioClips[i + 13];
@@ -742,10 +749,11 @@ public class Guided_Tour : MonoBehaviour
 
                     }
                 }
-
+                DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(false);
             }
-
         }
+        bShowSolutionImages = true;
+        StartCoroutine(ShowDellImages());
         if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
             for (int i = 1; i <= saveDataFile.TTEndIndx; i++)
@@ -781,6 +789,10 @@ public class Guided_Tour : MonoBehaviour
 
         ValuePillarsWindow.SetActive(false);
         bShowSolutionImages = false;
+        for (int i = 0; i <= 6; i++)
+        {
+            DellSolutionImg[i].gameObject.SetActive(false);
+        }
         if (PreviousButtonClicked)
         {
             PreviousButtonClicked = false;
@@ -793,11 +805,6 @@ public class Guided_Tour : MonoBehaviour
     PS_Start:
        
         ResetTourTextBox();
-       
-       
-        
-        ResetTourTextBox();
-      
         hexaTxt[0].text = "Validated Partners";
         if (saveDataFile.PSEndIndx > 0)
         {
@@ -826,59 +833,80 @@ public class Guided_Tour : MonoBehaviour
 
 
             }
-            bShowPartnerImages = true;
-            StartCoroutine(ShowPartnerImages());
+            
             NextPreviousBtn.SetActive(true);
-            for (int i = 1; i <= saveDataFile.PSEndIndx+1; i++)
+            if (PlayerPrefs.GetInt("MusicOn") != 0)
             {
-                card.SetActive(true);
-                //Partner Solution audio Play
-                if (!(buttonClicked || PreviousButtonClicked))
+                for (int i = 1; i <= saveDataFile.PSEndIndx + 1; i++)
                 {
-                    audioSource.clip = audioClips[i + 3];
-                    audiolength = audioClips[i + 3].length;
-                    audioSource.Play();
-                    bool baudioplaying = true;
-                    while (baudioplaying)
+                    card.SetActive(true);
+                    if (i == 1)
                     {
-                        yield return new WaitForSeconds(0.25f);
-                        if ((buttonClicked || PreviousButtonClicked))
+
+                    }
+                    else
+                    {
+                        PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 2]) - 1].gameObject.SetActive(true);
+                    }
+                    if (!(buttonClicked || PreviousButtonClicked))
+                    {
+                        audioSource.clip = audioClips[i + 3];
+                        audiolength = audioClips[i + 3].length;
+                        audioSource.Play();
+                        bool baudioplaying = true;
+                        while (baudioplaying)
                         {
-                            baudioplaying = false;
-                            audioSource.Stop();
+                            yield return new WaitForSeconds(0.25f);
+                            if ((buttonClicked || PreviousButtonClicked))
+                            {
+                                baudioplaying = false;
+                                audioSource.Stop();
+                            }
+                            if (!audioSource.isPlaying)
+                            {
+                                baudioplaying = false;
+                            }
                         }
-                        if (!audioSource.isPlaying)
+                        if (i == 1)
                         {
-                            baudioplaying = false;
+
+                        }
+                        else
+                        {
+                            PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 2]) - 1].gameObject.SetActive(false);
                         }
                     }
 
-                }
-                // Image.gameObject.SetActive(false);
 
-                if (i == 1)
-                {
-                    DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(false);
-                }
-                else if(i== saveDataFile.PSEndIndx + 1)
-                {
-                    
-                }
+                    //if (i == 1)
+                    //{
+                    //    DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[i - 1]) - 1].gameObject.SetActive(false);
+                    //}
+                    //else if(i== saveDataFile.PSEndIndx + 1)
+                    //{
 
-                 else
-                {
-                    PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 2]) - 1].gameObject.SetActive(false);
+                    //}
+
+                    // else
+                    //{
+                    //    PartnerImg[int.Parse(SaveDataFromXML.ins.PS[i - 2]) - 1].gameObject.SetActive(false);
+                    //}
+
+                    //card.SetActive(false);
+
                 }
-
-                //card.SetActive(false);
-
             }
-           
+            bShowPartnerImages = true;
+            StartCoroutine(ShowPartnerImages());
             while (!(buttonClicked || PreviousButtonClicked))
             {
                 yield return null;
             }
             bShowPartnerImages = false;
+            for (int i = 0; i <= 6; i++)
+            {
+                PartnerImg[i].gameObject.SetActive(false);
+            }
             if (PreviousButtonClicked)
             {
                 PreviousButtonClicked = false;
@@ -895,6 +923,7 @@ public class Guided_Tour : MonoBehaviour
 
 
         FO_Start:
+        videoplayer.SetActive(true);
         HexagonBlank();
         ResetTourTextBox();
         card.SetActive(true);
@@ -1021,8 +1050,10 @@ public class Guided_Tour : MonoBehaviour
             goto FO_Start;
         }
         buttonClicked = false;
-
-        EndVO.Play();
+        audioSource.clip = audioClips[34];
+        audiolength = audioClips[34].length;
+        audioSource.Play();
+        
         card.SetActive(false);
 
         if (saveDataFile.PSEndIndx == 0)
@@ -1047,15 +1078,15 @@ public class Guided_Tour : MonoBehaviour
                 Partner3.text = ImageLoader.instance.PS[int.Parse(SaveDataFromXML.ins.PS[2]) - 1];
             }
         }
-        //audioSource.clip = audioClips[34];
-        //audiolength = audioClips[34].length;
+        
         ResetTourTextBox();
        // ResetTourImages();
         card.SetActive(false);
         FadeIn.SetActive(false);
         FadeOut.SetActive(true);
-       //video active false
-        yield return new WaitForSeconds(1f); 
+        //video active false
+        videoplayer.SetActive(false);
+        yield return new WaitForSeconds(audiolength);
         FadeIn.SetActive(false);
      
         FadeOut.SetActive(false);
@@ -1077,7 +1108,7 @@ public class Guided_Tour : MonoBehaviour
         {
             int j = i / 20 + 1;
             DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[j - 1]) - 1].gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
             DellSolutionImg[int.Parse(SaveDataFromXML.ins.HARDWARE[j - 1]) - 1].gameObject.SetActive(false);
             if (i == saveDataFile.HARDWAREEndIndx * 20 - 1)
             {
@@ -1098,7 +1129,7 @@ public class Guided_Tour : MonoBehaviour
         {
             int j = i / 20 + 1;
             PartnerImg[int.Parse(SaveDataFromXML.ins.PS[j - 1]) - 1].gameObject.SetActive(true);
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(.05f);
             try
             {
                 PartnerImg[int.Parse(SaveDataFromXML.ins.PS[j - 1]) - 1].gameObject.SetActive(false);
@@ -1154,8 +1185,12 @@ public class Guided_Tour : MonoBehaviour
         dellvideopanel.SetActive(false);
         Camera_Walk_Control.instance.ImmersiveTourCaption.SetActive(false);
         audioSource.clip = null;
-     
 
+        for (int i = 0; i <= 6; i++)
+        {
+            DellSolutionImg[i].gameObject.SetActive(false);
+            PartnerImg[i].gameObject.SetActive(false);
+        }
 
         for (int i = 0; i <= 6; i++)
         {

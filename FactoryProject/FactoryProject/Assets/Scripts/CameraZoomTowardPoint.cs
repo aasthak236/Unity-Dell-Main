@@ -111,6 +111,7 @@ public class CameraZoomTowardPoint : MonoBehaviour
         Vector3 newrotation = new Vector3(0, 0, 0);
         FactoryMdel.transform.eulerAngles = newrotation;
         MyCameraController.instance.Resetcamera();
+        Camera_Walk_Control.instance.unableclickmenu.SetActive(false);
         Guided_Tour.instance.StopCoroutine();//stop for usecase
         BackCardData.instance.StopCoroutineTour();//stop for outcome
         Guided_Tour.instance.ClosedAllWindow();

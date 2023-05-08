@@ -18,7 +18,7 @@ public class Camera_Walk_Control : MonoBehaviour
     public GameObject ImmersiveTourCaption;
 
     public static Camera_Walk_Control instance;
-
+    public GameObject unableclickmenu;
     void Start()
     {
         instance = this;
@@ -32,7 +32,13 @@ public class Camera_Walk_Control : MonoBehaviour
     }
     public void StopCoroutineImmersiveTour()
     {
+        try
+        {
             StopCoroutine(myCoroutine);
+        }
+        catch { 
+        
+        }
         CameraZoomTowardPoint.instance.ZoomBack();
         for (int i = 0; i <= 13; i++)
         {
@@ -66,6 +72,8 @@ public class Camera_Walk_Control : MonoBehaviour
         HotSpotAtMovePoint[15] = 0;
         HotSpotAtMovePoint[16] = 0;
         ImmersiveTourStart = true;
+        ImageToggleOnHover.Tour_Running = true;
+        CameraZoomTowardPoint.CameraZoom = true;
         for (int i = 0; i <= 13; i++)
         {
             BackCardData.instance.HotSpot[i].SetActive(false);
@@ -152,15 +160,19 @@ public class Camera_Walk_Control : MonoBehaviour
             {
                 yield return new WaitForSeconds(2f);
                 CameraZoomTowardPoint.instance.ZoomBack();
+                unableclickmenu.SetActive(false);
             }
             //BackCardData.instance.HotSpot[i - 1].transform.GetChild(i - 1).GetChild(2).GetChild(1).gameObject.SetActive(true);
           
 
         }
+        
         for (int i = 0; i <= 13; i++)
         {
             BackCardData.instance.HotSpot[i].SetActive(true);
+
         }
+        ImageToggleOnHover.Tour_Running = false;
 
     }
 

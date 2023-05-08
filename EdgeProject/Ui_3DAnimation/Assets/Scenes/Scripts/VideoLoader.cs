@@ -17,7 +17,17 @@ public class VideoLoader : MonoBehaviour
     }
     public void Start()
     {
-        StartCoroutine(PlayVideo(url));
+        Previousbtn.SetActive(false);
+        if (Load_Tour_text.ins.VideoLink[1] != null)
+        {
+
+            Nextbtn.SetActive(true);
+        }
+        else
+        {
+            Nextbtn.SetActive(false);
+        }
+            StartCoroutine(PlayVideo(url));
     }
     IEnumerator PlayVideo(string urlVideo)
     {
@@ -47,7 +57,7 @@ public class VideoLoader : MonoBehaviour
         CurrentVideoIndex++;
         url = Load_Tour_text.ins.VideoLink[CurrentVideoIndex];
         StartCoroutine(PlayVideo(url));
-        if (CurrentVideoIndex>=5)
+        if (Load_Tour_text.ins.VideoLink[CurrentVideoIndex]!=null)
         {
             Nextbtn.SetActive(false);
             Previousbtn.SetActive(true);

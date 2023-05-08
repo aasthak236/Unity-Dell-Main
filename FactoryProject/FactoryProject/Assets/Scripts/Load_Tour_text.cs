@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.Networking;
 using System.Text.RegularExpressions;
 using System.IO;
+using UnityEngine.UI;
 
 public class Load_Tour_text : MonoBehaviour
 {
@@ -16,8 +17,8 @@ public class Load_Tour_text : MonoBehaviour
     public int Indx;
     string nodeText;
     int myInt;
-
-
+    public GameObject parent;
+    public int childCount;
 
     // Start is called before the first frame update
     public void Awake()
@@ -33,7 +34,9 @@ public class Load_Tour_text : MonoBehaviour
 
     private void Start()
     {
-       //StartCoroutine(GetAllTexts());
+         childCount = parent.transform.childCount;
+       
+        //StartCoroutine(GetAllTexts());
 
     }
 
@@ -1070,6 +1073,7 @@ public class Load_Tour_text : MonoBehaviour
     public string[] DellLink;
     public string[] PartnerGraphics;
     public int[] PartnerGraphicsIndex;
+    public TMP_Text labelText;
     //public string[] Dell;
     public int PartnerTCount;
     public IEnumerator LoadPartnerImages()
@@ -1185,6 +1189,18 @@ public class Load_Tour_text : MonoBehaviour
 
         }
     }
-
+    
+    public void loadhotspotlabeltext()
+    {
+        for (int i = 0; i <childCount; i++)
+        {
+            string childname=parent.transform.GetChild(i).name;
+            string usecasenum = childname;
+            string EndNumber = usecasenum.Substring(2, usecasenum.Length - 2);
+            TMP_Text labelText = parent.transform.GetChild(i).GetChild(0).GetComponent<TMP_Text>();
+            labelText.text = Guided_Tour.instance.HotSpotTextLabel[int.Parse(EndNumber)-1];
+            Debug.Log(labelText.text);
+        }
+    }
 
 }

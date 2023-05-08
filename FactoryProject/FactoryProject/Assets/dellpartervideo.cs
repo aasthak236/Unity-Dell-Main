@@ -26,6 +26,7 @@ public class dellpartervideo : MonoBehaviour
     {
         videoimage.SetActive(true);
         url = BackCardData.instance.videolink;
+        videoPlayer.url = url;
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
 

@@ -22,6 +22,13 @@ public class MyCameraController : MonoBehaviour
     //public float rotationSpeed = 5f;
     //public float minRotation = -90f;
     //public float maxRotation = 90f;
+
+    public float rotationSpeed = 2.0f;
+    public float moveSpeed = 2.0f;
+
+    private bool isDragging = false;
+    private Vector3 dragStartPosition;
+    private Vector3 dragCurrentPosition;
     public void Resetcamera()
     {
         Camera cam = GetComponent<Camera>();
@@ -75,6 +82,65 @@ public class MyCameraController : MonoBehaviour
         //    transform.eulerAngles.y,
         //    transform.eulerAngles.z
         //);
+        if (CameraZoomTowardPoint.CameraZoom == false)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                isDragging = true;
+                dragStartPosition = Input.mousePosition;
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                isDragging = false;
+            }
 
+            if (isDragging)
+            {
+
+                dragCurrentPosition = Input.mousePosition;
+
+
+                float deltaY = dragCurrentPosition.y - dragStartPosition.y;
+                float deltaX = dragCurrentPosition.x - dragStartPosition.x;
+
+
+                if (Mathf.Abs(deltaY) > Mathf.Abs(deltaX))
+                {
+                    transform.Rotate(-(Vector3.right * deltaY * rotationSpeed * Time.deltaTime));
+                    //transform.position = new Vector3(63, transform.position.y*Time.deltaTime, 61);
+                    float currentRotation = transform.rotation.eulerAngles.x;
+                    //if (Camera_Walk_Control.instance.ImmersiveTourStart == false)
+                    //{
+                    //    float clampedRotation = Mathf.Clamp(currentRotation, -35, 55);
+                    //    transform.rotation = Quaternion.Euler(clampedRotation, transform.rotation.y, transform.rotation.z);
+                    //}
+
+
+                }
+
+                //else
+                //{
+                //    float moveX = deltaX * moveSpeed * Time.deltaTime;
+                //    transform.Translate(new Vector3(-moveX, 0, 0));
+                //    Vector3 clampedPosition = transform.position;
+                //    if (Camera_Walk_Control.instance.ImmersiveTourStart == false)
+                //    {
+                //        clampedPosition.x = Mathf.Clamp(clampedPosition.x, -20, 90);
+
+                //        transform.position = clampedPosition;
+                //    }
+                //}
+
+
+                dragStartPosition = dragCurrentPosition;
+            }
+        }
+    }
+    public void LateUpdate()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false;
+        }
     }
 }

@@ -78,6 +78,7 @@ public class VideoLoader : MonoBehaviour
             videoPlayer.prepareCompleted += (source) =>
             {
                 videoPlayer.Play();
+                Guided_Tour.instance.videoplayer.SetActive(true);
                 Guided_Tour.instance.videoRawimage.gameObject.SetActive(true);
             };
             

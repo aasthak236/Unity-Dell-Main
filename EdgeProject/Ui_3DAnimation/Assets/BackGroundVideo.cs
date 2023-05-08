@@ -9,8 +9,7 @@ public class BackGroundVideo : MonoBehaviour
     private string videoUrl;
     public VideoPlayer videoPlayer;
     public string url;
-    private Renderer videoRenderer;
-    public Material videoMaterial;
+ 
     public void Awake()
     {
         

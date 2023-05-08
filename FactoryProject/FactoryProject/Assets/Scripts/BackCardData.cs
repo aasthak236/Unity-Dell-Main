@@ -41,13 +41,22 @@ public class BackCardData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+       
         
           NormalColor = ColorUtility.TryParseHtmlString("#612CB0", out Color color) ? color : Color.white;
         PressedColor = ColorUtility.TryParseHtmlString("#2A145A", out Color color1) ? color1 : Color.white;
         instance = this;
         HotSpotSizeIncrease();
         Invoke("ActiveEnterButton", 10f);
+        Invoke("HotspotLabelText", 3f);
+    }
+    public void HotspotLabelText()
+    {
+        for (int i = 0; i < 14; i++)
+        {
+            TMP_Text labelText = HotSpot[i].transform.GetChild(0).GetChild(2).GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+            labelText.text= Guided_Tour.instance.HotSpotTextLabel[i];
+        }
     }
     public void ActiveEnterButton()
     {
@@ -208,8 +217,8 @@ public class BackCardData : MonoBehaviour
         }
         else if (ImageLoader.ComponentName == "PS")
         {
-            nextbutton.SetActive(true);
-            previousbutton.SetActive(true);
+            
+            previousbutton.SetActive(false);
             currentgraphic = 0;
             EndingGraphic = Load_Tour_text.ins.PartnerGraphicsIndex[int.Parse(buttonName)]-1;
              StartingGraphic = 0;
@@ -218,6 +227,14 @@ public class BackCardData : MonoBehaviour
                 StartingGraphic =Load_Tour_text.ins.PartnerGraphicsIndex[int.Parse(buttonName)-1];
             }
             currentgraphic = StartingGraphic;
+            if (currentgraphic == EndingGraphic)
+            {
+                nextbutton.SetActive(false);
+            }
+            else
+            {
+                nextbutton.SetActive(true);
+            }
             HotSpotsRuninng = true;
             for (int i = 0; i <= 5; i++)
             {
@@ -265,9 +282,9 @@ public class BackCardData : MonoBehaviour
         {
             dellpartervideo.instance.videoPlayer.Stop();
             dellpartervideo.instance.videoimage.SetActive(false);
-            PartnerImage.gameObject.SetActive(true);
              StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
-            Playvideo();
+            PartnerImage.gameObject.SetActive(true);
+           
         }
 
 
@@ -298,10 +315,9 @@ public class BackCardData : MonoBehaviour
         else
         {
             dellpartervideo.instance.videoPlayer.Stop();
-            PartnerImage.gameObject.SetActive(true);
             dellpartervideo.instance.videoimage.SetActive(false);
-
             StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
+            PartnerImage.gameObject.SetActive(true);
         }
 
 
@@ -319,7 +335,7 @@ public class BackCardData : MonoBehaviour
     public void Playvideo()
     {
 
-        StartCoroutine(dellpartervideo.instance.videoplaydellpartner());
+        //StartCoroutine(dellpartervideo.instance.videoplaydellpartner());
     }
     public void parntnerclose()
     {

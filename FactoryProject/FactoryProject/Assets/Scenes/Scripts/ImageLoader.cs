@@ -174,11 +174,12 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "BO")
             {
-                
+
                 //Image myImage = MenuButton[0].image;
                 //Color newColor = myImage.color;
                 //newColor.a = 255f; // Set the alpha value to 0.5 (half transparent)
                 //myImage.color = newColor;
+               
                 CameraZoomTowardPoint.instance.ZoomBack();
                 MenuButton[0].GetComponent<Image>().color = PressedColor;
                 HexagonInnerColor.color = BOInnerColor;
@@ -201,7 +202,7 @@ public class ImageLoader : MonoBehaviour
                 //}
                 // pressed = true;
 
-
+                Load_Tour_text.ins.loadhotspotlabeltext();
             }
             else if (Component == "DS")
             {

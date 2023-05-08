@@ -260,13 +260,35 @@ public class Load_Tour_text : MonoBehaviour
 
             }
 
-            for (int i = 1; i <= 5; i++)
-            {
+            //for (int i = 1; i <= 5; i++)
+            //{
 
-                XmlNode node = xmlDoc.SelectSingleNode(Module_Name.ModuleName + "/Graphics" + i);
-                XmlElement root = xmlDoc.DocumentElement;
-                string nodeText = node.InnerText;
-                VideoLink[i - 1] = nodeText;
+            //    XmlNode node = xmlDoc.SelectSingleNode(Module_Name.ModuleName + "/Graphics" + i);
+            //    XmlElement root = xmlDoc.DocumentElement;
+            //    string nodeText = node.InnerText;
+            //    VideoLink[i - 1] = nodeText;
+
+            //}
+
+            bool bContinue = true;
+            int j = 1;
+            while (bContinue && j < 10)
+            {
+                XmlNode nodegraphics = xmlDoc.SelectSingleNode(Module_Name.ModuleName + "/Graphics" + j);
+                // Debug.Log("partners/Graphics" + (i + 1) + j.ToString("00"));
+                if (nodegraphics != null)
+                {
+                    XmlElement rootgraphics = xmlDoc.DocumentElement;
+                    string nodeTextgraphics = nodegraphics.InnerText;
+                    VideoLink[j-1] = nodeTextgraphics;
+                    
+                    j++;
+                }
+                else
+                {
+                    bContinue = false;
+                    
+                }
 
             }
         }
