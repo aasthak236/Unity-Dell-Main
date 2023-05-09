@@ -10,6 +10,7 @@ public class MyCameraController : MonoBehaviour
     public static MyCameraController instance;
     // Camera pan parameters
     public float panSpeed = 5f;
+    public Transform FactoryObject;
 
     // Mouse button for panning
     public int panMouseButton = 0;
@@ -25,7 +26,7 @@ public class MyCameraController : MonoBehaviour
 
     public float rotationSpeed = 2.0f;
     public float moveSpeed = 2.0f;
-
+        public float rotateSpeed = 4f;
     private bool isDragging = false;
     private Vector3 dragStartPosition;
     private Vector3 dragCurrentPosition;
@@ -74,14 +75,7 @@ public class MyCameraController : MonoBehaviour
         }
 
 
-        //// Rotate with up and down mouse movement
-        //float rotation = Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
-        //float newRotation = transform.eulerAngles.x - rotation;
-        //transform.eulerAngles = new Vector3(
-        //    Mathf.Clamp(newRotation, minRotation, maxRotation),
-        //    transform.eulerAngles.y,
-        //    transform.eulerAngles.z
-        //);
+   
         if (CameraZoomTowardPoint.CameraZoom == false)
         {
             if (Input.GetMouseButtonDown(0))
@@ -106,14 +100,22 @@ public class MyCameraController : MonoBehaviour
 
                 if (Mathf.Abs(deltaY) > Mathf.Abs(deltaX))
                 {
-                    transform.Rotate(-(Vector3.right * deltaY * rotationSpeed * Time.deltaTime));
-                    //transform.position = new Vector3(63, transform.position.y*Time.deltaTime, 61);
-                    float currentRotation = transform.rotation.eulerAngles.x;
-                    //if (Camera_Walk_Control.instance.ImmersiveTourStart == false)
-                    //{
-                    //    float clampedRotation = Mathf.Clamp(currentRotation, -35, 55);
-                    //    transform.rotation = Quaternion.Euler(clampedRotation, transform.rotation.y, transform.rotation.z);
-                    //}
+                    //transform.Rotate(-(Vector3.right * deltaY * rotationSpeed * Time.deltaTime));
+                    ////transform.position = new Vector3(63, transform.position.y*Time.deltaTime, 61);
+                    //float currentRotation = transform.rotation.eulerAngles.x;
+                    ////if (Camera_Walk_Control.instance.ImmersiveTourStart == false)
+                    ////{
+                    ////    float clampedRotation = Mathf.Clamp(currentRotation, -35, 55);
+                    ////    transform.rotation = Quaternion.Euler(clampedRotation, transform.rotation.y, transform.rotation.z);
+                    ////}
+                    ///
+                    float mouseX = Input.GetAxis("Mouse X");
+                    float mouseY = Input.GetAxis("Mouse Y");
+                    //transform.RotateAround(FactoryObject.position, Vector3.up, mouseY * rotateSpeed);
+                    transform.RotateAround(FactoryObject.position, transform.right, -mouseY * rotateSpeed);
+                   float offset = transform.position.x - 63.5f;
+                    Vector3 lookatpoint = new Vector3(FactoryObject.position.x + offset, FactoryObject.position.y, FactoryObject.position.z);
+                    transform.LookAt(lookatpoint);
 
 
                 }

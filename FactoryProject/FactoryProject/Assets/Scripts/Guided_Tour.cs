@@ -559,13 +559,13 @@ public class Guided_Tour : MonoBehaviour
         card.SetActive(true);
         
 
-        if (SaveDataFromXML.ins.IntroVideo != "")
-        {
-            videoRawimage.gameObject.SetActive(false);
-            string url = SaveDataFromXML.ins.IntroVideo;
-            VideoLoader.instance.videoplayTour(url);
-           // videoplayer.SetActive(true);
-        }
+        //if (SaveDataFromXML.ins.IntroVideo != "")
+        //{
+        //    videoRawimage.gameObject.SetActive(false);
+        //    string url = SaveDataFromXML.ins.IntroVideo;
+        //    VideoLoader.instance.videoplayTour(url);
+        //   // videoplayer.SetActive(true);
+        //}
         hexaTxt[0].text =HotSpotTextLabel[int.Parse(EndNumber) - 1];
         Hexagon.SetActive(true);
         

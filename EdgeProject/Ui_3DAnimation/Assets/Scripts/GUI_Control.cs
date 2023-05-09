@@ -193,8 +193,8 @@ public class GUI_Control : MonoBehaviour
             Invoke("loadvideo", 0.5f);
             isopen2 = true;
             RotatingComponent.SetActive(false);
-            Invoke("loadingfalse", 3f);
             LoadingScreen.SetActive(true);
+            Invoke("loadingfalse", 3f);
             FlipBtn.SetActive(false);
             isOpenvideo = true;
 
@@ -210,6 +210,7 @@ public class GUI_Control : MonoBehaviour
     public void loadvideo()
     {
         video.SetActive(true);
+        
     }
     public TextMeshProUGUI DellName;
     public Image DellImage;

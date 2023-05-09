@@ -11,7 +11,7 @@ public class lookatCamera1 : MonoBehaviour
         {
             // Vector3 screenpos = Camera.main.WorldToScreenPoint(target.position);
             // Vector3 screenpos = Camera.main.WorldToScreenPoint(new Vector3(target.position.x, target.position.y + 1.8f, target.position.z));
-            Vector3 screenpos = Camera.main.WorldToScreenPoint(new Vector3(target.position.x, target.position.y + 1.5f, target.position.z));
+            Vector3 screenpos = Camera.main.WorldToScreenPoint(new Vector3(target.position.x, target.position.y, target.position.z));
             transform.position = screenpos;
         }
         else
@@ -23,20 +23,22 @@ public class lookatCamera1 : MonoBehaviour
         instance = this;
     }
     public Transform target; // a target position representing the front direction
-                             //  public float offset;
+    public void Start()
+    {
+       // HoverPositionSet();
+    }                //  public float offset;
     void Update()
     {
   
        
     }
-
-    public void HoverPositionSet()
+    public void LateUpdate()
     {
         if (CameraZoomTowardPoint.CameraZoom)
         {
             // Vector3 screenpos = Camera.main.WorldToScreenPoint(target.position);
             // Vector3 screenpos = Camera.main.WorldToScreenPoint(new Vector3(target.position.x, target.position.y + 1.8f, target.position.z));
-            Vector3 screenpos = Camera.main.WorldToScreenPoint(new Vector3(target.position.x, target.position.y + 1.5f, target.position.z));
+            Vector3 screenpos = Camera.main.WorldToScreenPoint(new Vector3(target.position.x-1, target.position.y+1.5f, target.position.z));
             transform.position = screenpos;
         }
         else
@@ -45,6 +47,6 @@ public class lookatCamera1 : MonoBehaviour
             Vector3 screenpos = Camera.main.WorldToScreenPoint(new Vector3(target.position.x - 15, target.position.y, target.position.z));
             transform.position = screenpos;
         }
-
     }
+   
 }

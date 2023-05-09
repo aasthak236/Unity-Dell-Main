@@ -13,6 +13,7 @@ public class VideoLoader : MonoBehaviour
     public static VideoLoader instance;
     public bool VideoIsRunning;
     public GameObject videoimage;
+  
     public void Awake()
     {
       
@@ -70,19 +71,22 @@ public class VideoLoader : MonoBehaviour
             //}
             //catch
             //{ 
-            
+          
             videoPlayer.SetDirectAudioVolume(0, 0f);
             videoPlayer.url = url;
+           
             videoPlayer.Prepare();
-
+            
             videoPlayer.prepareCompleted += (source) =>
             {
                 videoPlayer.Play();
-                Guided_Tour.instance.videoplayer.SetActive(true);
+                Guided_Tour.instance.videoplayer.SetActive(true);  
                 Guided_Tour.instance.videoRawimage.gameObject.SetActive(true);
             };
             
 
         }
     }
+
+
 }

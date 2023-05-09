@@ -248,6 +248,13 @@ public class Load_Tour_text : MonoBehaviour
                                 break;
                             case "introvideo":
                                 saveDataFile.IntroVideo = reader.ReadString();
+                                if (SaveDataFromXML.ins.IntroVideo != "")
+                                {
+                                    Guided_Tour.instance.videoRawimage.gameObject.SetActive(false);
+                                    string url = SaveDataFromXML.ins.IntroVideo;
+                                    VideoLoader.instance.videoplayTour(url);
+                                    // videoplayer.SetActive(true);
+                                }
                                 break;
                             case "ecvideo":
                                 saveDataFile.ECVideo = reader.ReadString();

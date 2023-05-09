@@ -12,8 +12,7 @@ public class VideoLoader : MonoBehaviour
     public Material videoMaterial;
     public void Awake()
     {
-        url = Load_Tour_text.ins.VideoLink[0];
-        videoPlayer.url = url;
+      
     }
     public void Start()
     {
@@ -27,7 +26,10 @@ public class VideoLoader : MonoBehaviour
         {
             Nextbtn.SetActive(false);
         }
-            StartCoroutine(PlayVideo(url));
+        url = Load_Tour_text.ins.VideoLink[0];
+        videoPlayer.url = url;
+        StartCoroutine(PlayVideo(url));
+
     }
     IEnumerator PlayVideo(string urlVideo)
     {
@@ -56,23 +58,27 @@ public class VideoLoader : MonoBehaviour
     {
         CurrentVideoIndex++;
         url = Load_Tour_text.ins.VideoLink[CurrentVideoIndex];
+        videoPlayer.Stop();
         StartCoroutine(PlayVideo(url));
-        if (Load_Tour_text.ins.VideoLink[CurrentVideoIndex]!=null)
+        if (Load_Tour_text.ins.VideoLink[CurrentVideoIndex+1]=="")
         {
             Nextbtn.SetActive(false);
-            Previousbtn.SetActive(true);
+            
         }
+        Previousbtn.SetActive(true);
+
     }
 
     public void PreviousButton()
     {
         CurrentVideoIndex--;
         url = Load_Tour_text.ins.VideoLink[CurrentVideoIndex];
+        videoPlayer.Stop();
         StartCoroutine(PlayVideo(url));
         if (CurrentVideoIndex <= 0)
         {
-            Nextbtn.SetActive(true);
             Previousbtn.SetActive(false);
         }
+        Nextbtn.SetActive(true);
     }
 }

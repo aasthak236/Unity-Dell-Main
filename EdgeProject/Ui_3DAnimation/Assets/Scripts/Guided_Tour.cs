@@ -188,10 +188,14 @@ public class Guided_Tour : MonoBehaviour
     public bool GuidedTourRunning = false;
     public void PlayGuidedTour()
     {
-        GuidedTourRunning = true;
-        // StartCoroutine(PlayAudioClips());
-        myCoroutine = PlayAudioClips();
-        StartCoroutine(myCoroutine);
+        if (GuidedTourRunning == false)
+        {
+            GuidedTourRunning = true;
+            // StartCoroutine(PlayAudioClips());
+            myCoroutine = PlayAudioClips();
+            StartCoroutine(myCoroutine);
+        }
+       
 
     }
     public GameObject TimelineEnd;
@@ -612,6 +616,7 @@ public class Guided_Tour : MonoBehaviour
         Videoplayer.SetActive(true);
         //card.SetActive(false);
         Hower_Active.Howeractive = true;
+        GuidedTourRunning = false;
         CloseAllWindow();
      
 
