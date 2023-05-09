@@ -9,7 +9,7 @@ public class WelcomeAnimation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("ActiveButton",10f);
+        Invoke("ActiveButton",5f);
     }
 
     // Update is called once per frame
