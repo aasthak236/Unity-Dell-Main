@@ -241,6 +241,7 @@ public class GUI_Control : MonoBehaviour
         // Guided_Tour.instance.PartnerImg[int.Parse(buttonName)].gameObject.SetActive(true);
         // desc,
         DellDescription.text = Load_Tour_text.ins.DS_Detail[int.Parse(buttonName)];
+        QRCodeGenerator.instance.TexttoqrcodeDell();
         //for (int i = 0; i <= 5; i++)
         //{
         //    OutcomeBtn[i].GetComponent<Image>().color = NormalColor;

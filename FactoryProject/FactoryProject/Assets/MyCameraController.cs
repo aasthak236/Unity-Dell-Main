@@ -109,13 +109,25 @@ public class MyCameraController : MonoBehaviour
                     ////    transform.rotation = Quaternion.Euler(clampedRotation, transform.rotation.y, transform.rotation.z);
                     ////}
                     ///
+                   
+               
+                    Vector3 currentRotation = transform.eulerAngles;
                     float mouseX = Input.GetAxis("Mouse X");
                     float mouseY = Input.GetAxis("Mouse Y");
-                    //transform.RotateAround(FactoryObject.position, Vector3.up, mouseY * rotateSpeed);
-                    transform.RotateAround(FactoryObject.position, transform.right, -mouseY * rotateSpeed);
-                   float offset = transform.position.x - 63.5f;
-                    Vector3 lookatpoint = new Vector3(FactoryObject.position.x + offset, FactoryObject.position.y, FactoryObject.position.z);
-                    transform.LookAt(lookatpoint);
+                    bool bRotate = true;
+
+                    if (currentRotation.x <= 10f && mouseY > 0)
+                    {
+                        bRotate = false;
+                    }
+                    if (currentRotation.x >= 80f && mouseY < 0)
+                    {
+                        bRotate = false;
+                    }
+                    if (bRotate)
+                    {
+                        transform.RotateAround(FactoryObject.position, transform.right, -mouseY * rotateSpeed);
+                    }
 
 
                 }

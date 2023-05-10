@@ -76,14 +76,14 @@ public class VideoLoader : MonoBehaviour
             videoPlayer.url = url;
            
             videoPlayer.Prepare();
-            
-            videoPlayer.prepareCompleted += (source) =>
-            {
-                videoPlayer.Play();
-                Guided_Tour.instance.videoplayer.SetActive(true);  
-                Guided_Tour.instance.videoRawimage.gameObject.SetActive(true);
-            };
-            
+            while (!videoPlayer.isPrepared)
+            { 
+                yield return new WaitForEndOfFrame();
+            }
+            videoPlayer.frame = 0; //just incase it's not at the first frame
+            videoPlayer.Play();
+            Guided_Tour.instance.videoplayer.SetActive(true);
+            Guided_Tour.instance.videoRawimage.gameObject.SetActive(true);
 
         }
     }

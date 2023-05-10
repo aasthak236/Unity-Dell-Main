@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Camera_Walk_Control : MonoBehaviour
 {
@@ -29,6 +30,10 @@ public class Camera_Walk_Control : MonoBehaviour
         //StartCoroutine(CameraWalk());
         myCoroutine = CameraWalk();
         StartCoroutine(myCoroutine);
+        for (int i = 0; i <= 4; i++)
+        {
+            ImageLoader.instance.MenuButton[i].GetComponent<Image>().color = ImageLoader.instance.NormalColor;
+        }
     }
     public void StopCoroutineImmersiveTour()
     {
@@ -66,11 +71,12 @@ public class Camera_Walk_Control : MonoBehaviour
         HotSpotAtMovePoint[9] = 7;
         HotSpotAtMovePoint[10] = 12;
         HotSpotAtMovePoint[11] = 0;
-        HotSpotAtMovePoint[12] = 6;
-        HotSpotAtMovePoint[13] = 4;
-        HotSpotAtMovePoint[14] = 14;
-        HotSpotAtMovePoint[15] = 0;
+        HotSpotAtMovePoint[12] = 0;
+        HotSpotAtMovePoint[13] = 6;
+        HotSpotAtMovePoint[14] = 4;
+        HotSpotAtMovePoint[15] = 14;
         HotSpotAtMovePoint[16] = 0;
+        HotSpotAtMovePoint[17] = 0;
         ImmersiveTourStart = true;
         ImageToggleOnHover.Tour_Running = true;
         CameraZoomTowardPoint.CameraZoom = true;
@@ -99,7 +105,7 @@ public class Camera_Walk_Control : MonoBehaviour
         yield return new WaitForSeconds(5f);
         #endregion
         BackCardData.instance.HotSpotSizeDecrease();
-        for (int i = 1; i <= 15; i++)
+        for (int i = 1; i <= 17; i++)
         {
           
             if (i < CameraMovePoints.Length && !isCameraMoving)
@@ -117,11 +123,9 @@ public class Camera_Walk_Control : MonoBehaviour
                         LeanTween.move(myCamera.gameObject, new Vector3(
                             CameraMovePoints[i].transform.localPosition.x,
                             CameraMovePoints[i].transform.localPosition.y,
-                            CameraMovePoints[i].transform.localPosition.z), distance/5f).setEaseOutQuint().setOnComplete
-
-                            (onComplete =>
+                            CameraMovePoints[i].transform.localPosition.z), distance/5f).setEaseOutQuint().setOnComplete(onComplete =>
                             {
-                                isCameraMoving = false;
+                               isCameraMoving = false;
                             });
 
                         //Rotate Camera According to Ref Point Rotation
@@ -156,11 +160,10 @@ public class Camera_Walk_Control : MonoBehaviour
             {
                 yield return new WaitForSeconds(2f);
             }
-            if (i == 15)
+            if (i == 17)
             {
-                yield return new WaitForSeconds(2f);
-                CameraZoomTowardPoint.instance.ZoomBack();
-                unableclickmenu.SetActive(false);
+                i = 1;
+                yield return new WaitForSeconds(10f);
             }
             //BackCardData.instance.HotSpot[i - 1].transform.GetChild(i - 1).GetChild(2).GetChild(1).gameObject.SetActive(true);
           

@@ -39,11 +39,13 @@ public class dellpartervideo : MonoBehaviour
         
             videoPlayer.url = url;
             videoPlayer.Prepare();
-
-            videoPlayer.prepareCompleted += (source) =>
+            while (!videoPlayer.isPrepared)
             {
-                videoPlayer.Play();
-            };
+                yield return new WaitForEndOfFrame();
+            }
+            videoPlayer.frame = 0; //just incase it's not at the first frame
+            videoPlayer.Play();
+         
         }
     }
 }

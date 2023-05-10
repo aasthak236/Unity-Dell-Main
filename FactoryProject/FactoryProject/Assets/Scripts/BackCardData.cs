@@ -209,6 +209,7 @@ public class BackCardData : MonoBehaviour
             // Guided_Tour.instance.PartnerImg[int.Parse(buttonName)].gameObject.SetActive(true);
             // desc,
             DellDescription.text = Load_Tour_text.ins.DellDescription[int.Parse(buttonName)];
+            QRCodeGenerator.instance.TexttoqrcodeDell();
             for (int i = 0; i <= 5; i++)
             {
                 OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
@@ -246,6 +247,7 @@ public class BackCardData : MonoBehaviour
             PartnerName.text = ImageLoader.instance.PS[int.Parse(buttonName)];
             StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
             PartnerDescription.text = Load_Tour_text.ins.PartnerDescription[int.Parse(buttonName)];
+            QRCodeGenerator.instance.TexttoqrcodePartner();
             // link, More Details
             // video 
             //if (Load_Tour_text.ins.PSVideoLink[int.Parse(buttonName)] == "null")

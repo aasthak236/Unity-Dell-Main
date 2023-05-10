@@ -566,8 +566,8 @@ public class Guided_Tour : MonoBehaviour
         for (int i = 2; i <= 6; i++)
         {
 
-            TourText[i - 1].text = Load_Tour_text.ins.Intro[i - 1].ToString();
-            Sub_Text[i - 2].text = Load_Tour_text.ins.sub_Intro[i - 1].ToString();
+            TourText[i - 1].text = Load_Tour_text.ins.Ending[i - 1].ToString();
+            Sub_Text[i - 2].text = Load_Tour_text.ins.sub_Ending[i - 1].ToString();
             if (TourText[i - 1].text != "")
             {
                 TextBox[i - 1].SetActive(true);
