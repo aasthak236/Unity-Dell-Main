@@ -1786,10 +1786,34 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 893152078}
+  m_TargetGraphic: {fileID: 289350496}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 818730381}
+        m_TargetAssemblyTypeName: Welcome_Screen, Assembly-CSharp
+        m_MethodName: Welcome_Btn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 818730382}
+        m_TargetAssemblyTypeName: Module_Name, Assembly-CSharp
+        m_MethodName: GetModule
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ss
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &893152078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2987,10 +3011,34 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1945765910}
+  m_TargetGraphic: {fileID: 765285868}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 818730381}
+        m_TargetAssemblyTypeName: Welcome_Screen, Assembly-CSharp
+        m_MethodName: Welcome_Btn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 818730382}
+        m_TargetAssemblyTypeName: Module_Name, Assembly-CSharp
+        m_MethodName: GetModule
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: sc
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1945765910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3394,7 +3442,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4933333268686659382}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 818730381}
+        m_TargetAssemblyTypeName: Welcome_Screen, Assembly-CSharp
+        m_MethodName: Welcome_Btn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 818730382}
+        m_TargetAssemblyTypeName: Module_Name, Assembly-CSharp
+        m_MethodName: GetModule
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: um
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &4933333268686659382
 MonoBehaviour:
   m_ObjectHideFlags: 0

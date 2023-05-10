@@ -10,6 +10,7 @@ TagManager:
   - Box
   - ChangeTxtur
   - Menu
+  - WrongBox
   layers:
   - Default
   - TransparentFX

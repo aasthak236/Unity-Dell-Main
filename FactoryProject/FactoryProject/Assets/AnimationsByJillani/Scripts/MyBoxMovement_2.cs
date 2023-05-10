@@ -18,14 +18,14 @@ public class MyBoxMovement_2 : MonoBehaviour
     }
     private void Start()
     {
-        StartCoroutine(MoveBoxes());
+       // StartCoroutine(MoveBoxes());
     }
     public IEnumerator MoveBoxes()
     {
 
         yield return new WaitForSeconds(0.5f);
 
-        Vector3 pos = new Vector3(transform.position.x -1 , transform.position.y, transform.position.z);
+        Vector3 pos = new Vector3(transform.position.x -1.1f , transform.position.y, transform.position.z);
         LeanTween.move(gameObject, pos, 1f);
 
         yield return new WaitForSeconds(0.5f);
