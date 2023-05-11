@@ -116,13 +116,22 @@ public class MyCameraController : MonoBehaviour
                     float mouseY = Input.GetAxis("Mouse Y");
                     bool bRotate = true;
 
-                    if (currentRotation.x <= 10f && mouseY > 0)
+                    if (currentRotation.x <= 30f && mouseY > 0)
                     {
                         bRotate = false;
                     }
-                    if (currentRotation.x >= 80f && mouseY < 0)
+                    if (currentRotation.x >= 60f && mouseY < 0)
                     {
                         bRotate = false;
+                    }
+
+                    if (mouseY * rotateSpeed >= 10f)
+                    {
+                        mouseY = 10f / rotateSpeed;
+                    }
+                    if (mouseY * rotateSpeed <= -10f)
+                    {
+                        mouseY = -10f / rotateSpeed;
                     }
                     if (bRotate)
                     {

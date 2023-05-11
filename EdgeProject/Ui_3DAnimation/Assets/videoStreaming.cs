@@ -31,6 +31,6 @@ public class videoStreaming : MonoBehaviour
     {
         canvas.sizeDelta = new Vector2(width, height);
         rawimage.sizeDelta = new Vector2(width, height);
-        mainCamera.orthographicSize = height / 2;
+        //mainCamera.orthographicSize = height / 2;
     }
 }

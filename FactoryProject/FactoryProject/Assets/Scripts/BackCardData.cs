@@ -341,7 +341,7 @@ public class BackCardData : MonoBehaviour
     }
     public void parntnerclose()
     {
-        VideoLoader.instance.videoPlayer.Stop();
+        dellpartervideo.instance.videoPlayer.Stop();
         PartnerFrontWindow.SetActive(true);
     }
     public void Dellclose()

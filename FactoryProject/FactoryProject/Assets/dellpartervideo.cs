@@ -24,7 +24,7 @@ public class dellpartervideo : MonoBehaviour
     }
     public IEnumerator videoplaydellpartner()
     {
-        videoimage.SetActive(true);
+        
         url = BackCardData.instance.videolink;
         videoPlayer.url = url;
         UnityWebRequest www = UnityWebRequest.Get(url);
@@ -45,7 +45,8 @@ public class dellpartervideo : MonoBehaviour
             }
             videoPlayer.frame = 0; //just incase it's not at the first frame
             videoPlayer.Play();
-         
+            videoimage.SetActive(true);
+
         }
     }
 }

@@ -11,8 +11,12 @@ public class QRCodeGenerator : MonoBehaviour
     public RawImage _rawImageBackgroundDell;
     private Texture2D StoreQrcode;
     public static QRCodeGenerator instance;
+    public GameObject QuitButton;
     void Start()
     {
+        #if UNITY_STANDALONE_WIN
+        QuitButton.SetActive(true);
+        #endif
         instance = this;
         StoreQrcode = new Texture2D(256,256);
   

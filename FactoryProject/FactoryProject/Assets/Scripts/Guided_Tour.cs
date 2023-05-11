@@ -148,7 +148,7 @@ public class Guided_Tour : MonoBehaviour
         Unmute.SetActive(false);
         PlayerPrefs.SetInt("MusicOn", 1);
         AudioListener.volume = 1f;
-
+        dellpartervideo.instance.videoPlayer.SetDirectAudioVolume(0, 1f);
         //if (VideoLoader.instance.VideoIsRunning)
         //{
         //    VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, false);
@@ -160,11 +160,12 @@ public class Guided_Tour : MonoBehaviour
         Unmute.SetActive(true);
         PlayerPrefs.SetInt("MusicOn", 0);
         AudioListener.volume = 0f;
+        dellpartervideo.instance.videoPlayer.SetDirectAudioVolume(0, 0f);
         //if (VideoLoader.instance.VideoIsRunning)
         //{
         //    VideoLoader.instance.videoPlayer.SetDirectAudioMute(0, true);
         //}
-       
+
 
     }
     public void Update()
@@ -1185,7 +1186,7 @@ public class Guided_Tour : MonoBehaviour
         dellvideopanel.SetActive(false);
         Camera_Walk_Control.instance.ImmersiveTourCaption.SetActive(false);
         audioSource.clip = null;
-
+        dellpartervideo.instance.videoPlayer.Stop();
         for (int i = 0; i <= 6; i++)
         {
             DellSolutionImg[i].gameObject.SetActive(false);

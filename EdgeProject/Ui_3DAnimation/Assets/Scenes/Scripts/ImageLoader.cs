@@ -17,38 +17,54 @@ public class ImageLoader : MonoBehaviour
     public string[] gettext;
     public string url;
     public GameObject BackFlipCard;
-    
+    public GameObject SC, SS, UM;
     public void Awake()
     {
         instance = this;
         url = Guided_Tour.instance.Assets_Folder + "/cards/" + Module_Name.ModuleName + ".xml";
 
     }
-//    public IEnumerator frontBB(string ComponentName)
-//   {
-       
-//            UnityWebRequest www = UnityWebRequest.Get(url);
-//             yield return www.SendWebRequest();
+    public void Start()
+    {
+        if (Module_Name.ModuleName == "sc")
+        {
+            SC.SetActive(true);
+        }
+        else if(Module_Name.ModuleName == "ss")
+        {
+            SS.SetActive(true);
+        }
+        else
+        {
+            UM.SetActive(true);
 
-//            if (www.result != UnityWebRequest.Result.Success)
-//            {
-//                Debug.Log(www.error);
-//            }
-//            else
-//   {
-//            for (int i = 1; i <= 5; i++)
-//            {
-//                string xmlText = www.downloadHandler.text;
-//                XmlDocument xmlDoc = new XmlDocument();
-//                xmlDoc.LoadXml(xmlText);
-//                XmlNode node = xmlDoc.SelectSingleNode(Module_Name.instance.ModuleName+"/"+ (ComponentName) + i);
-//                XmlElement root = xmlDoc.DocumentElement;
-//                string nodeText = node.InnerText;
-//                Front[i - 1].text = nodeText;
-//                gettext[i-1] = nodeText;
-//}
-//        }
-//    }
+        }
+    }
+    //    public IEnumerator frontBB(string ComponentName)
+    //   {
+
+    //            UnityWebRequest www = UnityWebRequest.Get(url);
+    //             yield return www.SendWebRequest();
+
+    //            if (www.result != UnityWebRequest.Result.Success)
+    //            {
+    //                Debug.Log(www.error);
+    //            }
+    //            else
+    //   {
+    //            for (int i = 1; i <= 5; i++)
+    //            {
+    //                string xmlText = www.downloadHandler.text;
+    //                XmlDocument xmlDoc = new XmlDocument();
+    //                xmlDoc.LoadXml(xmlText);
+    //                XmlNode node = xmlDoc.SelectSingleNode(Module_Name.instance.ModuleName+"/"+ (ComponentName) + i);
+    //                XmlElement root = xmlDoc.DocumentElement;
+    //                string nodeText = node.InnerText;
+    //                Front[i - 1].text = nodeText;
+    //                gettext[i-1] = nodeText;
+    //}
+    //        }
+    //    }
     public void LoadFliperText(string ComponentName)
     {
         if (ComponentName == "BB")
