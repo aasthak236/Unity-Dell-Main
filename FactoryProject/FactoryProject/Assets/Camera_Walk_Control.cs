@@ -20,6 +20,7 @@ public class Camera_Walk_Control : MonoBehaviour
 
     public static Camera_Walk_Control instance;
     public GameObject unableclickmenu;
+    public GameObject[] FactoryLabel;
     void Start()
     {
         instance = this;
@@ -33,6 +34,10 @@ public class Camera_Walk_Control : MonoBehaviour
         for (int i = 0; i <= 4; i++)
         {
             ImageLoader.instance.MenuButton[i].GetComponent<Image>().color = ImageLoader.instance.NormalColor;
+        }
+        for (int i = 0; i <= 5; i++)
+        {
+            FactoryLabel[i].SetActive(false);
         }
     }
     public void StopCoroutineImmersiveTour()
@@ -55,10 +60,11 @@ public class Camera_Walk_Control : MonoBehaviour
     {
         
     }
+    float distance;
     IEnumerator myCoroutine;
     IEnumerator  CameraWalk()
     {
-       
+      
          //HotSpotAtMovePoint[0] = 1;
         HotSpotAtMovePoint[1] = 1;
         HotSpotAtMovePoint[2] = 11;
@@ -78,13 +84,16 @@ public class Camera_Walk_Control : MonoBehaviour
         HotSpotAtMovePoint[16] = 0;
         HotSpotAtMovePoint[17] = 0;
         ImmersiveTourStart = true;
+        
         ImageToggleOnHover.Tour_Running = true;
         CameraZoomTowardPoint.CameraZoom = true;
         for (int i = 0; i <= 13; i++)
         {
             BackCardData.instance.HotSpot[i].SetActive(false);
         }
-        #region First CameraZoom
+         FirstCameraZoom:
+
+
 
         LeanTween.move(myCamera.gameObject, new Vector3(
                          CameraMovePoints[0].transform.localPosition.x,
@@ -101,9 +110,11 @@ public class Camera_Walk_Control : MonoBehaviour
            CameraMovePoints[0].transform.eulerAngles.x,
            CameraMovePoints[0].transform.eulerAngles.y,
            CameraMovePoints[0].transform.eulerAngles.z), 3f).setEaseOutQuint();
-        
-        yield return new WaitForSeconds(5f);
-        #endregion
+        Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
+        Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
+        Guided_Tour.instance.audioSource.Play();
+        yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+       
         BackCardData.instance.HotSpotSizeDecrease();
         for (int i = 1; i <= 17; i++)
         {
@@ -116,7 +127,14 @@ public class Camera_Walk_Control : MonoBehaviour
                 //if (j == i)
                 //{
                 // Set the camera's orthographic property to false to switch to perspective projection
-                float distance = Vector3.Distance(Camera.main.transform.position, CameraMovePoints[i].transform.position);
+                if (i != 17)
+                {
+                    distance = Vector3.Distance(Camera.main.transform.position, CameraMovePoints[i].transform.position);
+                }
+                else
+                {
+                    distance = 20f;
+                }
                 myCamera.orthographic = false;
 
                         //Move Camera Toward Point
@@ -148,22 +166,30 @@ public class Camera_Walk_Control : MonoBehaviour
                 BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].transform.GetChild(0).GetChild(2).GetChild(1).gameObject.SetActive(true);
                 BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].SetActive(true);
                 yield return new WaitForSeconds(1f);
-                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[HotSpotAtMovePoint[i] - 1];
-                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[HotSpotAtMovePoint[i] - 1].length;
+                Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[HotSpotAtMovePoint[i]];
+                Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[HotSpotAtMovePoint[i]].length;
                 Guided_Tour.instance.audioSource.Play();
                 yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
                 BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].SetActive(false);
                 BackCardData.instance.HotSpot[HotSpotAtMovePoint[i] - 1].transform.GetChild(0).GetChild(2).GetChild(1).gameObject.SetActive(false);
-                
+                ImmersiveTourCaption.SetActive(false);
+
             }
             else
             {
-                yield return new WaitForSeconds(2f);
+
+                float waittime = 2f;
+                if (waittime < (distance /5))
+                {
+                    waittime = distance / 5f;
+                }
+                yield return new WaitForSeconds(waittime);
             }
             if (i == 17)
             {
                 i = 1;
                 yield return new WaitForSeconds(10f);
+                goto FirstCameraZoom;
             }
             //BackCardData.instance.HotSpot[i - 1].transform.GetChild(i - 1).GetChild(2).GetChild(1).gameObject.SetActive(true);
           

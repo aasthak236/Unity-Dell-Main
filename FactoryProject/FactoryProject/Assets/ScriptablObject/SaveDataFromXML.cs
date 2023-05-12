@@ -97,6 +97,7 @@ public class SaveDataFromXML : MonoBehaviour
         Img_HARDWARE.Clear();
         Sub_HARDWARE.Clear();
         FO.Clear();
+        Sub_FO.Clear();
         for (int i = 0; i <= 4; i++)
         {
             INTRO.Add("");

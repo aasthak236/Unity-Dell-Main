@@ -235,7 +235,7 @@ public class Guided_Tour : MonoBehaviour
     public IEnumerator LoadaudioHotspotIntros()
     {
 
-        for (int i = 1; i <= 14; i++)
+        for (int i = 0; i <= 14; i++)
         {
             //am get from hotspot 
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/uc" + i + "/2.mp3", AudioType.MPEG))
@@ -244,7 +244,7 @@ public class Guided_Tour : MonoBehaviour
 
                 if (www.result == UnityWebRequest.Result.Success)
                 {
-                    HotSpotAudioIntro[i - 1] = DownloadHandlerAudioClip.GetContent(www);
+                    HotSpotAudioIntro[i] = DownloadHandlerAudioClip.GetContent(www);
                    // HotSpotTextIntro[i - 1].text = "Use Case Details " + i.ToString();
                 }
                 else
@@ -554,7 +554,7 @@ public class Guided_Tour : MonoBehaviour
         ResetTourTextBox();
         string usecasenum = ImageToggleOnHover.UseCase;
         string EndNumber = usecasenum.Substring(2, usecasenum.Length - 2);
-        audioClips[1] = HotSpotAudioIntro[int.Parse(EndNumber) - 1];
+        audioClips[1] = HotSpotAudioIntro[int.Parse(EndNumber)];
         
        
         card.SetActive(true);
@@ -1196,6 +1196,11 @@ public class Guided_Tour : MonoBehaviour
         for (int i = 0; i <= 6; i++)
         {
             ImageLoader.instance.Cards[i].SetActive(false);
+        }
+
+        for (int i = 0; i <= 5; i++)
+        {
+            Camera_Walk_Control.instance.FactoryLabel[i].SetActive(true);
         }
     }
     public void HexagonBlank()

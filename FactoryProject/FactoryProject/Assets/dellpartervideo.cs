@@ -10,6 +10,7 @@ public class dellpartervideo : MonoBehaviour
     public static dellpartervideo instance;
     public bool VideoIsRunning;
     public GameObject videoimage;
+    public GameObject VideoLodingBar;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,7 @@ public class dellpartervideo : MonoBehaviour
     }
     public IEnumerator videoplaydellpartner()
     {
-        
+        VideoLodingBar.SetActive(true);
         url = BackCardData.instance.videolink;
         videoPlayer.url = url;
         UnityWebRequest www = UnityWebRequest.Get(url);
@@ -45,7 +46,9 @@ public class dellpartervideo : MonoBehaviour
             }
             videoPlayer.frame = 0; //just incase it's not at the first frame
             videoPlayer.Play();
+            VideoLodingBar.SetActive(false);
             videoimage.SetActive(true);
+           
 
         }
     }
