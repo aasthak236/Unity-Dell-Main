@@ -114,6 +114,7 @@ public class CameraZoomTowardPoint : MonoBehaviour
         Camera_Walk_Control.instance.unableclickmenu.SetActive(false);
         Guided_Tour.instance.StopCoroutine();//stop for usecase
         BackCardData.instance.StopCoroutineTour();//stop for outcome
+      //  Camera_Walk_Control.instance.StopCoroutineImmersiveTour();
         Guided_Tour.instance.ClosedAllWindow();
         BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
         //BackCardData.instance.HotSpotsRuninng = false;

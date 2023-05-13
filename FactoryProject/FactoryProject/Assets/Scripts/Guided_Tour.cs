@@ -1217,6 +1217,7 @@ public class Guided_Tour : MonoBehaviour
         {
             Camera_Walk_Control.instance.FactoryLabel[i].SetActive(true);
         }
+      
     }
     public void HexagonBlank()
     { 

@@ -17,7 +17,7 @@ public class Camera_Walk_Control : MonoBehaviour
     public float rotateTime = 1f;
     public LeanTweenType easeType = LeanTweenType.easeInOutQuad;
     public GameObject ImmersiveTourCaption;
-
+    public bool bCameraWalkRunning=false;
     public static Camera_Walk_Control instance;
     public GameObject unableclickmenu;
     public GameObject[] FactoryLabel;
@@ -28,27 +28,41 @@ public class Camera_Walk_Control : MonoBehaviour
     }
     public void TestCameraWalk()
     {
-        //StartCoroutine(CameraWalk());
-        myCoroutine = CameraWalk();
-        StartCoroutine(myCoroutine);
+        if (bCameraWalkRunning)
+        {
+            bCameraWalkRunning = false;
+            StopCoroutineImmersiveTour();
+
+        }
+        else
+        {
+            bCameraWalkRunning = true;
+            //StartCoroutine(CameraWalk());
+            myCoroutine = CameraWalk();
+            StartCoroutine(myCoroutine);
+          
+            for (int i = 0; i <= 5; i++)
+            {
+                FactoryLabel[i].SetActive(false);
+            }
+        }
         for (int i = 0; i <= 5; i++)
         {
             ImageLoader.instance.MenuButton[i].GetComponent<Image>().color = ImageLoader.instance.NormalColor;
         }
-        for (int i = 0; i <= 5; i++)
-        {
-            FactoryLabel[i].SetActive(false);
-        }
+
     }
     public void StopCoroutineImmersiveTour()
     {
         try
         {
             StopCoroutine(myCoroutine);
+
         }
         catch { 
         
         }
+        bCameraWalkRunning = false;
         CameraZoomTowardPoint.instance.ZoomBack();
         for (int i = 0; i <= 13; i++)
         {
@@ -64,7 +78,7 @@ public class Camera_Walk_Control : MonoBehaviour
     IEnumerator myCoroutine;
     IEnumerator  CameraWalk()
     {
-      
+       
          //HotSpotAtMovePoint[0] = 1;
         HotSpotAtMovePoint[1] = 1;
         HotSpotAtMovePoint[2] = 11;
@@ -185,11 +199,12 @@ public class Camera_Walk_Control : MonoBehaviour
                 }
                 yield return new WaitForSeconds(waittime);
             }
-            if (i == 17)
+            if ((i == 17) && bCameraWalkRunning)
             {
                 i = 1;
                 yield return new WaitForSeconds(10f);
                 goto FirstCameraZoom;
+
             }
             //BackCardData.instance.HotSpot[i - 1].transform.GetChild(i - 1).GetChild(2).GetChild(1).gameObject.SetActive(true);
           
