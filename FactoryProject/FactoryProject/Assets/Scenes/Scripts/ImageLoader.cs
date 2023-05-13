@@ -43,7 +43,7 @@ public class ImageLoader : MonoBehaviour
 
     public Color BackColor1, HeadingColor1, TextColor1;
     public Color BackColor2, HeadingColor2, TextColor2;
-
+    public GameObject UsecasesPanel;
 
     public void Awake()
     {
@@ -202,7 +202,6 @@ public class ImageLoader : MonoBehaviour
                 //}
                 // pressed = true;
 
-                Load_Tour_text.ins.loadhotspotlabeltext();
             }
             else if (Component == "DS")
             {
@@ -247,6 +246,20 @@ public class ImageLoader : MonoBehaviour
                     BackCardData.instance.HotSpot[i].SetActive(false);
                 }
             }
+            else if (Component == "UC")
+            {
+
+                CameraZoomTowardPoint.instance.ZoomBack();
+                MenuButton[5].GetComponent<Image>().color = PressedColor;
+                HexagonInnerColor.color = PSInnerColor;
+                HexagonMiddleColor.color = PSMiddleColor;
+                HexagonOuterColor.color = PSOuterColor;
+               
+                UsecasesPanel.SetActive(true);
+                 pressed = true;
+
+                Load_Tour_text.ins.loadhotspotlabeltext();
+            }
         }
        else
         {
@@ -262,6 +275,9 @@ public class ImageLoader : MonoBehaviour
             BackCardData.instance.PartnerFrontWindow.SetActive(false);
             BackCardData.instance.DellFrontWindow.SetActive(false);
             BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
+            UsecasesPanel.SetActive(false);
+
+           
         }
     }
     public IEnumerator frontBB(string ComponentName)

@@ -31,7 +31,7 @@ public class Camera_Walk_Control : MonoBehaviour
         //StartCoroutine(CameraWalk());
         myCoroutine = CameraWalk();
         StartCoroutine(myCoroutine);
-        for (int i = 0; i <= 4; i++)
+        for (int i = 0; i <= 5; i++)
         {
             ImageLoader.instance.MenuButton[i].GetComponent<Image>().color = ImageLoader.instance.NormalColor;
         }

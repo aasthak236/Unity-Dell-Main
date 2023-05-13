@@ -67,7 +67,7 @@ public class Guided_Tour : MonoBehaviour
     public GameObject Mute, Unmute;
     public GameObject NextPreviousBtn;
     public RawImage videoRawimage;
-
+    public GameObject MainLoadingBar;
     private void Awake()
     {
         Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/FactoryAssetsDev/";
@@ -95,8 +95,12 @@ public class Guided_Tour : MonoBehaviour
         //{
         //    Factory.transform.rotation = Quaternion.Euler(0f, -110f, 0f);
         //}
-
+        Invoke("OffLoading",3f);
      }
+    public void OffLoading()
+    {
+        MainLoadingBar.SetActive(false);
+    }
     IEnumerator LoadXML()
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, "AssetsLocation.xml");
@@ -107,7 +111,11 @@ public class Guided_Tour : MonoBehaviour
 
         if (www.result == UnityWebRequest.Result.ConnectionError)
         {
-            Debug.LogError("Error loading XML: " + www.error);
+           // Debug.LogError("Error loading XML: " + www.error);
+             if(Directory.Exists(Path.Combine(Application.streamingAssetsPath, "Cards")))
+                { 
+                Assets_Folder = Application.streamingAssetsPath;
+                 }
         }
         else
         {
@@ -120,8 +128,11 @@ public class Guided_Tour : MonoBehaviour
                 Assets_Folder = node.InnerText.ToString();
             }
             catch
-            { 
-            
+            {
+                if (Directory.Exists(Path.Combine(Application.streamingAssetsPath, "Cards")))
+                {
+                    Assets_Folder = Application.streamingAssetsPath;
+                }
             }
             
         }
@@ -526,7 +537,7 @@ public class Guided_Tour : MonoBehaviour
     IEnumerator myCoroutine;
     public IEnumerator PlayAudioClips()
     {
-        yield return new WaitForSeconds(0.5f);
+       // yield return new WaitForSeconds(0.5f);
     
 
      
@@ -629,7 +640,7 @@ public class Guided_Tour : MonoBehaviour
 
 
         EC_Start:
-      
+        videoplayer.SetActive(true);
         //Hexagon.SetActive(false); 
         //card.SetActive(false);
         ResetTourTextBox();
@@ -691,8 +702,9 @@ public class Guided_Tour : MonoBehaviour
         }
         buttonClicked = false;
 
-        DS_Start:
+    DS_Start:
         videoplayer.SetActive(false);
+        VideoLoader.instance.loadingvideo.SetActive(false);
         ResetTourTextBox();
        // ResetTourImages();
         yield return new WaitForSeconds(StandardDelay);
@@ -804,7 +816,7 @@ public class Guided_Tour : MonoBehaviour
    
 
     PS_Start:
-       
+        videoplayer.SetActive(false);
         ResetTourTextBox();
         hexaTxt[0].text = "Validated Partners";
         if (saveDataFile.PSEndIndx > 0)
@@ -1087,6 +1099,7 @@ public class Guided_Tour : MonoBehaviour
         FadeOut.SetActive(true);
         //video active false
         videoplayer.SetActive(false);
+        VideoLoader.instance.loadingvideo.SetActive(false);
         yield return new WaitForSeconds(audiolength);
         FadeIn.SetActive(false);
      
@@ -1183,8 +1196,10 @@ public class Guided_Tour : MonoBehaviour
         CTAHexa.SetActive(false);
         BackCardData.instance.OutcomeTextPanel.SetActive(false);
         videoplayer.SetActive(false);
+        VideoLoader.instance.loadingvideo.SetActive(false);
         dellvideopanel.SetActive(false);
         Camera_Walk_Control.instance.ImmersiveTourCaption.SetActive(false);
+        ImageLoader.instance.UsecasesPanel.SetActive(false);
         audioSource.clip = null;
         dellpartervideo.instance.videoPlayer.Stop();
         for (int i = 0; i <= 6; i++)

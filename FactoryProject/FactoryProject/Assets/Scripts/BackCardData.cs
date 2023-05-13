@@ -18,6 +18,7 @@ public class BackCardData : MonoBehaviour
     public TextMeshProUGUI[] PartnerSolutionText;
     public TextMeshProUGUI[] DellSolutionText;
     public TextMeshProUGUI BackCardText;
+    public TextMeshProUGUI BackCardTitleText;
     public TextMeshProUGUI PartnerName;
     public TextMeshProUGUI BOText;
     public GameObject OutcomeTextPanel;
@@ -109,6 +110,7 @@ public class BackCardData : MonoBehaviour
             //old flipper
             ImageLoader.instance.BackFlipCard.SetActive(true);
             BackCardText.text = ImageLoader.instance.VPr[int.Parse(buttonName)].ToString();
+            BackCardTitleText.text = ImageLoader.instance.VP[int.Parse(buttonName)].ToString();
             HotSpotsRuninng = true;
         }
         else if (ImageLoader.ComponentName == "EC")
@@ -419,7 +421,7 @@ public class BackCardData : MonoBehaviour
             ImageToggleOnHover.Tour_Running = false;
 
         }
-        for (int i = 0; i <= 4; i++)
+        for (int i = 0; i <= 5; i++)
         {
           ImageLoader.instance.MenuButton[i].GetComponent<Image>().color = ImageLoader.instance.NormalColor;
         }
@@ -449,7 +451,7 @@ public class BackCardData : MonoBehaviour
         if (ButtonNaame == 0)
         {
             numberofhotspots = 6;
-            hotspotlist[0] =3;
+            hotspotlist[0] = 3;
             hotspotlist[1] = 5;
             hotspotlist[2] = 0;
             hotspotlist[3] = 7;
@@ -610,11 +612,11 @@ public class BackCardData : MonoBehaviour
         }
         else if (ButtonNaame == 4)
         {
-            numberofhotspots = 4;
+            numberofhotspots = 3;
             hotspotlist[0] = 10;
-            hotspotlist[1] = 11;
-            hotspotlist[2] = 6;
-            hotspotlist[3] = 13;
+            hotspotlist[1] = 6;
+            hotspotlist[2] = 11;
+            //hotspotlist[3] = 13;
             OutcomeTextPanel.SetActive(true);
             Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
             Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
@@ -649,8 +651,9 @@ public class BackCardData : MonoBehaviour
         }
         else
         {
-            numberofhotspots = 1;
-            hotspotlist[0] = 12;
+            numberofhotspots = 2;
+            hotspotlist[0] = 6;
+            hotspotlist[0] = 11;
             OutcomeTextPanel.SetActive(true);
             Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame];
             Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[ButtonNaame].length;
