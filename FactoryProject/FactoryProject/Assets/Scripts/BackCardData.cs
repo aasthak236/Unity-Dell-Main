@@ -123,6 +123,7 @@ public class BackCardData : MonoBehaviour
             //old flipper
             ImageLoader.instance.BackFlipCard.SetActive(true);
             BackCardText.text = ImageLoader.instance.ECr[int.Parse(buttonName)].ToString();
+            BackCardTitleText.text = ImageLoader.instance.EC[int.Parse(buttonName)].ToString();
             for (int i = 0; i <= 5; i++)
             {
                 OutcomeBtn[i].GetComponent<Image>().color = NormalColor;
