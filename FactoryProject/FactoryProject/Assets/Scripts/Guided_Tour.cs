@@ -75,9 +75,10 @@ public class Guided_Tour : MonoBehaviour
         instance = this;
         screenWidth = Screen.width;
         screenHeight = Screen.height;
-        
+         buttonClicked = false;
+          PreviousButtonClicked = false;
 
-    }
+}
     
 
      void Start()
@@ -95,7 +96,7 @@ public class Guided_Tour : MonoBehaviour
         //{
         //    Factory.transform.rotation = Quaternion.Euler(0f, -110f, 0f);
         //}
-        Invoke("OffLoading",3f);
+        Invoke("OffLoading",5f);
      }
     public void OffLoading()
     {
