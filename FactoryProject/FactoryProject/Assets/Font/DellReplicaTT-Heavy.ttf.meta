@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 317904eaf6032e5498e29c6e9424a794
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Dell Replica TT
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 405dc6c620d69614083f438912ca0595, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
