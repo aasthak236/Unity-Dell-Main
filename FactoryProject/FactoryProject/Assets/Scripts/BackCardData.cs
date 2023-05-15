@@ -50,6 +50,7 @@ public class BackCardData : MonoBehaviour
         HotSpotSizeIncrease();
         Invoke("ActiveEnterButton", 10f);
         Invoke("HotspotLabelText", 3f);
+        BusinessOutcomeStart = false;
     }
     public void HotspotLabelText()
     {

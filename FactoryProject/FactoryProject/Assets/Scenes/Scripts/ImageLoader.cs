@@ -48,6 +48,7 @@ public class ImageLoader : MonoBehaviour
     public void Awake()
     {
         instance = this;
+ //       url = Guided_Tour.instance.Assets_Folder + "cards/outcomes.xml";
         url = "https://dell-unity-dev.s3-accelerate.amazonaws.com/Factory+Assets/cards/outcomes.xml";
        
 
@@ -99,7 +100,7 @@ public class ImageLoader : MonoBehaviour
     public Button[] MenuButton;
     public void OpenCard(string Component)
     {
-        for (int i = 0; i <= 4; i++)
+        for (int i = 0; i <= 6; i++)
         {
             MenuButton[i].GetComponent<Image>().color = NormalColor;
         }

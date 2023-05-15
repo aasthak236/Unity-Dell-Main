@@ -32,14 +32,17 @@ public class Camera_Walk_Control : MonoBehaviour
         {
             bCameraWalkRunning = false;
             StopCoroutineImmersiveTour();
-
+            ImageLoader.instance.MenuButton[6].GetComponent<Image>().color = ImageLoader.instance.NormalColor;
         }
         else
         {
             bCameraWalkRunning = true;
+            BackCardData.instance.StopCoroutineTour();
+            Guided_Tour.instance.StopCoroutine();
             //StartCoroutine(CameraWalk());
             myCoroutine = CameraWalk();
             StartCoroutine(myCoroutine);
+            ImageLoader.instance.MenuButton[6].GetComponent<Image>().color = ImageLoader.instance.PressedColor;
           
             for (int i = 0; i <= 5; i++)
             {
@@ -50,6 +53,7 @@ public class Camera_Walk_Control : MonoBehaviour
         {
             ImageLoader.instance.MenuButton[i].GetComponent<Image>().color = ImageLoader.instance.NormalColor;
         }
+        
 
     }
     public void StopCoroutineImmersiveTour()
@@ -63,6 +67,7 @@ public class Camera_Walk_Control : MonoBehaviour
         
         }
         bCameraWalkRunning = false;
+        ImageLoader.instance.MenuButton[6].GetComponent<Image>().color = ImageLoader.instance.NormalColor;
         CameraZoomTowardPoint.instance.ZoomBack();
         for (int i = 0; i <= 13; i++)
         {
@@ -124,6 +129,13 @@ public class Camera_Walk_Control : MonoBehaviour
            CameraMovePoints[0].transform.eulerAngles.x,
            CameraMovePoints[0].transform.eulerAngles.y,
            CameraMovePoints[0].transform.eulerAngles.z), 3f).setEaseOutQuint();
+
+        Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.audioClips[0];
+        Guided_Tour.instance.audiolength = Guided_Tour.instance.audioClips[0].length;
+        Guided_Tour.instance.audioSource.Play();
+        yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+        Guided_Tour.instance.audioSource.Play();
+        yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
         Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
         Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
         Guided_Tour.instance.audioSource.Play();

@@ -41,7 +41,7 @@ public class VideoLoader : MonoBehaviour
     }
     public IEnumerator TourVideo(string urlvideo)
     {
-        loadingvideo.SetActive(true);
+        //loadingvideo.SetActive(true);
         url = urlvideo;
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
@@ -83,7 +83,7 @@ public class VideoLoader : MonoBehaviour
             }
             videoPlayer.frame = 0; //just incase it's not at the first frame
             videoPlayer.Play();
-            loadingvideo.SetActive(false);
+            //loadingvideo.SetActive(false);
             Guided_Tour.instance.videoplayer.SetActive(true);
             Guided_Tour.instance.videoRawimage.gameObject.SetActive(true);
 

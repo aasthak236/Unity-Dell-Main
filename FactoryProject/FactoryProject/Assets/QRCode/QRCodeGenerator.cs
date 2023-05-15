@@ -46,7 +46,7 @@ public class QRCodeGenerator : MonoBehaviour
 
     public void TexttoqrcodeDell()
     {
-        string textwriter = string.IsNullOrEmpty(Load_Tour_text.ins.PartnersLink[int.Parse(BackCardData.instance.buttonName)]) ? "you should write" : Load_Tour_text.ins.PartnersLink[int.Parse(BackCardData.instance.buttonName)];
+        string textwriter = string.IsNullOrEmpty(Load_Tour_text.ins.DellLink[int.Parse(BackCardData.instance.buttonName)]) ? "you should write" : Load_Tour_text.ins.DellLink[int.Parse(BackCardData.instance.buttonName)];
         Color32[] converttexturetopixle = Encode(textwriter, StoreQrcode.width, StoreQrcode.height);
         StoreQrcode.SetPixels32(converttexturetopixle);
         StoreQrcode.Apply();

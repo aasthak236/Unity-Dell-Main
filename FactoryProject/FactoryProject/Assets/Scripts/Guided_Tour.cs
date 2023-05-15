@@ -704,7 +704,7 @@ public class Guided_Tour : MonoBehaviour
 
     DS_Start:
         videoplayer.SetActive(false);
-        VideoLoader.instance.loadingvideo.SetActive(false);
+        //VideoLoader.instance.loadingvideo.SetActive(false);
         ResetTourTextBox();
        // ResetTourImages();
         yield return new WaitForSeconds(StandardDelay);
@@ -818,10 +818,10 @@ public class Guided_Tour : MonoBehaviour
     PS_Start:
         videoplayer.SetActive(false);
         ResetTourTextBox();
-        hexaTxt[0].text = "Validated Partners";
+
         if (saveDataFile.PSEndIndx > 0)
         {
-
+            hexaTxt[0].text = "Validated Partners";
             for (int i = 1; i <= saveDataFile.PSEndIndx; i++)
             {
                 card.SetActive(true);
@@ -1099,7 +1099,7 @@ public class Guided_Tour : MonoBehaviour
         FadeOut.SetActive(true);
         //video active false
         videoplayer.SetActive(false);
-        VideoLoader.instance.loadingvideo.SetActive(false);
+        //VideoLoader.instance.loadingvideo.SetActive(false);
         yield return new WaitForSeconds(audiolength);
         FadeIn.SetActive(false);
      
@@ -1196,7 +1196,7 @@ public class Guided_Tour : MonoBehaviour
         CTAHexa.SetActive(false);
         BackCardData.instance.OutcomeTextPanel.SetActive(false);
         videoplayer.SetActive(false);
-        VideoLoader.instance.loadingvideo.SetActive(false);
+        //VideoLoader.instance.loadingvideo.SetActive(false);
         dellvideopanel.SetActive(false);
         Camera_Walk_Control.instance.ImmersiveTourCaption.SetActive(false);
         ImageLoader.instance.UsecasesPanel.SetActive(false);
