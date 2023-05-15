@@ -90,6 +90,10 @@ public class BackCardData : MonoBehaviour
     public int currentgraphic;
     public int EndingGraphic;
     public int StartingGraphic;
+
+    public int currentgraphicDell;
+    public int EndingGraphicDell;
+    public int StartingGraphicDell;
     public void ShowBackFlipper()
     {
         
@@ -200,7 +204,25 @@ public class BackCardData : MonoBehaviour
         }
         else if (ImageLoader.ComponentName == "DS")
         {
-          
+
+            previousbuttonDell.SetActive(false);
+            currentgraphicDell = 0;
+            EndingGraphicDell = Load_Tour_text.ins.DellGraphicsIndex[int.Parse(buttonName)] - 1;
+            StartingGraphicDell = 0;
+            if (int.Parse(buttonName) > 0)
+            {
+                StartingGraphicDell = Load_Tour_text.ins.DellGraphicsIndex[int.Parse(buttonName) - 1];
+            }
+            currentgraphicDell = StartingGraphicDell;
+            if (currentgraphicDell == EndingGraphicDell)
+            {
+                nextbuttonDell.SetActive(false);
+            }
+            else
+            {
+                nextbuttonDell.SetActive(true);
+            }
+
             for (int i = 0; i <= 5; i++)
             {
                 ImageLoader.instance.Cards[i].SetActive(false);
@@ -209,7 +231,7 @@ public class BackCardData : MonoBehaviour
             // name, 
             DellName.text = ImageLoader.instance.DS[int.Parse(buttonName)];
             // image,
-            StartCoroutine(LoadDellImageWithUrlPartners(Load_Tour_text.ins.Dell[int.Parse(buttonName)])); ;
+            StartCoroutine(LoadDellImageWithUrlPartners(Load_Tour_text.ins.DellGraphics[currentgraphicDell])); ;
             // Guided_Tour.instance.PartnerImg[int.Parse(buttonName)].gameObject.SetActive(true);
             // desc,
             DellDescription.text = Load_Tour_text.ins.DellDescription[int.Parse(buttonName)];
@@ -271,6 +293,8 @@ public class BackCardData : MonoBehaviour
     }
     public GameObject nextbutton;
     public GameObject previousbutton;
+    public GameObject nextbuttonDell;
+    public GameObject previousbuttonDell;
     public void NextButton()
     {
         currentgraphic++;
@@ -279,7 +303,7 @@ public class BackCardData : MonoBehaviour
         if (lastThreeChars == "mp4")
         {
         
-            videolink = Load_Tour_text.ins.PartnerGraphics[currentgraphic];
+            videolink = Guided_Tour.instance.Assets_Folder + "graphics/"+ Load_Tour_text.ins.PartnerGraphics[currentgraphic];
            StartCoroutine(dellpartervideo.instance.videoplaydellpartner());
            
             PartnerImage.gameObject.SetActive(false);
@@ -315,7 +339,7 @@ public class BackCardData : MonoBehaviour
         if (lastThreeChars == "mp4")
         {
             PartnerImage.gameObject.SetActive(false);
-            videolink = Load_Tour_text.ins.PartnerGraphics[currentgraphic];
+            videolink = Guided_Tour.instance.Assets_Folder + "graphics/"+ Load_Tour_text.ins.PartnerGraphics[currentgraphic];
           StartCoroutine(dellpartervideo.instance.videoplaydellpartner());
            
         }
@@ -340,6 +364,77 @@ public class BackCardData : MonoBehaviour
             previousbutton.SetActive(true);
         }
     }
+
+    public void NextButtonDell()
+    {
+        currentgraphicDell++;
+        string graphicslink = Load_Tour_text.ins.DellGraphics[currentgraphicDell];
+        string lastThreeChars = graphicslink.Substring(graphicslink.Length - 3);
+        if (lastThreeChars == "mp4")
+        {
+
+            videolink = Guided_Tour.instance.Assets_Folder + "graphics/"+Load_Tour_text.ins.DellGraphics[currentgraphicDell];
+            StartCoroutine(dellpartervideo.instance.videoplaydellpartner());
+
+            DellImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            dellpartervideo.instance.videoPlayer.Stop();
+            dellpartervideo.instance.VideoLodingBar.SetActive(false);
+            dellpartervideo.instance.videoimage.SetActive(false);
+            StartCoroutine(LoadDellImageWithUrlPartners(Load_Tour_text.ins.DellGraphics[currentgraphicDell]));
+            DellImage.gameObject.SetActive(true);
+
+        }
+
+
+        if (currentgraphicDell >= EndingGraphicDell)
+        {
+            nextbuttonDell.SetActive(false);
+            previousbuttonDell.SetActive(true);
+        }
+        else
+        {
+            nextbuttonDell.SetActive(true);
+            previousbuttonDell.SetActive(true);
+        }
+
+    }
+    public void PreviousButtonDell()
+    {
+        currentgraphicDell--;
+        string graphicslinkDell = Load_Tour_text.ins.DellGraphics[currentgraphicDell];
+        string lastThreeChars = graphicslinkDell.Substring(graphicslinkDell.Length - 3);
+        if (lastThreeChars == "mp4")
+        {
+            DellImage.gameObject.SetActive(false);
+            videolink = Guided_Tour.instance.Assets_Folder + "graphics/"+Load_Tour_text.ins.DellGraphics[currentgraphicDell];
+            StartCoroutine(dellpartervideo.instance.videoplaydellpartner());
+
+        }
+        else
+        {
+            dellpartervideo.instance.videoPlayer.Stop();
+            dellpartervideo.instance.VideoLodingBar.SetActive(false);
+            dellpartervideo.instance.videoimage.SetActive(false);
+            StartCoroutine(LoadDellImageWithUrlPartners(Load_Tour_text.ins.DellGraphics[currentgraphicDell]));
+            DellImage.gameObject.SetActive(true);
+        }
+
+
+        if (currentgraphicDell <= StartingGraphicDell)
+        {
+            nextbuttonDell.SetActive(true);
+            previousbuttonDell.SetActive(false);
+        }
+        else
+        {
+            nextbuttonDell.SetActive(true);
+            previousbuttonDell.SetActive(true);
+        }
+    }
+
     public void Playvideo()
     {
 
@@ -447,8 +542,8 @@ public class BackCardData : MonoBehaviour
         Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[6].length;
         Guided_Tour.instance.audioSource.Play();
         yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
-        Guided_Tour.instance.audioSource.Play();
-        yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+        //Guided_Tour.instance.audioSource.Play();
+        //yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
         BOText.text = ImageLoader.instance.BOr[ButtonNaame];
         if (ButtonNaame == 0)
         {
@@ -745,7 +840,7 @@ public class BackCardData : MonoBehaviour
     public IEnumerator LoadImageWithUrlPartners(string ImageLink)
     {
         PartnerImage.sprite = null;
-        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(ImageLink))
+        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(Guided_Tour.instance.Assets_Folder + "graphics/"+ImageLink))
             {
                 yield return request.SendWebRequest();
 
@@ -771,7 +866,7 @@ public class BackCardData : MonoBehaviour
     public IEnumerator LoadDellImageWithUrlPartners(string ImageLink)
     {
         DellImage.sprite = null;
-        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(ImageLink))
+        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(Guided_Tour.instance.Assets_Folder + "graphics/" + ImageLink))
         {
             yield return request.SendWebRequest();
 

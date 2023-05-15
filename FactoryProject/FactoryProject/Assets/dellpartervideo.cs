@@ -21,7 +21,14 @@ public class dellpartervideo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (videoPlayer.isPlaying)
+        {
+            Guided_Tour.instance.BG_Music.SetActive(false);
+        }
+        else 
+        {
+            Guided_Tour.instance.BG_Music.SetActive(true);
+        }
     }
     public IEnumerator videoplaydellpartner()
     {
@@ -44,10 +51,16 @@ public class dellpartervideo : MonoBehaviour
             {
                 yield return new WaitForEndOfFrame();
             }
-            videoPlayer.frame = 0; //just incase it's not at the first frame
-            videoPlayer.Play();
+            
             VideoLodingBar.SetActive(false);
-            videoimage.SetActive(true);
+            if (BackCardData.instance.PartnerWindow.activeSelf == true)
+            {
+                videoPlayer.frame = 0; //just incase it's not at the first frame
+                videoPlayer.Play();
+                videoimage.SetActive(true);
+            }
+            
+           
            
 
         }

@@ -70,7 +70,7 @@ public class Guided_Tour : MonoBehaviour
     public GameObject MainLoadingBar;
     private void Awake()
     {
-        Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/FactoryAssetsDev/";
+        Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/FactoryAssets2/";
         StartCoroutine(LoadXML());
         instance = this;
         screenWidth = Screen.width;
@@ -114,8 +114,10 @@ public class Guided_Tour : MonoBehaviour
            // Debug.LogError("Error loading XML: " + www.error);
              if(Directory.Exists(Path.Combine(Application.streamingAssetsPath, "Cards")))
                 { 
+
                 Assets_Folder = Application.streamingAssetsPath;
-                 }
+
+                }
         }
         else
         {
@@ -129,10 +131,7 @@ public class Guided_Tour : MonoBehaviour
             }
             catch
             {
-                if (Directory.Exists(Path.Combine(Application.streamingAssetsPath, "Cards")))
-                {
-                    Assets_Folder = Application.streamingAssetsPath;
-                }
+               
             }
             
         }
@@ -208,6 +207,9 @@ public class Guided_Tour : MonoBehaviour
                 checkpressed = true;
                 audioSource.Pause();
                 audioSource1.Pause();
+                BgMusic.Pause();
+                dellpartervideo.instance.videoPlayer.Stop();
+                VideoLoader.instance.videoPlayer.Stop();
             }
             else
             {
@@ -217,6 +219,9 @@ public class Guided_Tour : MonoBehaviour
                 checkpressed = false;
                 audioSource.Play();
                 audioSource1.Play();
+                BgMusic.Play();
+                dellpartervideo.instance.videoPlayer.Play();
+                VideoLoader.instance.videoPlayer.Play();
             }
         }
     }
@@ -400,7 +405,7 @@ public class Guided_Tour : MonoBehaviour
     public IEnumerator OutcomeAudioLoader()
     {
 
-        for (int i = 1; i <= 7; i++)
+        for (int i = 1; i <=6; i++)
         {
             //am get from hotspot 
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/outcomes/" + i + ".mp3", AudioType.MPEG))
@@ -414,7 +419,7 @@ public class Guided_Tour : MonoBehaviour
                 }
                 else
                 {
-                    // Debug.LogError("Failed to download audio: " + www.error);
+                     Debug.LogError(i+"Failed to download audio: " + www.error);
                 }
             }
         }
@@ -559,7 +564,7 @@ public class Guided_Tour : MonoBehaviour
         audioSource.clip = audioClips[0];
         audiolength = audioClips[0].length;
         audioSource.Play();
-        yield return new WaitForSeconds(audiolength);
+        //yield return new WaitForSeconds(audiolength);
        Intro_Start:
         HexagonBlank();
         ResetTourTextBox();
@@ -755,7 +760,7 @@ public class Guided_Tour : MonoBehaviour
                             baudioplaying = false;
                             audioSource.Stop();
                         }
-                        if (!audioSource.isPlaying)
+                        if ((!audioSource.isPlaying) && (pausebtn.active))
                         {
                             baudioplaying = false;
                         }
@@ -875,7 +880,7 @@ public class Guided_Tour : MonoBehaviour
                                 baudioplaying = false;
                                 audioSource.Stop();
                             }
-                            if (!audioSource.isPlaying)
+                            if ((!audioSource.isPlaying) && (pausebtn.active))
                             {
                                 baudioplaying = false;
                             }
@@ -1285,7 +1290,7 @@ public class Guided_Tour : MonoBehaviour
         yield return new WaitForSeconds(2f);
         for (int i = 1; i <= 6; i++)
         {
-            using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(Load_Tour_text.ins.partners[i - 1]))
+            using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(Guided_Tour.instance.Assets_Folder + "graphics/" +Load_Tour_text.ins.partners[i - 1]))
             {
                 yield return request.SendWebRequest();
 
@@ -1312,7 +1317,7 @@ public class Guided_Tour : MonoBehaviour
         yield return new WaitForSeconds(2f);
         for (int i = 1; i <= 6; i++)
         {
-            using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(Load_Tour_text.ins.Dell[i - 1]))
+            using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(Assets_Folder + "graphics/" +Load_Tour_text.ins.Dell[i - 1]))
             {
                 yield return request.SendWebRequest();
 

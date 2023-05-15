@@ -134,8 +134,8 @@ public class Camera_Walk_Control : MonoBehaviour
         Guided_Tour.instance.audiolength = Guided_Tour.instance.audioClips[0].length;
         Guided_Tour.instance.audioSource.Play();
         yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
-        Guided_Tour.instance.audioSource.Play();
-        yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+       // Guided_Tour.instance.audioSource.Play();
+       // yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
         Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
         Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
         Guided_Tour.instance.audioSource.Play();

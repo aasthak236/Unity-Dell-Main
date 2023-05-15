@@ -51,7 +51,7 @@ public class MyCameraController : MonoBehaviour
 
 
         // Zoom with mouse scroll wheel
-        if (CameraZoomTowardPoint.CameraZoom == false)
+        if (CameraZoomTowardPoint.CameraZoom == false&&ImageLoader.instance.bzoomfalse==false)
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             Camera cam = GetComponent<Camera>();

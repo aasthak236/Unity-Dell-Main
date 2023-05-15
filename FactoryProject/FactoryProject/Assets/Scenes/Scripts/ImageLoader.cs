@@ -49,12 +49,13 @@ public class ImageLoader : MonoBehaviour
     {
         instance = this;
  //       url = Guided_Tour.instance.Assets_Folder + "cards/outcomes.xml";
-        url = "https://dell-unity-dev.s3-accelerate.amazonaws.com/Factory+Assets/cards/outcomes.xml";
+        //url = "https://dell-unity-dev.s3-accelerate.amazonaws.com/Factory+Assets/cards/outcomes.xml";
        
 
     }
     public void Start()
     {
+        url = Guided_Tour.instance.Assets_Folder + "cards/outcomes.xml";
         BackColor1 = ColorUtility.TryParseHtmlString("#2A145A", out Color color30) ? color30 : Color.white;
         HeadingColor1 = ColorUtility.TryParseHtmlString("#BEAFFF", out Color color31) ? color31 : Color.white;
         TextColor1 = ColorUtility.TryParseHtmlString("#DEDDFF", out Color color32) ? color32 : Color.white;
@@ -97,6 +98,7 @@ public class ImageLoader : MonoBehaviour
     }
     public bool pressed;
     public static string ComponentName;
+    public bool bzoomfalse;
     public Button[] MenuButton;
     public void OpenCard(string Component)
     {
@@ -135,6 +137,7 @@ public class ImageLoader : MonoBehaviour
             {
                
                 CameraZoomTowardPoint.instance.ZoomBack();
+                bzoomfalse = true;
                 MenuButton[3].GetComponent<Image>().color = PressedColor;
                 HexagonInnerColor.color = VPInnerColor;
                 HexagonMiddleColor.color = VPMiddleColor;
@@ -156,6 +159,7 @@ public class ImageLoader : MonoBehaviour
             {
                
                 CameraZoomTowardPoint.instance.ZoomBack();
+                bzoomfalse = true;
                 MenuButton[1].GetComponent<Image>().color = PressedColor;
                 HexagonInnerColor.color = ECInnerColor;
                 HexagonMiddleColor.color = ECMiddleColor;

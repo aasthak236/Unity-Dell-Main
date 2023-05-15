@@ -248,13 +248,13 @@ public class Load_Tour_text : MonoBehaviour
                                 break;
                             case "introvideo":
                                 saveDataFile.IntroVideo = reader.ReadString();
-                                if (SaveDataFromXML.ins.IntroVideo != "")
-                                {
-                                    Guided_Tour.instance.videoRawimage.gameObject.SetActive(false);
-                                    string url = SaveDataFromXML.ins.IntroVideo;
-                                    VideoLoader.instance.videoplayTour(url);
-                                    // videoplayer.SetActive(true);
-                                }
+                                //if (SaveDataFromXML.ins.IntroVideo != "")
+                                //{
+                                //    Guided_Tour.instance.videoRawimage.gameObject.SetActive(false);
+                                //    string url = SaveDataFromXML.ins.IntroVideo;
+                                //    VideoLoader.instance.videoplayTour(url);
+                                //    // videoplayer.SetActive(true);
+                                //}
                                 break;
                             case "ecvideo":
                                 saveDataFile.ECVideo = reader.ReadString();
@@ -621,61 +621,61 @@ public class Load_Tour_text : MonoBehaviour
         }
         //StartCoroutine(LoadTourImages());
     }
-    public IEnumerator LoadTourImages()
-    {
-        //Guided_Tour.instance.nTourImages = 0;
-        for (int i = 0; i <= 4; i++)
-        {
-            if (saveDataFile.Img_EC[i] != "")
-            {
-                using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(saveDataFile.Img_EC[i]))
-                {
-                    yield return request.SendWebRequest();
+    //public IEnumerator LoadTourImages()
+    //{
+    //    //Guided_Tour.instance.nTourImages = 0;
+    //    for (int i = 0; i <= 4; i++)
+    //    {
+    //        if (saveDataFile.Img_EC[i] != "")
+    //        {
+    //            using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(saveDataFile.Img_EC[i]))
+    //            {
+    //                yield return request.SendWebRequest();
 
-                    if (request.result == UnityWebRequest.Result.Success)
-                    {
-                        Texture2D texture = DownloadHandlerTexture.GetContent(request);
+    //                if (request.result == UnityWebRequest.Result.Success)
+    //                {
+    //                    Texture2D texture = DownloadHandlerTexture.GetContent(request);
 
-                        // Create a sprite from the texture and assign it to the Image component
-                        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-                       // Guided_Tour.instance.TourImages[Guided_Tour.instance.nTourImages].sprite = sprite;
-                    }
-                    else
-                    {
-                        Debug.LogError("Image download failed: " + request.error);
-                    }
-                }
+    //                    // Create a sprite from the texture and assign it to the Image component
+    //                    Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+    //                   // Guided_Tour.instance.TourImages[Guided_Tour.instance.nTourImages].sprite = sprite;
+    //                }
+    //                else
+    //                {
+    //                    Debug.LogError("Image download failed: " + request.error);
+    //                }
+    //            }
 
-                //saveDataFile.Img_EC[i] = Guided_Tour.instance.nTourImages.ToString();
-               // Guided_Tour.instance.nTourImages++;
-            }
+    //            //saveDataFile.Img_EC[i] = Guided_Tour.instance.nTourImages.ToString();
+    //           // Guided_Tour.instance.nTourImages++;
+    //        }
 
-            //intro
-            if (saveDataFile.Img_INTRO[i] != "")
-            {
+    //        //intro
+    //        if (saveDataFile.Img_INTRO[i] != "")
+    //        {
 
-                using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(saveDataFile.Img_INTRO[i]))
-                {
-                    yield return request.SendWebRequest();
+    //            using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(saveDataFile.Img_INTRO[i]))
+    //            {
+    //                yield return request.SendWebRequest();
 
-                    if (request.result == UnityWebRequest.Result.Success)
-                    {
-                        Texture2D texture = DownloadHandlerTexture.GetContent(request);
-                        // Create a sprite from the texture and assign it to the Image component
-                        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-                       // Guided_Tour.instance.TourImages[Guided_Tour.instance.nTourImages].sprite = sprite;
-                    }
-                    else
-                    {
-                        Debug.LogError("Image download failed: " + request.error);
-                    }
-                }
-              //  saveDataFile.Img_INTRO[i] = Guided_Tour.instance.nTourImages.ToString();
-               // Guided_Tour.instance.nTourImages++;
-            }
+    //                if (request.result == UnityWebRequest.Result.Success)
+    //                {
+    //                    Texture2D texture = DownloadHandlerTexture.GetContent(request);
+    //                    // Create a sprite from the texture and assign it to the Image component
+    //                    Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+    //                   // Guided_Tour.instance.TourImages[Guided_Tour.instance.nTourImages].sprite = sprite;
+    //                }
+    //                else
+    //                {
+    //                    Debug.LogError("Image download failed: " + request.error);
+    //                }
+    //            }
+    //          //  saveDataFile.Img_INTRO[i] = Guided_Tour.instance.nTourImages.ToString();
+    //           // Guided_Tour.instance.nTourImages++;
+    //        }
 
-        }
-    }
+    //    }
+    //}
     public IEnumerator GetAllTexts()
     {
         url = Guided_Tour.instance.Assets_Folder + "cards/" + ImageToggleOnHover.UseCase + ".xml";
@@ -1081,6 +1081,9 @@ public class Load_Tour_text : MonoBehaviour
     public string[] PartnerGraphics;
     public int[] PartnerGraphicsIndex;
     public TMP_Text labelText;
+
+    public string[] DellGraphics;
+    public int[] DellGraphicsIndex;
     //public string[] Dell;
     public int PartnerTCount;
     public IEnumerator LoadPartnerImages()
@@ -1128,9 +1131,10 @@ public class Load_Tour_text : MonoBehaviour
                 XmlElement roo4 = xmlDoc.DocumentElement;
                 string nodeText4 = node4.InnerText;
                 PartnerDescription[i] = nodeText4;
+
+
                 j = 1;
                 bool bContinue=true;
-
                 while (bContinue&&ListIndex<50)
                 {
                     XmlNode nodegraphics = xmlDoc.SelectSingleNode("partners/Graphics" + (i + 1)+j.ToString("00"));
@@ -1157,9 +1161,9 @@ public class Load_Tour_text : MonoBehaviour
     public int DellTCount;
     public IEnumerator LoadDellImages()
     {
-        
-            UnityWebRequest www = UnityWebRequest.Get("https://dell-unity-dev.s3.amazonaws.com/Factory+Assets/cards/dellsolutions.xml");
-            yield return www.SendWebRequest();
+
+        UnityWebRequest www = UnityWebRequest.Get(Guided_Tour.instance.Assets_Folder + "cards/dellsolutions.xml");
+        yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
         {
@@ -1174,6 +1178,10 @@ public class Load_Tour_text : MonoBehaviour
             XmlElement root1 = xmlDoc.DocumentElement;
             string nodeText1 = node1.InnerText;
             DellTCount = int.Parse(nodeText1);
+
+            int ListIndex = 0;
+            int j = 0;
+
             for (int i = 0; i < DellTCount; i++)
             {
 
@@ -1192,6 +1200,31 @@ public class Load_Tour_text : MonoBehaviour
                 XmlElement roo4 = xmlDoc.DocumentElement;
                 string nodeText4 = node4.InnerText;
                 DellDescription[i] = nodeText4;
+
+                j = 1;
+                bool bContinue = true;
+
+                while (bContinue && ListIndex < 50)
+                {
+                    XmlNode nodegraphics = xmlDoc.SelectSingleNode("ds/Graphics" + (i + 1) + j.ToString("00"));
+                    // Debug.Log("partners/Graphics" + (i + 1) + j.ToString("00"));
+                    if (nodegraphics != null)
+                    {
+                        XmlElement rootgraphics = xmlDoc.DocumentElement;
+                        string nodeTextgraphics = nodegraphics.InnerText;
+                        DellGraphics[ListIndex] = nodeTextgraphics;
+                        ListIndex++;
+                        j++;
+                    }
+                    else
+                    {
+                        bContinue = false;
+                        DellGraphicsIndex[i] = ListIndex;
+                    }
+
+                }
+
+
             }
 
         }
