@@ -183,21 +183,21 @@ public class Guided_Tour : MonoBehaviour
     {
         if (ImageToggleOnHover.Tour_Running == false)
         {
-            BG_Music.SetActive(true);
+
+            if (bPartnervideoplaying)
+            {
+                BG_Music.SetActive(false);
+            }
+            else
+            {
+                BG_Music.SetActive(true);
+            }
             Tour_Music.SetActive(false);
         }
         else
         {
             BG_Music.SetActive(false);
             Tour_Music.SetActive(true);
-        }
-        if (bPartnervideoplaying)
-        {
-            BG_Music.SetActive(false);
-        }
-        else
-        {
-            BG_Music.SetActive(true);
         }
 
     }
@@ -441,8 +441,10 @@ public class Guided_Tour : MonoBehaviour
         //AudioClipsLoaded = 0;
         for (int i = 1; i <=35; i++)
         {
-            //am get from hotspot 
-            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/" + ImageToggleOnHover.UseCase + "/" + i + ".mp3", AudioType.MPEG))
+            string usecasenum = ImageToggleOnHover.UseCase;
+            string EndNumber = usecasenum.Substring(2, usecasenum.Length - 2);
+       
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(Assets_Folder + "audio/uc" + EndNumber + "/" + i + ".mp3", AudioType.MPEG))
             {
                 yield return www.SendWebRequest();
 
