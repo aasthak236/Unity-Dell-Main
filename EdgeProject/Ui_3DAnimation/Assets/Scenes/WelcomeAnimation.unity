@@ -1136,7 +1136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 294980972623220930, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 16.0221
       objectReference: {fileID: 0}
     - target: {fileID: 294980972623220930, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1172,7 +1172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 294980972623220930, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 2.4041748
       objectReference: {fileID: 0}
     - target: {fileID: 294980972623220930, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1196,12 +1196,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 294980972623220931, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 294980972623220935, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: ebb53f9479aa09d409dc94fc6be02218, type: 2}
+    - target: {fileID: 294980972946307446, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 294980972946307446, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 294980972946307446, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 294980972946307446, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 294980973092265989, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 294980973092265989, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 294980973092265989, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 294980973092265989, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 294980973547513194, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 294980973547513194, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 294980973547513194, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49bb1249b55142742ba15fb4a29ab74a, type: 3}
 --- !u!224 &947118350 stripped
@@ -2567,6 +2611,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 18376622}
     m_Modifications:
+    - target: {fileID: 923146411333816872, guid: 71bf4b134ef570140a053a8a03104fa1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -62.69995
+      objectReference: {fileID: 0}
+    - target: {fileID: 923146411333816872, guid: 71bf4b134ef570140a053a8a03104fa1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -38.599976
+      objectReference: {fileID: 0}
     - target: {fileID: 923146411400640480, guid: 71bf4b134ef570140a053a8a03104fa1, type: 3}
       propertyPath: m_Name
       value: Top panel
