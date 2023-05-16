@@ -214,7 +214,7 @@ public class Camera_Walk_Control : MonoBehaviour
             if ((i == 17) && bCameraWalkRunning)
             {
                 i = 1;
-                yield return new WaitForSeconds(10f);
+                yield return new WaitForSeconds(4f);
                 goto FirstCameraZoom;
 
             }
