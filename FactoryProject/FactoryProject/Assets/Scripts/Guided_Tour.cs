@@ -72,7 +72,7 @@ public class Guided_Tour : MonoBehaviour
     private void Awake()
     {
         Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/FactoryAssets2/";
-        StartCoroutine(LoadXML());
+      //  StartCoroutine(LoadXML());
         instance = this;
         screenWidth = Screen.width;
         screenHeight = Screen.height;
@@ -89,10 +89,10 @@ public class Guided_Tour : MonoBehaviour
         NextBtn.onClick.AddListener(OnButtonClick);
         buttonClicked = false;
         PreviousButtonClicked = false;
-        //StartCoroutine(OutcomeAudioLoader());
-        //StartCoroutine(LoadaudioHotspotIntros());
-        //StartCoroutine(LoadUseCaseIntros());
-        //StartCoroutine(LoadMusicBg());
+        StartCoroutine(OutcomeAudioLoader());
+        StartCoroutine(LoadaudioHotspotIntros());
+        StartCoroutine(LoadUseCaseIntros());
+        StartCoroutine(LoadMusicBg());
 
         audioSource = GetComponent<AudioSource>();
         Debug.Log("Screen width"+screenWidth+"X"+screenHeight);
@@ -179,7 +179,7 @@ public class Guided_Tour : MonoBehaviour
 
     }
 
-    public void LateUpdate()
+    public void Update()
     {
         if (ImageToggleOnHover.Tour_Running == false)
         {
