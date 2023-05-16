@@ -810,7 +810,10 @@ public class BackCardData : MonoBehaviour
 
             CameraZoomTowardPoint.instance.ZoomInToSection(HotSpotName);
             ImageToggleOnHover.Tour_Running = true;
-            Invoke("playguid", 1.5f);
+            Guided_Tour.instance.videoRawimage.gameObject.SetActive(false);
+            string url = Guided_Tour.instance.Assets_Folder + "graphics/" + UseCase + ".mp4";
+            VideoLoader.instance.videoplayTour(url);
+            Invoke("playguid", 0.1f);
             Guided_Tour.instance.TourStart = true;
           
 

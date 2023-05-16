@@ -230,7 +230,10 @@ public class Guided_Tour : MonoBehaviour
                 audioSource.Play();
                 audioSource1.Play();
                 BgMusic.Play();
-                dellpartervideo.instance.videoPlayer.Play(); 
+                if (bPartnervideoplaying)
+                {
+                    dellpartervideo.instance.videoPlayer.Play();
+                }
                 VideoLoader.instance.videoPlayer.Play();
             }
         }
