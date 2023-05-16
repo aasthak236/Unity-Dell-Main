@@ -311,6 +311,7 @@ public class BackCardData : MonoBehaviour
         else
         {
             dellpartervideo.instance.videoPlayer.Stop();
+            Guided_Tour.instance.bPartnervideoplaying = false;
             dellpartervideo.instance.VideoLodingBar.SetActive(false);
             dellpartervideo.instance.videoimage.SetActive(false);
              StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
@@ -346,6 +347,7 @@ public class BackCardData : MonoBehaviour
         else
         {
             dellpartervideo.instance.videoPlayer.Stop();
+            Guided_Tour.instance.bPartnervideoplaying = false;
             dellpartervideo.instance.VideoLodingBar.SetActive(false);
             dellpartervideo.instance.videoimage.SetActive(false);
             StartCoroutine(LoadImageWithUrlPartners(Load_Tour_text.ins.PartnerGraphics[currentgraphic]));
@@ -381,6 +383,7 @@ public class BackCardData : MonoBehaviour
         else
         {
             dellpartervideo.instance.videoPlayer.Stop();
+            Guided_Tour.instance.bPartnervideoplaying = false;
             dellpartervideo.instance.VideoLodingBar.SetActive(false);
             dellpartervideo.instance.videoimage.SetActive(false);
             StartCoroutine(LoadDellImageWithUrlPartners(Load_Tour_text.ins.DellGraphics[currentgraphicDell]));
@@ -416,6 +419,7 @@ public class BackCardData : MonoBehaviour
         else
         {
             dellpartervideo.instance.videoPlayer.Stop();
+            Guided_Tour.instance.bPartnervideoplaying = false;
             dellpartervideo.instance.VideoLodingBar.SetActive(false);
             dellpartervideo.instance.videoimage.SetActive(false);
             StartCoroutine(LoadDellImageWithUrlPartners(Load_Tour_text.ins.DellGraphics[currentgraphicDell]));
@@ -443,6 +447,7 @@ public class BackCardData : MonoBehaviour
     public void parntnerclose()
     {
         dellpartervideo.instance.videoPlayer.Stop();
+        Guided_Tour.instance.bPartnervideoplaying = false;
         PartnerFrontWindow.SetActive(true);
     }
     public void Dellclose()

@@ -68,6 +68,7 @@ public class Guided_Tour : MonoBehaviour
     public GameObject NextPreviousBtn;
     public RawImage videoRawimage;
     public GameObject MainLoadingBar;
+    public bool bPartnervideoplaying;
     private void Awake()
     {
         Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/FactoryAssets2/";
@@ -76,15 +77,18 @@ public class Guided_Tour : MonoBehaviour
         screenWidth = Screen.width;
         screenHeight = Screen.height;
          buttonClicked = false;
-          PreviousButtonClicked = false;
+         PreviousButtonClicked = false;
 
 }
     
 
      void Start()
      {
+        bPartnervideoplaying = false;
         PlayerPrefs.SetInt("MusicOn", 1);
         NextBtn.onClick.AddListener(OnButtonClick);
+        buttonClicked = false;
+        PreviousButtonClicked = false;
         //StartCoroutine(OutcomeAudioLoader());
         //StartCoroutine(LoadaudioHotspotIntros());
         //StartCoroutine(LoadUseCaseIntros());
@@ -96,7 +100,7 @@ public class Guided_Tour : MonoBehaviour
         //{
         //    Factory.transform.rotation = Quaternion.Euler(0f, -110f, 0f);
         //}
-        Invoke("OffLoading",5f);
+        Invoke("OffLoading",3f);
      }
     public void OffLoading()
     {
@@ -113,12 +117,7 @@ public class Guided_Tour : MonoBehaviour
         if (www.result == UnityWebRequest.Result.ConnectionError)
         {
            // Debug.LogError("Error loading XML: " + www.error);
-             if(Directory.Exists(Path.Combine(Application.streamingAssetsPath, "Cards")))
-                { 
-
-                Assets_Folder = Application.streamingAssetsPath;
-
-                }
+            
         }
         else
         {
@@ -179,7 +178,8 @@ public class Guided_Tour : MonoBehaviour
 
 
     }
-    public void Update()
+
+    public void LateUpdate()
     {
         if (ImageToggleOnHover.Tour_Running == false)
         {
@@ -191,9 +191,18 @@ public class Guided_Tour : MonoBehaviour
             BG_Music.SetActive(false);
             Tour_Music.SetActive(true);
         }
-
+        if (bPartnervideoplaying)
+        {
+            BG_Music.SetActive(false);
+        }
+        else
+        {
+            BG_Music.SetActive(true);
+        }
 
     }
+      
+   
     public bool checkpressed;
     public void playbtnfunction()
     {
@@ -221,7 +230,7 @@ public class Guided_Tour : MonoBehaviour
                 audioSource.Play();
                 audioSource1.Play();
                 BgMusic.Play();
-                dellpartervideo.instance.videoPlayer.Play();
+                dellpartervideo.instance.videoPlayer.Play(); 
                 VideoLoader.instance.videoPlayer.Play();
             }
         }
@@ -531,6 +540,7 @@ public class Guided_Tour : MonoBehaviour
             checkpressed = false;
             audioSource.Stop();
         dellpartervideo.instance.videoPlayer.Stop();
+       bPartnervideoplaying = false;
 
 
 
@@ -599,6 +609,8 @@ public class Guided_Tour : MonoBehaviour
             TextBox[i].SetActive(true);
 
         }
+        buttonClicked = false;
+        PreviousButtonClicked = false;
         NextPreviousBtn.SetActive(true);
         if (PlayerPrefs.GetInt("MusicOn") != 0)
         {
@@ -1208,6 +1220,7 @@ public class Guided_Tour : MonoBehaviour
         ImageLoader.instance.UsecasesPanel.SetActive(false);
         audioSource.clip = null;
         dellpartervideo.instance.videoPlayer.Stop();
+        bPartnervideoplaying = false;
         for (int i = 0; i <= 6; i++)
         {
             DellSolutionImg[i].gameObject.SetActive(false);

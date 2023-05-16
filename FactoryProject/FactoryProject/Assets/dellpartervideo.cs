@@ -11,6 +11,7 @@ public class dellpartervideo : MonoBehaviour
     public bool VideoIsRunning;
     public GameObject videoimage;
     public GameObject VideoLodingBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,14 +22,14 @@ public class dellpartervideo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (videoPlayer.isPlaying)
-        {
-            Guided_Tour.instance.BG_Music.SetActive(false);
-        }
-        else 
-        {
-            Guided_Tour.instance.BG_Music.SetActive(true);
-        }
+        //if (videoPlayer.isPlaying)
+        //{
+        //    Guided_Tour.instance.BG_Music.SetActive(false);
+        //}
+        //else 
+        //{
+        //    Guided_Tour.instance.BG_Music.SetActive(true);
+        //}
     }
     public IEnumerator videoplaydellpartner()
     {
@@ -58,7 +59,9 @@ public class dellpartervideo : MonoBehaviour
                 videoPlayer.frame = 0; //just incase it's not at the first frame
                 videoPlayer.Play();
                 videoimage.SetActive(true);
+                Guided_Tour.instance.bPartnervideoplaying = true;
             }
+          
             
            
            
