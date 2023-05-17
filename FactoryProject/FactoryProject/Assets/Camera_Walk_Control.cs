@@ -24,8 +24,23 @@ public class Camera_Walk_Control : MonoBehaviour
     void Start()
     {
         instance = this;
-        
+        Invoke("WelcomeImmersiveTour",2f);
+        //WelcomeImmersiveTour();
     }
+
+    void WelcomeImmersiveTour()
+    {
+        bCameraWalkRunning = true;
+        myCoroutine = CameraWalk(true);
+        for (int i = 0; i <= 5; i++)
+        {
+            FactoryLabel[i].SetActive(false);
+        }
+
+        StartCoroutine(myCoroutine);
+
+    }
+
     public void TestCameraWalk()
     {
         if (bCameraWalkRunning)
@@ -40,7 +55,7 @@ public class Camera_Walk_Control : MonoBehaviour
             BackCardData.instance.StopCoroutineTour();
             Guided_Tour.instance.StopCoroutine();
             //StartCoroutine(CameraWalk());
-            myCoroutine = CameraWalk();
+            myCoroutine = CameraWalk(false);
             StartCoroutine(myCoroutine);
             ImageLoader.instance.MenuButton[6].GetComponent<Image>().color = ImageLoader.instance.PressedColor;
           
@@ -81,7 +96,7 @@ public class Camera_Walk_Control : MonoBehaviour
     }
     float distance;
     IEnumerator myCoroutine;
-    IEnumerator  CameraWalk()
+    IEnumerator  CameraWalk(bool bDoNotLoop)
     {
        
          //HotSpotAtMovePoint[0] = 1;
@@ -134,8 +149,8 @@ public class Camera_Walk_Control : MonoBehaviour
         Guided_Tour.instance.audiolength = Guided_Tour.instance.audioClips[0].length;
         Guided_Tour.instance.audioSource.Play();
         yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
-       // Guided_Tour.instance.audioSource.Play();
-       // yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+        Guided_Tour.instance.audioSource.Play();
+        yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
         Guided_Tour.instance.audioSource.clip = Guided_Tour.instance.HotSpotAudioIntro[0];
         Guided_Tour.instance.audiolength = Guided_Tour.instance.HotSpotAudioIntro[0].length;
         Guided_Tour.instance.audioSource.Play();
@@ -204,14 +219,14 @@ public class Camera_Walk_Control : MonoBehaviour
             else
             {
 
-                float waittime = 2f;
+                float waittime = 1f;
                 if (waittime < (distance /5))
                 {
                     waittime = distance / 5f;
                 }
                 yield return new WaitForSeconds(waittime);
             }
-            if ((i == 17) && bCameraWalkRunning)
+            if ((i == 17) && bCameraWalkRunning && !bDoNotLoop)
             {
                 i = 1;
                 yield return new WaitForSeconds(4f);
@@ -219,10 +234,14 @@ public class Camera_Walk_Control : MonoBehaviour
 
             }
             //BackCardData.instance.HotSpot[i - 1].transform.GetChild(i - 1).GetChild(2).GetChild(1).gameObject.SetActive(true);
-          
-
+            
         }
         
+        for (int i = 0; i <= 5; i++)
+        {
+            FactoryLabel[i].SetActive(true);
+        }
+
         for (int i = 0; i <= 13; i++)
         {
             BackCardData.instance.HotSpot[i].SetActive(true);

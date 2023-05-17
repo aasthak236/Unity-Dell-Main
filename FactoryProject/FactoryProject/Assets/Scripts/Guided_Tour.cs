@@ -69,6 +69,7 @@ public class Guided_Tour : MonoBehaviour
     public RawImage videoRawimage;
     public GameObject MainLoadingBar;
     public bool bPartnervideoplaying;
+    public bool bWelcomeAudioLoaded;
     private void Awake()
     {
         Assets_Folder = "https://dell-unity-dev.s3-accelerate.amazonaws.com/FactoryAssets2/";
@@ -89,8 +90,9 @@ public class Guided_Tour : MonoBehaviour
         NextBtn.onClick.AddListener(OnButtonClick);
         buttonClicked = false;
         PreviousButtonClicked = false;
-        StartCoroutine(OutcomeAudioLoader());
+        bWelcomeAudioLoaded = false;
         StartCoroutine(LoadaudioHotspotIntros());
+        StartCoroutine(OutcomeAudioLoader());
         StartCoroutine(LoadUseCaseIntros());
         StartCoroutine(LoadMusicBg());
 
@@ -100,11 +102,17 @@ public class Guided_Tour : MonoBehaviour
         //{
         //    Factory.transform.rotation = Quaternion.Euler(0f, -110f, 0f);
         //}
+
         Invoke("OffLoading",3f);
      }
     public void OffLoading()
     {
         MainLoadingBar.SetActive(false);
+        /*
+        Camera_Walk_Control.instance.bCameraWalkRunning = true;
+        Camera_Walk_Control.instance.myCoroutine = Camera_Walk_Control.instance.CameraWalk(true);
+        StartCoroutine(Camera_Walk_Control.instance.myCoroutine);
+        */
     }
     IEnumerator LoadXML()
     {
@@ -274,6 +282,10 @@ public class Guided_Tour : MonoBehaviour
                 if (www.result == UnityWebRequest.Result.Success)
                 {
                     HotSpotAudioIntro[i] = DownloadHandlerAudioClip.GetContent(www);
+                    if (i==0)
+                    {
+                        bWelcomeAudioLoaded = true;
+                    }
                    // HotSpotTextIntro[i - 1].text = "Use Case Details " + i.ToString();
                 }
                 else
@@ -580,7 +592,7 @@ public class Guided_Tour : MonoBehaviour
         audioSource.clip = audioClips[0];
         audiolength = audioClips[0].length;
         audioSource.Play();
-        //yield return new WaitForSeconds(audiolength);
+        yield return new WaitForSeconds(audiolength);
        Intro_Start:
         HexagonBlank();
         ResetTourTextBox();

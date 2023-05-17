@@ -547,8 +547,8 @@ public class BackCardData : MonoBehaviour
         Guided_Tour.instance.audiolength = Guided_Tour.instance.OutcomeAudioIntro[6].length;
         Guided_Tour.instance.audioSource.Play();
         yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
-        //Guided_Tour.instance.audioSource.Play();
-        //yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
+        Guided_Tour.instance.audioSource.Play();
+        yield return new WaitForSeconds(Guided_Tour.instance.audiolength);
         BOText.text = ImageLoader.instance.BOr[ButtonNaame];
         if (ButtonNaame == 0)
         {
