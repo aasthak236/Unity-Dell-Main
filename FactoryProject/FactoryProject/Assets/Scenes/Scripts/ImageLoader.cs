@@ -210,8 +210,9 @@ public class ImageLoader : MonoBehaviour
             }
             else if (Component == "DS")
             {
-              
+                
                 CameraZoomTowardPoint.instance.ZoomBack();
+                bzoomfalse = true;
                 MenuButton[2].GetComponent<Image>().color = PressedColor;
                 HexagonInnerColor.color = DSInnerColor;
                 HexagonMiddleColor.color = DSMiddleColor;
@@ -234,10 +235,12 @@ public class ImageLoader : MonoBehaviour
             {
                 
                 CameraZoomTowardPoint.instance.ZoomBack();
+                bzoomfalse = true;
                 MenuButton[4].GetComponent<Image>().color = PressedColor;
                 HexagonInnerColor.color = PSInnerColor;
                 HexagonMiddleColor.color = PSMiddleColor;
                 HexagonOuterColor.color = PSOuterColor;
+               
                 BackCardData.instance.PartnerFrontWindow.SetActive(true);
                 for (int i = 0; i <= PSCount; i++)
                 {

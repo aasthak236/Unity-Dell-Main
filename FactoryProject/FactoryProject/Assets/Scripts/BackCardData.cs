@@ -246,6 +246,7 @@ public class BackCardData : MonoBehaviour
         {
             
             previousbutton.SetActive(false);
+            Guided_Tour.instance.bPartnervideoplaying = false;
             currentgraphic = 0;
             EndingGraphic = Load_Tour_text.ins.PartnerGraphicsIndex[int.Parse(buttonName)]-1;
              StartingGraphic = 0;

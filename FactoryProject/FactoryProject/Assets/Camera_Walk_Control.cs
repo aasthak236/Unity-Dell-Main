@@ -236,6 +236,7 @@ public class Camera_Walk_Control : MonoBehaviour
                 goto FirstCameraZoom;
 
             }
+           
             //BackCardData.instance.HotSpot[i - 1].transform.GetChild(i - 1).GetChild(2).GetChild(1).gameObject.SetActive(true);
             
         }
@@ -244,7 +245,10 @@ public class Camera_Walk_Control : MonoBehaviour
         {
             FactoryLabel[i].SetActive(true);
         }
-
+        if (bDoNotLoop == true)
+        {
+            BackCardData.instance.HotSpotSizeIncrease();
+        }
         for (int i = 0; i <= 13; i++)
         {
             BackCardData.instance.HotSpot[i].SetActive(true);

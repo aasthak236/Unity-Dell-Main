@@ -45,21 +45,22 @@ public class dellpartervideo : MonoBehaviour
         }
         else
         {
-        
+            Guided_Tour.instance.bPartnervideoplaying = true;
             videoPlayer.url = url;
             videoPlayer.Prepare();
+            
             while (!videoPlayer.isPrepared)
             {
                 yield return new WaitForEndOfFrame();
             }
             
             VideoLodingBar.SetActive(false);
-            if (BackCardData.instance.PartnerWindow.activeSelf == true)
+            if (BackCardData.instance.PartnerWindow.activeSelf == true && Guided_Tour.instance.bPartnervideoplaying)
             {
                 videoPlayer.frame = 0; //just incase it's not at the first frame
                 videoPlayer.Play();
                 videoimage.SetActive(true);
-                Guided_Tour.instance.bPartnervideoplaying = true;
+               
             }
           
             

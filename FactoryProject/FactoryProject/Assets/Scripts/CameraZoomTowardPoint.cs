@@ -120,6 +120,7 @@ public class CameraZoomTowardPoint : MonoBehaviour
       //  Camera_Walk_Control.instance.StopCoroutineImmersiveTour();
         Guided_Tour.instance.ClosedAllWindow();
         BackCardData.instance.BusinessOutcomeWindow.SetActive(false);
+        Camera_Walk_Control.instance.ImmersiveTourStart = false;
         //BackCardData.instance.HotSpotsRuninng = false;
         CameraZoom = false;
         FactoryMdel.transform.position = new Vector3(34.1f, 6.47658f, 5.2f);
