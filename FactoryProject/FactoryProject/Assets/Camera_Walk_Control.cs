@@ -32,10 +32,7 @@ public class Camera_Walk_Control : MonoBehaviour
     {
         bCameraWalkRunning = true;
         myCoroutine = CameraWalk(true);
-        for (int i = 0; i <= 5; i++)
-        {
-            FactoryLabel[i].SetActive(false);
-        }
+        Guided_Tour.instance.soundon();
 
         StartCoroutine(myCoroutine);
 
@@ -59,10 +56,6 @@ public class Camera_Walk_Control : MonoBehaviour
             StartCoroutine(myCoroutine);
             ImageLoader.instance.MenuButton[6].GetComponent<Image>().color = ImageLoader.instance.PressedColor;
           
-            for (int i = 0; i <= 5; i++)
-            {
-                FactoryLabel[i].SetActive(false);
-            }
         }
         for (int i = 0; i <= 5; i++)
         {
@@ -81,7 +74,13 @@ public class Camera_Walk_Control : MonoBehaviour
         catch { 
         
         }
+
         bCameraWalkRunning = false;
+        for (int i = 0; i <= 5; i++)
+        {
+            FactoryLabel[i].SetActive(true);
+        }
+
         ImageLoader.instance.MenuButton[6].GetComponent<Image>().color = ImageLoader.instance.NormalColor;
         CameraZoomTowardPoint.instance.ZoomBack();
         for (int i = 0; i <= 13; i++)
@@ -118,7 +117,11 @@ public class Camera_Walk_Control : MonoBehaviour
         HotSpotAtMovePoint[16] = 0;
         HotSpotAtMovePoint[17] = 0;
         ImmersiveTourStart = true;
-        
+        for (int i = 0; i <= 5; i++)
+        {
+            FactoryLabel[i].SetActive(false);
+        }
+
         ImageToggleOnHover.Tour_Running = true;
         CameraZoomTowardPoint.CameraZoom = true;
         for (int i = 0; i <= 13; i++)
