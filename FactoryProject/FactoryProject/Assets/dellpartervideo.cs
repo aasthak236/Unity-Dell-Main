@@ -62,6 +62,10 @@ public class dellpartervideo : MonoBehaviour
                 videoimage.SetActive(true);
                
             }
+            else
+            {
+                Guided_Tour.instance.bPartnervideoplaying = false;
+            }
           
             
            
